@@ -22,10 +22,11 @@ Webcomponents shows up in the DOM. This provides an easy way to interact with it
 
 <script type="module">
   import "../three-webc.js";
+  import * as THREE from "three";
 
   const view = document.querySelector("t-view");
 
-  const { THREE, scene } = view.viewport;
+  const { scene } = view;
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
   const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
