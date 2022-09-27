@@ -1,0 +1,21 @@
+<style>
+  @import url('./style.css');
+</style>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/"
+    }
+  }
+</script>
+
+<t-renderer>
+  <t-hello></t-hello>
+  <t-controls type="FirstPersonControls"></t-controls>
+</t-renderer>
+
+<script type="module">
+  import "../three-webc.js";
+</script>

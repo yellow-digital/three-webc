@@ -1,0 +1,19 @@
+<t-example src="./hello.html"></t-example>
+<t-example src="./controls.html"></t-example>
+<t-example src="./gui.html"></t-example>
+<t-example src="./raycast.html"></t-example>
+
+<script>
+  customElements.define(
+    "t-example",
+    class extends HTMLElement {
+      async connectedCallback() {
+        this.innerHTML = `
+    <h2>${this.getAttribute("label") || this.getAttribute("src")} <a href="${this.getAttribute("src")}">open</a></h2>
+    
+    <iframe src="${this.getAttribute("src")}"></iframe>
+`;
+      }
+    }
+  );
+</script>

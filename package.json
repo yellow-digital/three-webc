@@ -1,0 +1,15 @@
+{
+  "name": "three-webc",
+  "version": "1.0.1",
+  "description": "Webcomponents for ThreeJs",
+  "main": "three-webc.js",
+  "directories": {
+    "src": "src"
+  },
+  "scripts": {
+    "start": "npx serve"
+  },
+  "keywords": ["threejs", "webgl"],
+  "author": "Jelle",
+  "license": "ISC"
+}

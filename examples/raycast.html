@@ -1,0 +1,64 @@
+<style>
+  @import url("./style.css");
+</style>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/"
+    }
+  }
+</script>
+
+<t-renderer orbit>
+  <t-hello></t-hello>
+  <t-raycaster></t-raycaster>
+</t-renderer>
+
+<script type="module">
+  import "../three-webc.js";
+  import * as THREE from "three";
+
+  const { scene } = document.querySelector("t-renderer");
+
+  document.querySelector("t-raycaster").addEventListener("click", (e) => {
+    console.log(e.target.state);
+  });
+
+  // Indicator
+  function createIndicator() {
+    const geometry = new THREE[`ConeGeometry`]();
+    const material = new THREE.MeshStandardMaterial({
+      color: Math.random() * 0xffffff,
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.userData.skipRaycast = true;
+    return mesh;
+  }
+  const indicator = createIndicator();
+  scene.add(indicator);
+  document.querySelector("t-raycaster").addEventListener("change", (e) => {
+    // console.log(e.target.state);
+    const { intersects } = e.target.state;
+
+    const _intersects = intersects.filter(
+      (ray) => !ray.object.userData.skipRaycast
+    );
+    if (_intersects.length) {
+      indicator.position.copy(_intersects[0].point);
+    }
+  });
+
+  {
+    const { GUI } = await import(
+      "https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm"
+    );
+    const gui = new GUI();
+
+    const { state } = document.querySelector("t-raycaster");
+    const folder = gui.addFolder("Raycaster").open(false);
+    folder.add(state, "intersections").listen();
+    folder.add(indicator, "visible");
+  }
+</script>
