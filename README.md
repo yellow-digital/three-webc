@@ -1,10 +1,10 @@
 # three-webc
 
-> A set of webcomponents for easy creation of 3D graphics in your browser
+> A set of webcomponents for easy creation of 3D graphics in your browser.
 
+This library just shaves off a little bit of boiler code but maintains a straighforward integration with threejs.
 # Why
-Webcomponents shows up in the DOM. This provides an easy way to interact with it from a developer perspective. Just add or delete elements from the inspector and voilla. No framework, no build step, just plain vanilla web browser style.
-
+As Webcomponents shows up nicely in the DOM it provides an easy way to interact and debug the application. Removing or adding elements will feel seemless.
 # Usage
 ```html
 <script type="importmap">
