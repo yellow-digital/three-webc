@@ -2,7 +2,7 @@
 
 > A set of webcomponents for easy creation of 3D graphics in your browser.
 
-This library just shaves off a little bit of boiler code but maintains a straighforward integration with threejs.
+This library just shaves off a little bit of boiler code for setting up a scene and maintains a straighforward integration with threejs.
 # Why
 As Webcomponents shows up nicely in the DOM it provides an easy way to interact and debug the application. Removing or adding elements will feel seemless.
 # Usage
