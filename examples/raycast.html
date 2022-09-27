@@ -12,43 +12,57 @@
 </script>
 
 <t-renderer orbit>
-  <t-hello></t-hello>
+  <t-studio></t-studio>
   <t-raycaster></t-raycaster>
+  <t-crate position="2,0,0"></t-crate>
+  <t-crate></t-crate>
 </t-renderer>
 
 <script type="module">
   import "../three-webc.js";
   import * as THREE from "three";
+  import { createCrate } from "./addons/crate.js";
+  import "./addons/studio.js";
+  import * as EFFECTS from "./addons/effects.js";
+  import { TWEEN } from "three/addons/libs/tween.module.min.js";
 
   const { scene } = document.querySelector("t-renderer");
 
-  document.querySelector("t-raycaster").addEventListener("click", (e) => {
-    console.log(e.target.state);
-  });
+  const raycaster = document.querySelector("t-raycaster");
 
-  // Indicator
-  function createIndicator() {
-    const geometry = new THREE[`ConeGeometry`]();
-    const material = new THREE.MeshStandardMaterial({
-      color: Math.random() * 0xffffff,
-    });
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.userData.skipRaycast = true;
-    return mesh;
-  }
-  const indicator = createIndicator();
-  scene.add(indicator);
-  document.querySelector("t-raycaster").addEventListener("change", (e) => {
-    // console.log(e.target.state);
-    const { intersects } = e.target.state;
-
-    const _intersects = intersects.filter(
-      (ray) => !ray.object.userData.skipRaycast
-    );
-    if (_intersects.length) {
-      indicator.position.copy(_intersects[0].point);
+  const tRenderer = document.querySelector("t-renderer");
+  tRenderer.renderer.domElement.addEventListener("click", (e) => {
+    const intersects= raycaster.cast();
+    const object = intersects.length && intersects[0].object
+    if(object) {
+      EFFECTS.bounce(object);
     }
   });
+  tRenderer.renderer.domElement.addEventListener("contextmenu", (e) => {
+    const intersects = raycaster.cast();
+    const object = intersects.length && intersects[0].object
+    if(object) {
+      EFFECTS.remove(object);
+      // first.removeFromParent()
+    }
+  });
+
+  document.querySelector("t-renderer").viewport.rafs.push(() => {
+    TWEEN.update();
+  });
+
+  const app = {
+    scene,
+    _scene: null,
+    reset() {
+      const copy = app._scene.clone()
+      tRenderer.scene.children = copy.children
+    }
+  }
+  window.app = app
+  setTimeout(() => {
+    app._scene = scene.clone()
+  })
 
   {
     const { GUI } = await import(
@@ -56,9 +70,11 @@
     );
     const gui = new GUI();
 
-    const { state } = document.querySelector("t-raycaster");
-    const folder = gui.addFolder("Raycaster").open(false);
-    folder.add(state, "intersections").listen();
-    folder.add(indicator, "visible");
+    const raycaster = document.querySelector("t-raycaster");
+    const folder = gui //.addFolder("Raycaster"); //.open(false);
+    folder.domElement.append(document.createTextNode('click left for bounce or right to remove a box'))
+    folder.add(raycaster.state.pointer, "x").listen();
+    folder.add(raycaster.state.pointer, "y").listen();
+    folder.add(app, "reset")
   }
 </script>

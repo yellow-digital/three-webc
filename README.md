@@ -2,8 +2,6 @@
 
 > A set of webcomponents for easy creation of 3D graphics in your browser
 
-Using three-webc, developers who have a minimal knowledge of three.js can immediately start writing interactive 3D apps.
-
 # Why
 Webcomponents shows up in the DOM. This provides an easy way to interact with it from a developer perspective. Just add or delete elements from the inspector and voilla. No framework, no build step, just plain vanilla web browser style.
 
