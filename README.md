@@ -8,10 +8,6 @@ This library shaves off some boiler code for setting up a scene and maintains a 
 
 :eyeglasses: **Less code**: handle the boilerplate required to get running just by dropping in `<t-renderer>`.
 
-:heart: **Declarative HTML**: HTML is easy to read and copy-and-paste. As
-it can be used from HTML, it is accessible to everyone: web
-developers, educators, artists, makers, kids.
-
 :zap: **Performance**: it is a thin library on top of three.js. Just code as you use to.
 
 :mag: **Visual Inspector**: As three-webc uses WebComponents just use your built-in inspector to change, add or remove elements.
