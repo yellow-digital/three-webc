@@ -14,7 +14,7 @@ developers, educators, artists, makers, kids.
 
 :zap: **Performance**: it is a thin library on top of three.js. Just code as you use to.
 
-:mag: **Visual Inspector**: Due three-webc use WebComponents it provides a built-in visual 3D inspector.
+:mag: **Visual Inspector**: As three-webc uses WebComponents just use your built-in inspector to change, add or remove elements.
 
 # Why
 Webcomponents shows up in the DOM and therefor provides an easy way to interact and debug an application.
