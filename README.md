@@ -2,9 +2,27 @@
 
 > A set of webcomponents for easy creation of 3D graphics in your browser.
 
-This minimal library shaves off a little bit of boiler code for setting up a scene and maintains a straighforward integration with threejs.
+This library shaves off some boiler code for setting up a scene and maintains a straighforward integration with threejs.
+
+## Features
+
+:eyeglasses: **Less code**: handle the 3D boilerplate required to get running just by dropping in `<t-renderer>`.
+
+:heart: **Declarative HTML**: HTML is easy to read and copy-and-paste. As
+it can be used from HTML, it is accessible to everyone: web
+developers, educators, artists, makers, kids.
+
+:zap: **Performance**: it is a thin library on top of three.js. Just code as you use to.
+
+:mag: **Visual Inspector**: Due three-webc use WebComponents it provides a built-in visual 3D inspector.
+
 # Why
-As Webcomponents shows up nicely in the DOM it provides an easy way to interact and debug the application. Removing or adding elements will feel seemless.
+Webcomponents shows up in the DOM and therefor provides an easy way to interact and debug an application.
+
+# Similar projects
+- [trois](https://github.com/troisjs/trois)
+- [aframe](https://aframe.io)
+
 # Usage
 ```html
 <script type="importmap">
