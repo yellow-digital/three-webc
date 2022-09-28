@@ -13,7 +13,7 @@ This library shaves off some boiler code for setting up a scene and maintains a 
 :mag: **Visual Inspector**: As three-webc uses WebComponents just use your built-in inspector to change, add or remove elements.
 
 # Why
-There are some nice wrappers for threejs but they felt a bit of an overkill nor abstract away coding. This library just provides some bare webcomponents to aid in exploring 3D in your browser. 
+There are some nice wrappers for threejs but they felt a bit of an overkill nor abstract away coding. This library just provides a couple of bare webcomponents to aid in exploring 3D in your browser. 
 
 # Similar projects
 - [trois](https://github.com/troisjs/trois)
