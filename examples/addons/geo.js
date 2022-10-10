@@ -1,7 +1,28 @@
 import * as THREE from "three";
 
+// Apply attributes
+export function applyAttributes(el, mesh) {
+  {
+    const fn = new Function(`return ${el.getAttribute(":rotation")}`);
+    const vec = { ...fn() };
+    mesh.position.set(vec.x, vec.y, vec.z);
+  }
+
+  {
+    const fn = new Function(`return ${el.getAttribute(":position")}`);
+    const vec = { ...fn() };
+    mesh.position.set(vec.x, vec.y, vec.z);
+  }
+
+  {
+    const fn = new Function(`return ${el.getAttribute(":scale")}`);
+    const vec = { ...fn() };
+    mesh.scale.set(vec.x, vec.y, vec.z);
+  }
+}
+
 customElements.define(
-  "t-mesh",
+  "t-geo",
   class extends HTMLElement {
     async connectedCallback() {
       setTimeout(this.mounted.bind(this));
@@ -21,21 +42,7 @@ customElements.define(
       scene.add(mesh);
 
       // Apply attributes
-      {
-        const fn = new Function(`return ${this.getAttribute(":rotation")}`);
-        const rotation = {...fn()};
-        mesh.rotation.x = rotation.x || 0;
-        mesh.rotation.y = rotation.y || 0;
-        mesh.rotation.z = rotation.z || 0;
-      }
-
-      {
-        const fn = new Function(`return ${this.getAttribute(":position")}`);
-        const position = {...fn()};
-        mesh.position.x = position.x || 0;
-        mesh.position.y = position.y || 0;
-        mesh.position.z = position.z || 0;
-      }
+      applyAttributes(this, mesh)
     }
   }
 );

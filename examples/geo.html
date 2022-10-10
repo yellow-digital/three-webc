@@ -12,17 +12,20 @@
 </script>
 
 <t-renderer antialias orbit>
+  <t-geo geo="Plane"></t-geo>
+  <t-geo geo="Sphere" :position="{ x: 2 }"></t-geo>
+  <t-geo geo="Plane" :rotation="{ x: -Math.PI / 2 }"></t-geo>
   <t-axes></t-axes>
   <t-grass></t-grass>
   <t-studio></t-studio>
 </t-renderer>
 
-<t-gui></t-gui>
+<t-gui>
+  <p>This example shows how to add simple geometry.</p>
+</t-gui>
 
 <script type="module">
   import "../three-webc.js";
-  import "./addons/grass.js";
-  import "./addons/gui.js"
-  import "./addons/scene-gui.js"
+  import "./addons/geo.js";
   import "./addons/studio.js"
 </script>

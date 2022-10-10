@@ -12,18 +12,14 @@
 </script>
 
 <t-renderer antialias orbit>
-  <t-mesh geo="Plane"></t-mesh>
-  <t-mesh geo="Sphere" :position="{ x: 2 }"></t-mesh>
-  <t-mesh geo="Plane" :rotation="{ x: -Math.PI / 2 }"></t-mesh>
-  <t-axes></t-axes>
-  <t-grass></t-grass>
   <t-studio></t-studio>
+  <t-model url="https://threejs.org/examples/models/gltf/Flamingo.glb"></t-model>
 </t-renderer>
 
 <t-gui></t-gui>
 
 <script type="module">
   import "../three-webc.js";
-  import "./addons/mesh.js";
+  import "./addons/model.js";
   import "./addons/studio.js"
 </script>

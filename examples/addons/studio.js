@@ -16,7 +16,7 @@ export function basicScene(scene) {
 
   scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 
-  // scene.add(new THREE.GridHelper(10, 10, 0x888888, 0x444444));
+  scene.add(new THREE.GridHelper(10, 10, 0x888888, 0x444444));
 
   // view.rafs.push(() => {
   //   lights.rotation.z += 0.005;
