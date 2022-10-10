@@ -9,7 +9,7 @@ customElements.define(
   "t-model",
   class extends HTMLElement {
     async connectedCallback() {
-      setTimeout(() => this.mounted);
+      setTimeout(() => { this.mounted() } )
     }
     async mounted() {
       const view = this.parentElement.viewport;

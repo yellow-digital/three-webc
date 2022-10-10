@@ -22,7 +22,7 @@ customElements.define(
     }
 
     async connectedCallback() {
-      setTimeout(() => this.mounted);
+      setTimeout(() => { this.mounted() } )
     }
 
     cast() {

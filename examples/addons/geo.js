@@ -16,7 +16,7 @@ export function applyAttributes(el, mesh) {
 
   {
     const fn = new Function(`return ${el.getAttribute(":scale")}`);
-    const vec = { ...fn() };
+    const vec = { x: 1, y:1, z: 1, ...fn() };
     mesh.scale.set(vec.x, vec.y, vec.z);
   }
 }
@@ -25,7 +25,7 @@ customElements.define(
   "t-geo",
   class extends HTMLElement {
     async connectedCallback() {
-      setTimeout(() => this.mounted);
+      setTimeout(() => { this.mounted() } )
     }
     mounted() {
       const view = this.parentElement.viewport;
@@ -41,8 +41,9 @@ customElements.define(
       mesh.name = "object";
       scene.add(mesh);
 
+      console.log(type)
       // Apply attributes
-      applyAttributes(this, mesh)
+      // applyAttributes(this, mesh)
     }
   }
 );

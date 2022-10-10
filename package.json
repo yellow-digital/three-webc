@@ -7,7 +7,8 @@
     "src": "src"
   },
   "scripts": {
-    "start": "npx serve"
+    "start": "npx serve",
+    "dev": "npx browser-sync . --directory --watch"
   },
   "keywords": ["threejs", "webgl"],
   "author": "Jelle",
