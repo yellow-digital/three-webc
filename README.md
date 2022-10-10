@@ -1,10 +1,24 @@
 # three-webc
 
-> A set of webcomponents for easy creation of 3D graphics in your browser.
+> A set of webcomponents for ease creation of 3D graphics in your browser.
 
-This minimal library shaves off a little bit of boiler code for setting up a scene and maintains a straighforward integration with threejs.
+This library shaves off some boiler code for setting up a scene and maintains a straighforward integration with **threejs**.
+
+## Features
+
+:eyeglasses: **Less code**: handle the boilerplate required to get running just by dropping in `<t-renderer>`.
+
+:zap: **Performance**: it is a thin library on top of three.js. Just code as you use to.
+
+:mag: **Visual Inspector**: As three-webc uses WebComponents just use your built-in inspector to change, add or remove elements.
+
 # Why
-As Webcomponents shows up nicely in the DOM it provides an easy way to interact and debug the application. Removing or adding elements will feel seemless.
+There are some nice wrappers for threejs but they felt a bit of an overkill nor abstract away coding. This library just provides a couple of bare webcomponents to aid in exploring 3D in your browser. 
+
+# Similar projects
+- [trois](https://github.com/troisjs/trois)
+- [aframe](https://aframe.io)
+
 # Usage
 ```html
 <script type="importmap">
