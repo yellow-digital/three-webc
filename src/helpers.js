@@ -4,7 +4,7 @@ customElements.define(
     "t-axes",
     class extends HTMLElement {
       async connectedCallback() {
-        setTimeout(this.mounted.bind(this));
+        setTimeout(() => this.mounted);
       }
       mounted() {
         const view = this.parentElement.viewport;

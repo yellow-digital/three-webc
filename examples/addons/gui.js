@@ -1,6 +1,6 @@
 class GuiElement extends HTMLElement {
   async connectedCallback() {
-    setTimeout(this.mounted.bind(this))
+    setTimeout(() => this.mounted)
   }
   async mounted() {
     const { GUI } = await import("https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm");

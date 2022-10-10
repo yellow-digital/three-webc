@@ -18,7 +18,7 @@ customElements.define(
   "t-crate",
   class Element extends HTMLElement {
     async connectedCallback() {
-      setTimeout(this.mounted.bind(this));
+      setTimeout(() => this.mounted);
     }
 
     async mounted() {

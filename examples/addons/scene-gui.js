@@ -2,7 +2,7 @@ import {ObjectGui} from "./GuiHelpers.js";
 
 class Element extends HTMLElement {
   async connectedCallback() {
-    setTimeout(this.mounted.bind(this))
+    setTimeout(() => this.mounted)
   }
   async mounted() {
     // Resolve parent
