@@ -10,13 +10,10 @@ class Element extends HTMLElement {
     // basicScene(view)
     const { GUI } = await import("https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm");
     const gui = new GUI();
-
-    const folder = gui.addFolder("scene").open(false);
-    const controller = new ObjectGui(view.scene).addTo(folder)
   }
 }
 
 customElements.define(
-  "t-scene-gui",
+  "t-gui",
   Element
 );

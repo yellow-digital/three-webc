@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export class Viewport {
-  constructor(container = document.body) {
+  constructor(options = {}) {
     this.rafs = [];
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xcccccc);
@@ -11,7 +11,7 @@ export class Viewport {
     this.THREE = THREE;
     this.clock = new THREE.Clock();
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, ...options });
     renderer.setPixelRatio(window.devicePixelRatio);
     // renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
@@ -107,6 +107,7 @@ class TRenderer extends HTMLElement {
     this.viewport.mount(this);
 
     const view = this.viewport;
+    
     if (this.getAttribute("controls")) {
       const el = document.createElement("t-controls");
       el.setAttribute("type", this.getAttribute("controls"));
@@ -124,7 +125,3 @@ customElements.define(
   "t-renderer",
   TRenderer
 );
-// customElements.define(
-//   "t-renderer",
-//   TView
-// );

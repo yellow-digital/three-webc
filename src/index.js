@@ -1,6 +1,6 @@
-export * from "./renderer.js"
+export * from "./renderer.js";
 
-import "./raycaster.js"
-import "./hello.js"
-import "./scene-gui.js"
-import "./controls.js"
+import "./raycaster.js";
+import "./hello.js";
+import "./controls.js";
+import "./helpers.js";

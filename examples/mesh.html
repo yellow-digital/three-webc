@@ -11,12 +11,17 @@
   }
 </script>
 
-<t-renderer orbit>
-  <t-hello></t-hello>
-  <t-scene-gui></t-scene-gui>
+<t-renderer antialias orbit>
+  <t-mesh geo="Plane" :rotation="{ x: -Math.PI / 2 }"></t-mesh>
+  <t-axes></t-axes>
+  <t-grass></t-grass>
+  <t-studio></t-studio>
 </t-renderer>
+
+<t-gui></t-gui>
 
 <script type="module">
   import "../three-webc.js";
-  import "./addons/scene-gui.js"
+  import "./addons/mesh.js";
+  import "./addons/studio.js"
 </script>

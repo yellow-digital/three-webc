@@ -1,8 +1,6 @@
 import * as THREE from "three";
 
-export function basicScene(view) {
-  const { scene } = view;
-
+export function basicScene(scene) {
   const light = new THREE.AmbientLight(0x404040); // soft white light
   scene.add(light);
 
@@ -28,11 +26,19 @@ export function basicScene(view) {
 customElements.define(
   "t-studio",
   class extends HTMLElement {
-    async connectedCallback() {
-      setTimeout(this.mounted.bind(this));
+    constructor() {
+      super()
+      this.group = new THREE.Object3D()
     }
-    mounted() {
-      basicScene(this.parentElement.viewport);
+    async connectedCallback() {
+      setTimeout(() => this.mounted(this.parentElement));
+    }
+    mounted(view) {
+      view.scene.add(this.group)
+      basicScene(view.scene);
+    }
+    disconnectedCallback() {
+      this.group.removeFromParent();
     }
   }
 );
