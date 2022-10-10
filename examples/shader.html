@@ -12,9 +12,6 @@
 </script>
 
 <t-renderer antialias orbit>
-  <t-mesh geo="Plane"></t-mesh>
-  <t-mesh geo="Sphere" :position="{ x: 2 }"></t-mesh>
-  <t-mesh geo="Plane" :rotation="{ x: -Math.PI / 2 }"></t-mesh>
   <t-axes></t-axes>
   <t-grass></t-grass>
   <t-studio></t-studio>
@@ -24,6 +21,8 @@
 
 <script type="module">
   import "../three-webc.js";
-  import "./addons/mesh.js";
+  import "./addons/grass.js";
+  import "./addons/gui.js"
+  import "./addons/scene-gui.js"
   import "./addons/studio.js"
 </script>
