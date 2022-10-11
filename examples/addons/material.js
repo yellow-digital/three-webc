@@ -23,7 +23,14 @@ export class Material extends HTMLElement {
       color: this.getAttribute('color') || '',
       side: 2,
     });
+    this.material = material
+
+    // Attach
     mesh.material = material
+  }
+
+  disconnectedCallback() {
+    this.material.dispose();
   }
 }
 

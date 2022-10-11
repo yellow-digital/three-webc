@@ -51,11 +51,18 @@ export class Object3D extends HTMLElement {
   mounted() {
     const { scene } = this.parentElement;
 
+    console.log(this.parentElement)
     const { mesh } = this;
     mesh.name = this.getAttribute("name") || "object";
     scene.add(mesh);
 
     applyAttributes(this, mesh);
+  }
+  
+  disconnectedCallback() {
+    this.mesh?.removeFromParent();
+    // this.mesh.material.dispose();
+    // this.mesh?.geometry.dispose();
   }
 }
 

@@ -68,12 +68,7 @@ export class Viewport {
       }
     });
 
-    // try {
     this.render();
-    // } catch(err) {
-    //   this.playing = false
-    //   throw new Error(err)
-    // }
   }
 
   render() {
@@ -101,11 +96,39 @@ export class Viewport {
   }
 }
 
+export class Animater {
+  constructor() {
+    this.rafs = [];
+    this.playing = true;
+    this.clock = new THREE.Clock();
+  }
+
+  stop() { this.playing = false }
+
+  animate() {
+    requestAnimationFrame(() => {
+      if (this.playing) {
+        this.animate();
+      }
+    });
+
+    this.render();
+  }
+
+  render() {
+    const delta = this.clock.getDelta();
+    this.rafs.forEach((fn) => {
+      fn(delta);
+    });
+  }
+}
+
 class TRenderer extends HTMLElement {
   constructor() {
     super();
     const viewport = new Viewport();
     this.viewport = viewport;
+    this.animator = new Animater()
   }
 
   get scene() {
@@ -117,12 +140,14 @@ class TRenderer extends HTMLElement {
   get camera() {
     return this.viewport.camera;
   }
-  
+  get rafs() {
+    return this.animator.rafs;
+  }
+
   async connectedCallback() {
     this.viewport.mount(this);
 
-    const view = this.viewport;
-
+    // Sugar
     if (this.getAttribute("controls")) {
       const el = document.createElement("t-controls");
       el.setAttribute("type", this.getAttribute("controls"));

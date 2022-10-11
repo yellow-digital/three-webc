@@ -1,8 +1,8 @@
 import { TWEEN } from "three/addons/libs/tween.module.min.js";
 
-export const bounce = (object, duration = 200) => {
+export const bounce = (object, {duration = 200, scale = 2} = {}) => {
   const tween1 = new TWEEN.Tween(object.scale).to(
-    { x: 2, y: 2, z: 2 },
+    { x: scale, y: scale, z: scale },
     duration / 2
   );
   const tween2 = new TWEEN.Tween(object.scale).to(
@@ -12,7 +12,7 @@ export const bounce = (object, duration = 200) => {
   return tween1.chain(tween2).start();
 };
 
-export const remove = (object, duration = 200) => {
+export const remove = (object, {duration = 200} = {}) => {
   return new TWEEN.Tween(object.scale)
     .to({ x: 0, y: 0, z: 0 }, duration / 2)
     .start();

@@ -10,12 +10,13 @@ export function basicScene(scene) {
 
   {
     const dirLight = new THREE.DirectionalLight( 0xffffff );
-    dirLight.position.set( - 3, 10, - 10 );
+    // dirLight.position.set( - 3, 10, - 10 );
     dirLight.castShadow = true;
-    // dirLight.shadow.camera.top = 2;
-    // dirLight.shadow.camera.bottom = - 2;
-    // dirLight.shadow.camera.left = - 2;
-    // dirLight.shadow.camera.right = 2;
+    const scale = 10
+    dirLight.shadow.camera.top = scale;
+    dirLight.shadow.camera.bottom = - scale;
+    dirLight.shadow.camera.left = - scale;
+    dirLight.shadow.camera.right = scale;
     // dirLight.shadow.camera.near = 0.1;
     // dirLight.shadow.camera.far = 40;
     scene.add( dirLight );

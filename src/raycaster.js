@@ -1,97 +1,98 @@
 import * as THREE from "three";
 
-customElements.define(
-  "t-raycaster",
-  class extends HTMLElement {
-    constructor() {
-      super();
+export class Raycaster extends HTMLElement {
+  constructor() {
+    super();
 
-      const pointer = new THREE.Vector2();
+    const pointer = new THREE.Vector2();
 
-      const state = {
-        intersects: [],
-        objects: [],
-        intersections: 0,
-        pointer,
-        recursive: false,
-        current: null,
-      };
-      this.raycaster = new THREE.Raycaster();
+    const state = {
+      intersects: [],
+      objects: [],
+      intersections: 0,
+      pointer,
+      recursive: false,
+      current: null,
+    };
+    this.raycaster = new THREE.Raycaster();
 
-      this.state = state;
-    }
+    this.state = state;
+  }
 
-    async connectedCallback() {
-      setTimeout(() => { this.mounted() } )
-    }
+  async connectedCallback() {
+    setTimeout(() => {
+      this.mounted();
+    });
+  }
 
-    cast() {
-      const { state, raycaster } = this;
-      const { camera } = this.parentElement;
-      const pointer = state.pointer;
+  cast() {
+    const { state, raycaster } = this;
+    const { camera } = this.parentElement;
+    const pointer = state.pointer;
 
-      raycaster.setFromCamera(pointer, camera);
+    raycaster.setFromCamera(pointer, camera);
 
-      const intersects = raycaster.intersectObjects(
-        state.objects,
-        state.recursive
-      );
-      return intersects
-    }
+    const intersects = raycaster.intersectObjects(
+      state.objects,
+      state.recursive
+    );
+    return intersects;
+  }
 
-    update() {
-      const { camera, scene } = this.parentElement;
-      const { state, raycaster } = this;
-      const pointer = state.pointer;
+  update() {
+    const { camera, scene } = this.parentElement;
+    const { state, raycaster } = this;
+    const pointer = state.pointer;
 
-      state.objects = scene.children;
+    state.objects = scene.children;
 
-      // find intersections
-      raycaster.setFromCamera(pointer, camera);
+    // find intersections
+    raycaster.setFromCamera(pointer, camera);
 
-      const intersects = raycaster.intersectObjects(
-        state.objects,
-        state.recursive
-      );
+    const intersects = raycaster.intersectObjects(
+      state.objects,
+      state.recursive
+    );
 
-      // @ts-ignore
-      // const previous = state.intersects;
-      state.intersects = intersects;
-      state.intersections = intersects.length;
+    // @ts-ignore
+    // const previous = state.intersects;
+    state.intersects = intersects;
+    state.intersections = intersects.length;
 
-      this.dispatchEvent(new CustomEvent("update"));
+    this.dispatchEvent(new CustomEvent("update"));
 
-      if (!intersects.length) {
-        return;
-      }
-    }
-
-    mounted() {
-      const { scene, renderer } = this.parentElement;
-      const { state } = this;
-      const pointer = state.pointer;
-
-      state.objects = scene.children;
-
-      function onPointerMove(event) {
-        // TODO use correct rect
-        pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-      }
-
-      const onClick = (e) => {
-        if (!state.intersects.length) {
-          this.dispatchEvent(new Event("deselect"));
-          return;
-        }
-
-        this.dispatchEvent(new CustomEvent("click"));
-      };
-
-      const parent = renderer.domElement;
-      parent.addEventListener("pointermove", onPointerMove);
-      parent.addEventListener("pointermove", this.update.bind(this));
-      parent.addEventListener("click", onClick);
+    if (!intersects.length) {
+      return;
     }
   }
-);
+
+  mounted() {
+    const { scene, renderer } = this.parentElement;
+    const { state } = this;
+    const pointer = state.pointer;
+
+    state.objects = scene.children;
+
+    function onPointerMove(event) {
+      // TODO use correct rect
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+
+    const onClick = (e) => {
+      if (!state.intersects.length) {
+        this.dispatchEvent(new Event("deselect"));
+        return;
+      }
+
+      this.dispatchEvent(new CustomEvent("click"));
+    };
+
+    const parent = renderer.domElement;
+    parent.addEventListener("pointermove", onPointerMove);
+    parent.addEventListener("pointermove", this.update.bind(this));
+    parent.addEventListener("click", onClick);
+  }
+}
+
+customElements.define("t-raycaster", Raycaster);

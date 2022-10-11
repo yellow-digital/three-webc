@@ -15,15 +15,22 @@ export class Mesh extends HTMLElement {
     const geometry = new THREE[type]();
     const material = new THREE.MeshStandardMaterial({
       color: 0x00ff00,
+      wireframe: true,
       side: 2,
     });
     const mesh = new THREE.Mesh(geometry, material);
-    mesh.name = "object";
+    mesh.name = this.getAttribute('name') || type;
     scene.add(mesh);
 
     this.mesh = mesh;
 
     applyAttributes(this, mesh);
+  }
+
+  disconnectedCallback() {
+    this.mesh?.removeFromParent();
+    // this.mesh.material.dispose();
+    // this.mesh?.geometry.dispose();
   }
 }
 

@@ -13,18 +13,22 @@
 
 <t-renderer antialias orbit>
   <t-studio></t-studio>
-  <t-model
-    :position="{x: -2}"
-    url="https://threejs.org/examples/models/gltf/Soldier.glb"
-  ></t-model>
-  <t-model
-    :position="{x: 0}"
-    url="https://threejs.org/examples/models/gltf/Soldier.glb"
-  ></t-model>
-  <t-model
-    :position="{x: 2}"
-    url="https://threejs.org/examples/models/gltf/Soldier.glb"
-  ></t-model>
+  <t-camera :position="{ z: 10 }"></t-camera>
+  <t-object3d>
+    <t-raycaster></t-raycaster>
+    <t-model
+      :position="{x: -2}"
+      url="https://threejs.org/examples/models/gltf/Soldier.glb"
+    ></t-model>
+    <t-model
+      :position="{x: 0}"
+      url="https://threejs.org/examples/models/gltf/Soldier.glb"
+    ></t-model>
+    <t-model
+      :position="{x: 2}"
+      url="https://threejs.org/examples/models/gltf/Soldier.glb"
+    ></t-model>
+  </t-object3d>
 </t-renderer>
 
 <t-gui>
@@ -47,6 +51,12 @@
   document.querySelectorAll("t-model")[0].addEventListener("ready", (e) => {
     const {gltf, mixer} = e.target
     mixer.clipAction(gltf.animations[1])
+        .play();
+  });
+
+  document.querySelectorAll("t-model")[1].addEventListener("ready", (e) => {
+    const {gltf, mixer} = e.target
+    mixer.clipAction(gltf.animations[2])
         .play();
   });
 

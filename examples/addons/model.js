@@ -24,8 +24,7 @@ customElements.define(
     }
 
     async mounted() {
-      const view = this.parentElement.viewport;
-      const { scene } = view;
+      const { scene, renderer } = this.parentElement;
 
       const loader = new GLTFLoader();
 
@@ -57,7 +56,7 @@ customElements.define(
         mixer.update(delta);
       }
 
-      view.rafs.push(animate);
+      renderer.rafs.push(animate);
 
       // Save refs
       this.gltf = gltf;

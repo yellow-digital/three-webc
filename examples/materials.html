@@ -1,5 +1,5 @@
 <style>
-  @import url('./style.css');
+  @import url("./style.css");
 </style>
 
 <script type="importmap">
@@ -12,15 +12,54 @@
 </script>
 
 <t-renderer antialias orbit>
-  <t-object3d>
+  <t-object3d name="objects" :position="{ y: 1 }">
     <t-raycaster></t-raycaster>
-    <t-mesh geo="Box" :position="{ x: 0, y: 1 }" :props="{castShadow: false}">
+    <t-mesh
+      name="Default"
+      geo="Sphere"
+      :position="{ x: -2 }"
+      :props="{castShadow: false}"
+    >
+    </t-mesh>
+    <t-mesh
+      name="MeshBasic"
+      geo="Sphere"
+      :position="{ x: 0 }"
+      :props="{castShadow: false}"
+    >
       <t-material type="MeshBasic" color="green" />
     </t-mesh>
-    <t-mesh geo="Box" :position="{ x: 2, y: 1 }" :props="{castShadow: true}">
+    <t-mesh
+      name="MeshLambert"
+      geo="Sphere"
+      :position="{ x: 2 }"
+      :props="{castShadow: true}"
+    >
       <t-material type="MeshLambert" color="blue" />
     </t-mesh>
-    <t-mesh geo="Box" :position="{ x: 4, y: 1 }" :props="{castShadow: true}">
+    <t-mesh
+      name="MeshPhong"
+      geo="Sphere"
+      :position="{ x: 4 }"
+      :props="{castShadow: true}"
+    >
+      <t-material type="MeshPhong" color="blue" />
+    </t-mesh>
+    <t-mesh
+      name="Lambert"
+      geo="Sphere"
+      title="non-shiny surface without specular highlights"
+      :position="{ x: 6 }"
+      :props="{castShadow: true}"
+    >
+      <t-material type="MeshLambert" color="blue" />
+    </t-mesh>
+    <t-mesh
+      name="MeshStandard"
+      geo="Sphere"
+      :position="{ x: 8 }"
+      :props="{castShadow: true}"
+    >
       <t-material type="MeshStandard" color="blue" />
     </t-mesh>
   </t-object3d>
@@ -31,7 +70,14 @@
 </t-renderer>
 
 <t-gui>
-  <p>This example shows how to use materials and shadows.</p>
+  <p>
+    This example shows how to use materials and shadows.
+    <a
+      target="_blank"
+      href="https://threejs.org/docs/index.html?q=material#api/en/materials/Material"
+      >more info</a
+    >
+  </p>
 </t-gui>
 
 <script type="module">
@@ -39,27 +85,35 @@
   import "./addons/object3d.js";
   import "./addons/mesh.js";
   import "./addons/material.js";
-  import "./addons/studio.js"
+  import "./addons/studio.js";
   import * as EFFECTS from "./addons/effects.js";
+  import * as THREE from "three";
 
   const raycaster = document.querySelector("t-raycaster");
 
   const tRenderer = document.querySelector("t-renderer");
-  tRenderer.renderer.domElement.addEventListener("mousemove", (e) => {
-    // console.log(e)
-    const intersects= raycaster.cast();
-    const object = intersects.length && intersects[0].object
+  const state = {
+    current: { name: ''},
+  };
+  // Expose to console
+  window.state = state;
 
-    document.body.style.cursor = object ? 'pointer' : ''
-    if(object) {
-      // console.log(object.type);
+  tRenderer.renderer.domElement.addEventListener("mousemove", (e) => {
+    const intersects = raycaster.cast();
+    const object = intersects.length && intersects[0].object;
+
+    if (object && state.current.uuid !== object.uuid) {
+      EFFECTS.bounce(object, { scale: 1.2 });
     }
+
+    document.body.style.cursor = object ? "pointer" : "";
+    Object.assign(state.current, object || { name: "", uuid: "" });
   });
+
   tRenderer.renderer.domElement.addEventListener("click", (e) => {
-    // console.log(e)
-    const intersects= raycaster.cast();
-    const object = intersects.length && intersects[0].object
-    if(object) {
+    const intersects = raycaster.cast();
+    const object = intersects.length && intersects[0].object;
+    if (object) {
       EFFECTS.bounce(object);
     }
   });
@@ -71,9 +125,7 @@
     const gui = new GUI();
 
     const raycaster = document.querySelector("t-raycaster");
-    const folder = gui
-    folder.domElement.append(document.createTextNode('click left for bounce or right to remove a box'))
-    folder.add(raycaster.state.pointer, "x").listen();
-    folder.add(raycaster.state.pointer, "y").listen();
+    const folder = gui;
+    folder.add(state.current, "name").listen();
   }
 </script>
