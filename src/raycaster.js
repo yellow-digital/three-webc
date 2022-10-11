@@ -74,7 +74,7 @@ export class Raycaster extends HTMLElement {
     state.objects = scene.children;
 
     function onPointerMove(event) {
-      // TODO use correct rect
+      // TODO use correct domElement rect
       pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
       pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
     }
@@ -90,7 +90,9 @@ export class Raycaster extends HTMLElement {
 
     const parent = renderer.domElement;
     parent.addEventListener("pointermove", onPointerMove);
-    parent.addEventListener("pointermove", this.update.bind(this));
+    parent.addEventListener("pointermove", () => {
+      this.update()
+    });
     parent.addEventListener("click", onClick);
   }
 }

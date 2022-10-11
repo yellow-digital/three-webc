@@ -13,42 +13,42 @@
 
 <t-renderer orbit>
   <t-studio></t-studio>
-  <t-raycaster></t-raycaster>
-  <t-crate position="2,0,0"></t-crate>
-  <t-crate></t-crate>
+  <t-object3d>
+    <t-raycaster></t-raycaster>
+    <t-crate position="2,0,0"></t-crate>
+    <t-crate></t-crate>
+  </t-object3d>
+  <t-effects></t-effects>
 </t-renderer>
 
 <script type="module">
   import "../three-webc.js";
   import * as THREE from "three";
-  import { createCrate } from "./addons/crate.js";
+  import "./addons/crate.js";
   import "./addons/studio.js";
+  import "./addons/object3d.js";
   import * as EFFECTS from "./addons/effects.js";
   import { TWEEN } from "three/addons/libs/tween.module.min.js";
 
-  const { scene } = document.querySelector("t-renderer");
+  const { scene, renderer } = document.querySelector("t-renderer");
 
   const raycaster = document.querySelector("t-raycaster");
 
-  const tRenderer = document.querySelector("t-renderer");
-  tRenderer.renderer.domElement.addEventListener("click", (e) => {
+  renderer.domElement.addEventListener("click", (e) => {
     const intersects= raycaster.cast();
     const object = intersects.length && intersects[0].object
     if(object) {
       EFFECTS.bounce(object);
     }
   });
-  tRenderer.renderer.domElement.addEventListener("contextmenu", (e) => {
+
+  renderer.domElement.addEventListener("contextmenu", (e) => {
     const intersects = raycaster.cast();
     const object = intersects.length && intersects[0].object
     if(object) {
       EFFECTS.remove(object);
       // first.removeFromParent()
     }
-  });
-
-  document.querySelector("t-renderer").viewport.rafs.push(() => {
-    TWEEN.update();
   });
 
   const app = {

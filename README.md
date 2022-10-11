@@ -6,14 +6,15 @@ This library shaves off some boiler code for setting up a scene and maintains a 
 
 ## Features
 
-:eyeglasses: **Less code**: handle the boilerplate required to get running just by dropping in `<t-renderer>`.
+:eyeglasses: **Less code**: just drop in `<t-renderer>`.
 
 :zap: **Performance**: it is a thin library on top of three.js. Just code as you use to.
 
-:mag: **Visual Inspector**: As three-webc uses WebComponents just use your built-in inspector to change, add or remove elements.
+:mag: **Visual Inspector**: As `three-webc` uses `WebComponents` you can simply use your browsers built-in inspector to change, add or remove elements.
 
+**Vanilla**: Use it in any page or framework you like.
 # Why
-There are some nice wrappers for threejs but they felt a bit of an overkill nor abstract away coding. This library just provides a couple of bare webcomponents to aid in exploring 3D in your browser. 
+There are some good wrapper libraries for `ThreeJs` but they felt a bit of an overkill nor abstract away coding or are framework dependent. This library provides some bare webcomponents to aid exploring 3D in your browser faster.
 
 # Similar projects
 - [trois](https://github.com/troisjs/trois)

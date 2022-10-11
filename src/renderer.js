@@ -140,6 +140,9 @@ class TRenderer extends HTMLElement {
   get camera() {
     return this.viewport.camera;
   }
+  set camera(cam) {
+    this.viewport.camera = cam
+  }
   get rafs() {
     return this.viewport.rafs;
   }
