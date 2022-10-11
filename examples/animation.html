@@ -31,6 +31,14 @@
       :position="{x: 2}"
       url="https://threejs.org/examples/models/gltf/Soldier.glb"
     ></t-model>
+    <t-mesh
+      name="MeshBasic"
+      geo="Sphere"
+      :position="{ x: 0 }"
+      :props="{castShadow: false}"
+    >
+      <t-material type="MeshBasic" color="green" />
+    </t-mesh>
   </t-object3d>
   <t-effects></t-effects>
 </t-renderer>
@@ -43,9 +51,28 @@
   import "../three-webc.js";
   import "./addons/model.js";
   import "./addons/studio.js";
+  import "./addons/mesh.js";
   import * as EFFECTS from "./addons/effects.js";
 
   const renderer = document.querySelector("t-renderer");
+
+  const models = document.querySelectorAll("t-model");
+
+  models[0].addEventListener("ready", (e) => {
+    const { gltf, mixer } = e.target;
+    mixer.clipAction(gltf.animations[1]).play();
+  });
+
+  models[1].addEventListener("ready", (e) => {
+    const { gltf, mixer } = e.target;
+    mixer.clipAction(gltf.animations[2]).play();
+  });
+
+  // Debugger
+  // [...document.querySelectorAll("[debug]")]
+
+  const model = models[0];
+  model.rotation.y = 0;
 
   const moveForward = (model) => (t) => {
     const direction = model.rotation.y;
@@ -53,35 +80,23 @@
     model.position.x += t * Math.sin(direction);
   };
 
-  document.querySelectorAll("t-model")[0].addEventListener("ready", (e) => {
-    const { gltf, mixer } = e.target;
-    mixer.clipAction(gltf.animations[1]).play();
-  });
-
-  document.querySelectorAll("t-model")[1].addEventListener("ready", (e) => {
-    const { gltf, mixer } = e.target;
-    mixer.clipAction(gltf.animations[2]).play();
-  });
+  const state = {
+    speed: -0.3,
+    current: { name: "" },
+  };
 
   renderer.rafs.push((t) => {
-    // {
-    //   const model = models[0];
-    //   model.rotation.y += 0.3 * t;
-    //   moveForward(model)(t);
-    // }
-    // {
-    //   const model = models[1];
-    //   model.rotation.y -= 0.3 * t;
-    //   moveForward(model)(t);
-    // }
+    {
+      const directionAxis = "y";
+
+      // Alter direction
+      model.rotation[directionAxis] += state.speed * t;
+      const angle = model.rotation[directionAxis]
+      // moveForward(model)(t);
+      model.position.z += t * Math.cos(angle);
+      model.position.x += t * Math.sin(angle);
+    }
   });
-
-  // Interact from console
-  // document.querySelector('t-model').position.x += 0.1
-
-  const state = {
-    current: { name: ''},
-  };
 
   // Raycast
   const raycaster = document.querySelector("t-raycaster");
@@ -101,11 +116,11 @@
   renderer.domElement.addEventListener("click", (e) => {
     const intersects = raycaster.cast();
     const object = intersects.length && intersects[0].object;
-    if(!object) {
-      console.warn('void ray')
+    if (!object) {
+      console.warn("void ray");
     }
     if (object) {
-      console.warn('hit',object)
+      console.warn("hit", object);
       EFFECTS.bounce(object);
     }
   });

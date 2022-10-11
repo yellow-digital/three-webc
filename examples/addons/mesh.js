@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { applyAttributes } from "./object3d.js";
+import "./material.js";
 
 export class Mesh extends HTMLElement {
   async connectedCallback() {

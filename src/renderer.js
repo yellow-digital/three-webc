@@ -68,7 +68,16 @@ export class Viewport {
       }
     });
 
-    this.render();
+    this.safeRender();
+  }
+
+  safeRender() {
+    try { 
+      this.render()
+    } catch(err) {
+      this.playing = false
+      throw err
+    }
   }
 
   render() {

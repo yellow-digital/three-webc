@@ -14,6 +14,11 @@ function getBooleanAttribute(val) {
 customElements.define(
   "t-model",
   class extends HTMLElement {
+    constructor() {
+      super()
+      this.container = new THREE.Object3D();
+    }
+
     async connectedCallback() {
       setTimeout(() => {
         this.mounted();
@@ -21,13 +26,13 @@ customElements.define(
     }
 
     get position() {
-      return this.mesh.position;
+      return this.container.position;
     }
     get rotation() {
-      return this.mesh.rotation;
+      return this.container.rotation;
     }
     get scale() {
-      return this.mesh.scale;
+      return this.container.scale;
     }
 
     async mounted() {
@@ -48,32 +53,35 @@ customElements.define(
 
       applyAttributes(this, mesh);
 
-      scene.add(mesh);
+      // Add to scene
+      // scene.add(mesh);
+      scene.add(this.container);
+      this.container.add(mesh);
 
-      if(getBooleanAttribute(this.getAttribute('debug'))) {
+      // if(getBooleanAttribute(this.getAttribute('debug'))) {
         const box = new THREE.BoxHelper( mesh, 0xffff00 );
+        // mesh.add( box );
         scene.add( box );
-      }
-
-      // Play animation
-      const mixer = new THREE.AnimationMixer(mesh);
-      mixer.clipAction(gltf.animations[0])
-        // .setDuration(1)
-        .play();
-      // mixers.push(mixer);
-      // for ( let i = 0; i < mixers.length; i ++ ) {
-      // 	mixers[ i ].update( delta );
       // }
-      function animate(delta) {
-        mixer.update(delta);
-      }
 
-      rafs.push(animate);
+      const mixer = new THREE.AnimationMixer(mesh);
+      this.mixer = mixer;
+      
+      // Play first animation
+      if(gltf.animations[0]) {
+        mixer.clipAction(gltf.animations[0])
+          // .setDuration(1)
+          .play();
+        
+        rafs.push((delta) => {
+          mixer.update(delta);
+          box.update();
+        });
+      }
 
       // Save refs
       this.gltf = gltf;
       this.mesh = mesh;
-      this.mixer = mixer;
 
       this.dispatchEvent(new Event("ready"));
     }
