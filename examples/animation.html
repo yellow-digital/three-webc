@@ -1,0 +1,68 @@
+<style>
+  @import url("./style.css");
+</style>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/"
+    }
+  }
+</script>
+
+<t-renderer antialias orbit>
+  <t-studio></t-studio>
+  <t-model
+    :position="{x: -2}"
+    url="https://threejs.org/examples/models/gltf/Soldier.glb"
+  ></t-model>
+  <t-model
+    :position="{x: 0}"
+    url="https://threejs.org/examples/models/gltf/Soldier.glb"
+  ></t-model>
+  <t-model
+    :position="{x: 2}"
+    url="https://threejs.org/examples/models/gltf/Soldier.glb"
+  ></t-model>
+</t-renderer>
+
+<t-gui>
+  <p>Mixers showcase</p>
+</t-gui>
+
+<script type="module">
+  import "../three-webc.js";
+  import "./addons/model.js";
+  import "./addons/studio.js";
+
+  const renderer = document.querySelector("t-renderer");
+
+  const moveForward = (model) => (t) => {
+    const direction = model.rotation.y;
+    model.position.z += t * Math.cos(direction);
+    model.position.x += t * Math.sin(direction);
+  };
+
+  document.querySelectorAll("t-model")[0].addEventListener("ready", (e) => {
+    const {gltf, mixer} = e.target
+    mixer.clipAction(gltf.animations[1])
+        .play();
+  });
+
+  renderer.viewport.rafs.push((t) => {
+    // {
+    //   const model = models[0];
+    //   model.rotation.y += 0.3 * t;
+    //   moveForward(model)(t);
+    // }
+    // {
+    //   const model = models[1];
+    //   model.rotation.y -= 0.3 * t;
+    //   moveForward(model)(t);
+    // }
+  });
+
+  // Interact from console
+  // document.querySelector('t-model').position.x += 0.1
+</script>

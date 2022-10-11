@@ -21,6 +21,8 @@ customElements.define(
       mesh.name = "object";
       scene.add(mesh);
 
+      this.mesh = mesh
+      
       applyAttributes(this, mesh)
     }
   }
