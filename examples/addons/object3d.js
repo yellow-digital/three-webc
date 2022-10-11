@@ -33,7 +33,6 @@ export function applyAttributes(el, mesh) {
   if (el.getAttribute(":rotation")) {
     const fn = new Function(`return ${el.getAttribute(":rotation")}`);
     const vec = { x: 0, y: 0, z: 0, ...fn() };
-    console.log(vec);
     mesh.rotation.set(vec.x, vec.y, vec.z);
   }
 
