@@ -68,20 +68,21 @@ export class Viewport {
       }
     });
 
-    this.safeRender();
+    this.renderStopOnError();
   }
 
-  safeRender() {
-    try { 
-      this.render()
-    } catch(err) {
-      this.playing = false
-      throw err
+  renderStopOnError() {
+    try {
+      this.render();
+    } catch (err) {
+      this.playing = false;
+      throw err;
     }
   }
 
   render() {
     const delta = this.clock.getDelta();
+
     this.rafs.forEach((fn) => {
       fn(delta);
     });
@@ -112,7 +113,9 @@ export class Animater {
     this.clock = new THREE.Clock();
   }
 
-  stop() { this.playing = false }
+  stop() {
+    this.playing = false;
+  }
 
   animate() {
     requestAnimationFrame(() => {
@@ -137,7 +140,7 @@ class TRenderer extends HTMLElement {
     super();
     const viewport = new Viewport();
     this.viewport = viewport;
-    this.animator = new Animater()
+    // this.animator = new Animater();
   }
 
   get scene() {
@@ -150,7 +153,7 @@ class TRenderer extends HTMLElement {
     return this.viewport.camera;
   }
   set camera(cam) {
-    this.viewport.camera = cam
+    this.viewport.camera = cam;
   }
   get rafs() {
     return this.viewport.rafs;
@@ -161,6 +164,13 @@ class TRenderer extends HTMLElement {
 
   async connectedCallback() {
     this.viewport.mount(this);
+
+    // Debug info
+    this.viewport.rafs.push(() => {
+      this.dispatchEvent(new Event("render"));
+
+      this.setAttribute('rafs', this.viewport.rafs.length)
+    })
 
     // Sugar
     if (this.getAttribute("controls")) {

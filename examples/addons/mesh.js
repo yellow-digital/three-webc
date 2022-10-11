@@ -3,6 +3,12 @@ import { applyAttributes } from "./object3d.js";
 import "./material.js";
 
 export class Mesh extends HTMLElement {
+  constructor() {
+    super()
+    this.mesh = {}
+    this.material = null
+  }
+
   async connectedCallback() {
     setTimeout(() => {
       this.mounted();
@@ -14,7 +20,7 @@ export class Mesh extends HTMLElement {
 
     const type = `${this.getAttribute("geo")}Geometry`;
     const geometry = new THREE[type]();
-    const material = new THREE.MeshStandardMaterial({
+    const material = this.material || new THREE.MeshStandardMaterial({
       color: 0x00ff00,
       wireframe: true,
       side: 2,

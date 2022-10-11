@@ -18,7 +18,15 @@ export const remove = (object, {duration = 200} = {}) => {
     .start();
 };
 
+const EFFECTS = {
+  bounce,
+  remove
+}
 export class Effects extends HTMLElement {
+  constructor() {
+    super()
+    this.EFFECTS = EFFECTS
+  }
   async connectedCallback() {
     setTimeout(() => {
       this.mounted();

@@ -8,25 +8,21 @@ export class Material extends HTMLElement {
   }
 
   mounted() {
-    // Resolve parent
-    const {mesh = null} = {...this.parentElement};
-    if(!mesh) {
-        throw new Error('Parent has no mesh')
-    }
-    
     const type = `${this.getAttribute("type")}Material`;
-    if(!THREE[type]) {
-      throw new Error(`Unknown constructor ${type}`)
+    if (!THREE[type]) {
+      throw new Error(`Unknown constructor ${type}`);
     }
 
     const material = new THREE[type]({
-      color: this.getAttribute('color') || '',
+      color: this.getAttribute("color") || "",
       side: 2,
     });
-    this.material = material
+    this.material = material;
 
     // Attach
-    mesh.material = material
+    // Resolve parent
+    const parent = this.parentElement;
+    parent.material = material;
   }
 
   disconnectedCallback() {
