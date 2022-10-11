@@ -1,5 +1,5 @@
 <style>
-  @import url('./style.css');
+  @import url("./style.css");
 </style>
 
 <script type="importmap">
@@ -13,13 +13,45 @@
 
 <t-renderer antialias orbit>
   <t-studio></t-studio>
-  <t-model url="https://threejs.org/examples/models/gltf/Flamingo.glb"></t-model>
+  <t-model
+    :scale="{x:0.02,y:0.02,z:0.02}"
+    url="https://threejs.org/examples/models/gltf/Flamingo.glb"
+  ></t-model>
+  <t-model
+    :scale="{x:0.02,y:0.02,z:0.02}"
+    :position="{y: 1}"
+    url="https://threejs.org/examples/models/gltf/Flamingo.glb"
+  ></t-model>
 </t-renderer>
-
-<t-gui></t-gui>
 
 <script type="module">
   import "../three-webc.js";
   import "./addons/model.js";
-  import "./addons/studio.js"
+  import "./addons/studio.js";
+
+  const renderer = document.querySelector("t-renderer");
+
+  const models = [...document.querySelectorAll("t-model")];
+
+  const moveForward = (model) => (t) => {
+    const direction = model.rotation.y;
+    model.position.z += t * Math.cos(direction);
+    model.position.x += t * Math.sin(direction);
+  };
+
+  renderer.viewport.rafs.push((t) => {
+    {
+      const model = models[0];
+      model.rotation.y += 0.3 * t;
+      moveForward(model)(t);
+    }
+    {
+      const model = models[1];
+      model.rotation.y -= 0.3 * t;
+      moveForward(model)(t);
+    }
+  });
+
+  // Interact from console
+  // document.querySelector('t-model').position.x += 0.1
 </script>

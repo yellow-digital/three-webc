@@ -3,6 +3,8 @@ import * as THREE from "three";
 export class Viewport {
   constructor(options = {}) {
     this.rafs = [];
+    this.playing = true
+
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xcccccc);
     this.scene = scene;
@@ -10,7 +12,6 @@ export class Viewport {
     this.container = null;
     this.THREE = THREE;
     this.clock = new THREE.Clock();
-
     const renderer = new THREE.WebGLRenderer({ antialias: true, ...options });
     renderer.setPixelRatio(window.devicePixelRatio);
     // renderer.setSize(window.innerWidth, window.innerHeight);
@@ -62,10 +63,16 @@ export class Viewport {
 
   animate() {
     requestAnimationFrame(() => {
+      if(this.playing)
       this.animate();
     });
 
-    this.render();
+    // try {
+      this.render();
+    // } catch(err) {
+    //   this.playing = false
+    //   throw new Error(err)
+    // }
   }
 
   render() {

@@ -1,16 +1,28 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { applyAttributes } from "./object3d.js";
 
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_lights_hemisphere.html
-
-
 
 customElements.define(
   "t-model",
   class extends HTMLElement {
     async connectedCallback() {
-      setTimeout(() => { this.mounted() } )
+      setTimeout(() => {
+        this.mounted();
+      });
     }
+
+    get position() {
+      return this.mesh.position;
+    }
+    get rotation() {
+      return this.mesh.rotation;
+    }
+    get scale() {
+      return this.mesh.scale;
+    }
+
     async mounted() {
       const view = this.parentElement.viewport;
       const { scene } = view;
@@ -22,13 +34,15 @@ customElements.define(
       const gltf = await loader.loadAsync(url);
       const mesh = gltf.scene.children[0];
 
-      this.gltf = gltf
+      this.dispatchEvent(new Event("ready"));
+      
+      // Save refs
+      this.gltf = gltf;
+      this.mesh = mesh;
 
-      const s = 0.02;
-      mesh.scale.set(s, s, s);
-      mesh.rotation.y = -1;
       mesh.castShadow = true;
       mesh.receiveShadow = true;
+      applyAttributes(this, mesh);
 
       scene.add(mesh);
 
@@ -40,10 +54,10 @@ customElements.define(
       // 	mixers[ i ].update( delta );
       // }
       function animate(delta) {
-      	mixer.update( delta );
+        mixer.update(delta);
       }
 
-      view.rafs.push(animate)
+      view.rafs.push(animate);
     }
   }
 );
