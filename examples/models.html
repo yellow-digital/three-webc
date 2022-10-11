@@ -13,15 +13,17 @@
 
 <t-renderer antialias orbit>
   <t-studio></t-studio>
-  <t-model
-    :scale="{x:0.02,y:0.02,z:0.02}"
-    url="https://threejs.org/examples/models/gltf/Flamingo.glb"
-  ></t-model>
-  <t-model
-    :scale="{x:0.02,y:0.02,z:0.02}"
-    :position="{y: 1}"
-    url="https://threejs.org/examples/models/gltf/Flamingo.glb"
-  ></t-model>
+  <t-object3d :position="{y:2}">
+    <t-model
+      :scale="{x:0.02,y:0.02,z:0.02}"
+      url="https://threejs.org/examples/models/gltf/Flamingo.glb"
+    ></t-model>
+    <t-model
+      :scale="{x:0.02,y:0.02,z:0.02}"
+      :position="{y: 1}"
+      url="https://threejs.org/examples/models/gltf/Flamingo.glb"
+    ></t-model>
+  </t-object3d>
 </t-renderer>
 
 <script type="module">
@@ -39,7 +41,7 @@
     model.position.x += t * Math.sin(direction);
   };
 
-  renderer.viewport.rafs.push((t) => {
+  renderer.rafs.push((t) => {
     {
       const model = models[0];
       model.rotation.y += 0.3 * t;

@@ -4,6 +4,13 @@ import { applyAttributes } from "./object3d.js";
 
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_lights_hemisphere.html
 
+function getBooleanAttribute(val) {
+  if (val === "") return true;
+  if (val === "true") return true;
+  if (val === "1") return true;
+  return false;
+}
+
 customElements.define(
   "t-model",
   class extends HTMLElement {
@@ -24,7 +31,7 @@ customElements.define(
     }
 
     async mounted() {
-      const { scene, renderer } = this.parentElement;
+      const { scene, rafs } = this.parentElement;
 
       const loader = new GLTFLoader();
 
@@ -43,6 +50,11 @@ customElements.define(
 
       scene.add(mesh);
 
+      if(getBooleanAttribute(this.getAttribute('debug'))) {
+        const box = new THREE.BoxHelper( mesh, 0xffff00 );
+        scene.add( box );
+      }
+
       // Play animation
       const mixer = new THREE.AnimationMixer(mesh);
       mixer.clipAction(gltf.animations[0])
@@ -56,7 +68,7 @@ customElements.define(
         mixer.update(delta);
       }
 
-      renderer.rafs.push(animate);
+      rafs.push(animate);
 
       // Save refs
       this.gltf = gltf;

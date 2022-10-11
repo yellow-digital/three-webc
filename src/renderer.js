@@ -141,7 +141,10 @@ class TRenderer extends HTMLElement {
     return this.viewport.camera;
   }
   get rafs() {
-    return this.animator.rafs;
+    return this.viewport.rafs;
+  }
+  get domElement() {
+    return this.viewport.renderer.domElement;
   }
 
   async connectedCallback() {

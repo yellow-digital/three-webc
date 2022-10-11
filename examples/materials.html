@@ -89,14 +89,15 @@
   import * as EFFECTS from "./addons/effects.js";
   import * as THREE from "three";
 
-  const raycaster = document.querySelector("t-raycaster");
-
   const tRenderer = document.querySelector("t-renderer");
   const state = {
     current: { name: ''},
   };
   // Expose to console
   window.state = state;
+
+  // Raycast
+  const raycaster = document.querySelector("t-raycaster");
 
   tRenderer.renderer.domElement.addEventListener("mousemove", (e) => {
     const intersects = raycaster.cast();

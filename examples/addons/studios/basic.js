@@ -1,5 +1,12 @@
 import * as THREE from "three";
 
+function getBooleanAttribute(val) {
+  if (val === "") return true;
+  if (val === "true") return true;
+  if (val === "1") return true;
+  return false;
+}
+
 export function basicScene(scene) {
   const light = new THREE.AmbientLight(0x404040); // soft white light
   scene.add(light);
@@ -30,13 +37,15 @@ export function basicScene(scene) {
 
   scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 
+  // Floor
   const mesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(100, 100),
+    new THREE.PlaneGeometry(10, 10),
     new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
   );
   mesh.rotation.x = -Math.PI / 2;
   mesh.receiveShadow = true;
   scene.add(mesh);
+  
   // view.rafs.push(() => {
   //   lights.rotation.z += 0.005;
   // });
@@ -53,6 +62,10 @@ export default class extends HTMLElement {
   mounted(view) {
     view.scene.add(this.group);
     basicScene(view.scene);
+
+    if(getBooleanAttribute(this.getAttribute("debug"))) {
+
+    }
   }
   disconnectedCallback() {
     this.group.removeFromParent();
