@@ -1,13 +1,17 @@
 <t-example src="./start.html"></t-example>
+<t-example src="./animation.html"></t-example>
+<t-example src="./geometry.html"></t-example>
 <t-example src="./hello.html"></t-example>
 <t-example src="./controls.html"></t-example>
 <t-example src="./gui.html"></t-example>
 <t-example src="./raycast.html"></t-example>
 <t-example src="./transform.html"></t-example>
+<t-example src="./overlay.html"></t-example>
+<t-example src="./models.html"></t-example>
 
 <style>
   /* @import url('./style.css'); */
-  iframe { min-width: 100%; height: 40vh; }
+  /* iframe { min-width: 100%; height: 40vh; } */
 </style>
 
 <script>
@@ -18,7 +22,7 @@
         this.innerHTML = `
     <h2>${this.getAttribute("label") || this.getAttribute("src")} <a href="${this.getAttribute("src")}">open</a></h2>
     
-    <iframe src="${this.getAttribute("src")}"></iframe>
+    <iframe width="600" height="500" loading="lazy" src="${this.getAttribute("src")}"></iframe>
 `;
       }
     }

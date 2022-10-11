@@ -53,15 +53,16 @@ customElements.define(
 
       applyAttributes(this, mesh);
 
-      // Add to scene
+      // Add to scene or container ?
       // scene.add(mesh);
       scene.add(this.container);
       this.container.add(mesh);
 
+      // TODO use for raytracing ?
       // if(getBooleanAttribute(this.getAttribute('debug'))) {
-        const box = new THREE.BoxHelper( mesh, 0xffff00 );
-        // mesh.add( box );
-        scene.add( box );
+      //   const box = new THREE.BoxHelper( mesh, 0xffff00 );
+      //   // mesh.add( box );
+      //   scene.add( box );
       // }
 
       const mixer = new THREE.AnimationMixer(mesh);
@@ -75,7 +76,7 @@ customElements.define(
         
         rafs.push((delta) => {
           mixer.update(delta);
-          box.update();
+          // box.update();
         });
       }
 
