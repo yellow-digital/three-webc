@@ -15,7 +15,10 @@ export class Material extends HTMLElement {
     }
     
     const type = `${this.getAttribute("type")}Material`;
-    console.log(type)
+    if(!THREE[type]) {
+      throw new Error(`Unknown constructor ${type}`)
+    }
+
     const material = new THREE[type]({
       color: this.getAttribute('color') || '',
       side: 2,

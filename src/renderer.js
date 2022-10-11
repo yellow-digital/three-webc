@@ -3,7 +3,7 @@ import * as THREE from "three";
 export class Viewport {
   constructor(options = {}) {
     this.rafs = [];
-    this.playing = true
+    this.playing = true;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xcccccc);
@@ -63,12 +63,13 @@ export class Viewport {
 
   animate() {
     requestAnimationFrame(() => {
-      if(this.playing)
-      this.animate();
+      if (this.playing) {
+        this.animate();
+      }
     });
 
     // try {
-      this.render();
+    this.render();
     // } catch(err) {
     //   this.playing = false
     //   throw new Error(err)
@@ -105,16 +106,23 @@ class TRenderer extends HTMLElement {
     super();
     const viewport = new Viewport();
     this.viewport = viewport;
-    this.scene = viewport.scene;
-    this.renderer = viewport.renderer;
-    this.camera = viewport.camera;
   }
 
+  get scene() {
+    return this.viewport.scene;
+  }
+  get renderer() {
+    return this.viewport.renderer;
+  }
+  get camera() {
+    return this.viewport.camera;
+  }
+  
   async connectedCallback() {
     this.viewport.mount(this);
 
     const view = this.viewport;
-    
+
     if (this.getAttribute("controls")) {
       const el = document.createElement("t-controls");
       el.setAttribute("type", this.getAttribute("controls"));
@@ -128,7 +136,4 @@ class TRenderer extends HTMLElement {
   }
 }
 
-customElements.define(
-  "t-renderer",
-  TRenderer
-);
+customElements.define("t-renderer", TRenderer);

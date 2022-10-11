@@ -9,8 +9,7 @@ export class Mesh extends HTMLElement {
   }
   
   mounted() {
-    const view = this.parentElement.viewport;
-    const { scene } = view;
+    const { scene } = this.parentElement;
 
     const type = `${this.getAttribute("geo")}Geometry`;
     const geometry = new THREE[type]();

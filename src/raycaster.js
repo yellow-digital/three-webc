@@ -27,7 +27,7 @@ customElements.define(
 
     cast() {
       const { state, raycaster } = this;
-      const { camera, scene, renderer } = this.parentElement.viewport;
+      const { camera } = this.parentElement;
       const pointer = state.pointer;
 
       raycaster.setFromCamera(pointer, camera);
@@ -40,7 +40,7 @@ customElements.define(
     }
 
     update() {
-      const { camera, scene, renderer } = this.parentElement.viewport;
+      const { camera, scene } = this.parentElement;
       const { state, raycaster } = this;
       const pointer = state.pointer;
 
@@ -55,7 +55,7 @@ customElements.define(
       );
 
       // @ts-ignore
-      const previous = state.intersects;
+      // const previous = state.intersects;
       state.intersects = intersects;
       state.intersections = intersects.length;
 
@@ -67,7 +67,7 @@ customElements.define(
     }
 
     mounted() {
-      const { camera, scene, renderer } = this.parentElement.viewport;
+      const { scene, renderer } = this.parentElement;
       const { state } = this;
       const pointer = state.pointer;
 

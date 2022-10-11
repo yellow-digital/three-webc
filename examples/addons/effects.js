@@ -17,3 +17,22 @@ export const remove = (object, duration = 200) => {
     .to({ x: 0, y: 0, z: 0 }, duration / 2)
     .start();
 };
+
+export class Effects extends HTMLElement {
+  async connectedCallback() {
+    setTimeout(() => {
+      this.mounted();
+    });
+  }
+
+  mounted() {
+    // Resolve parent
+    const renderer = this.parentElement.viewport;
+
+    renderer.rafs.push(() => {
+      TWEEN.update();
+    });
+  }
+}
+
+customElements.define("t-effects", Effects);

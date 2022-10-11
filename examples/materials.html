@@ -12,23 +12,68 @@
 </script>
 
 <t-renderer antialias orbit>
-  <t-geo geo="Box" :position="{ x: 0, y: 1 }">
-    <t-material type="MeshStandard" color="green" />
-  </t-geo>
-  <t-geo geo="Box" :position="{ x: 2, y: 1 }">
-    <t-material type="MeshStandard" color="blue" />
-  </t-geo>
+  <t-object3d>
+    <t-raycaster></t-raycaster>
+    <t-mesh geo="Box" :position="{ x: 0, y: 1 }" :props="{castShadow: false}">
+      <t-material type="MeshBasic" color="green" />
+    </t-mesh>
+    <t-mesh geo="Box" :position="{ x: 2, y: 1 }" :props="{castShadow: true}">
+      <t-material type="MeshLambert" color="blue" />
+    </t-mesh>
+    <t-mesh geo="Box" :position="{ x: 4, y: 1 }" :props="{castShadow: true}">
+      <t-material type="MeshStandard" color="blue" />
+    </t-mesh>
+  </t-object3d>
+
   <t-axes></t-axes>
   <t-studio></t-studio>
+  <t-effects></t-effects>
 </t-renderer>
 
 <t-gui>
-  <p>This example shows how to add geometry.</p>
+  <p>This example shows how to use materials and shadows.</p>
 </t-gui>
 
 <script type="module">
   import "../three-webc.js";
-  import "./addons/geo.js";
+  import "./addons/object3d.js";
+  import "./addons/mesh.js";
   import "./addons/material.js";
   import "./addons/studio.js"
+  import * as EFFECTS from "./addons/effects.js";
+
+  const raycaster = document.querySelector("t-raycaster");
+
+  const tRenderer = document.querySelector("t-renderer");
+  tRenderer.renderer.domElement.addEventListener("mousemove", (e) => {
+    // console.log(e)
+    const intersects= raycaster.cast();
+    const object = intersects.length && intersects[0].object
+
+    document.body.style.cursor = object ? 'pointer' : ''
+    if(object) {
+      // console.log(object.type);
+    }
+  });
+  tRenderer.renderer.domElement.addEventListener("click", (e) => {
+    // console.log(e)
+    const intersects= raycaster.cast();
+    const object = intersects.length && intersects[0].object
+    if(object) {
+      EFFECTS.bounce(object);
+    }
+  });
+
+  {
+    const { GUI } = await import(
+      "https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm"
+    );
+    const gui = new GUI();
+
+    const raycaster = document.querySelector("t-raycaster");
+    const folder = gui
+    folder.domElement.append(document.createTextNode('click left for bounce or right to remove a box'))
+    folder.add(raycaster.state.pointer, "x").listen();
+    folder.add(raycaster.state.pointer, "y").listen();
+  }
 </script>
