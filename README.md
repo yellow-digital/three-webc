@@ -20,7 +20,7 @@ There are some good wrapper libraries for `ThreeJs` but they felt a bit of an ov
 - [aframe](https://aframe.io)
 
 # Usage
-Find here more [example](https://yellow-digital.github.io/three-webc/examples/list.html)
+Find here more [examples](https://yellow-digital.github.io/three-webc/examples/list.html)
 
 ```html
 <script type="importmap">
