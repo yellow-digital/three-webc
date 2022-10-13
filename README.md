@@ -6,7 +6,7 @@ This library shaves off some boiler code for setting up a scene and maintains a 
 
 ## Features
 
-:eyeglasses: **Less code**: just drop in `<t-renderer>`. Or some `addons`.
+:eyeglasses: **Less code**: just drop in `<t-renderer>`.
 
 :zap: **Performance**: it is a thin library on top of three.js. Just code as you use to.
 
