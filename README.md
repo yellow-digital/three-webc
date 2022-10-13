@@ -10,7 +10,7 @@ This library makes it easy to set up 3D graphics and maintains a straighforward 
 
 :zap: **Performance**: it is a thin library on top of three.js. Just code as you use to.
 
-:mag: **Visual Inspector**: As `three-webc` uses `WebComponents` you can simply use your browsers built-in inspector to change, add or remove elements.
+:mag: **Visual Inspector**: As `three-webc` uses `WebComponents` you can use your browsers built-in inspector to change, add or remove elements.
 
 **Vanilla**: Use it in any page or framework you like.
 # Why
