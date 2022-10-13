@@ -49,7 +49,8 @@ Find here more [examples](https://yellow-digital.github.io/three-webc/examples/l
   {
     "imports": {
       "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/"
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+      "three-webc": "https://cdn.jsdelivr.net/npm/three-webc/src/index.js"
     }
   }
 </script>
@@ -57,7 +58,7 @@ Find here more [examples](https://yellow-digital.github.io/three-webc/examples/l
 <t-renderer orbit></t-renderer>
 
 <script type="module">
-  import "../three-webc.js";
+  import "three-webc";
   import * as THREE from "three";
 
   const view = document.querySelector("t-view");
