@@ -12,9 +12,12 @@
 </script>
 
 <t-renderer antialias orbit>
-  <t-geo geo="Plane"></t-geo>
-  <t-geo geo="Sphere" :position="{ x: 2 }"></t-geo>
-  <t-geo geo="Plane" :rotation="{ x: -Math.PI / 2 }"></t-geo>
+  <t-object3d>
+    <!-- <t-geo geo="Plane"></t-geo>
+    <t-geo geo="Plane" :rotation="{ x: -Math.PI / 2 }"></t-geo>
+    <t-geo geo="Box" :position="{ x: 2 }"></t-geo>
+    <t-geo geo="Sphere" :position="{ x: 4 }" ></t-geo> -->
+  </t-object3d>
   <t-axes></t-axes>
   <t-studio></t-studio>
 </t-renderer>
@@ -26,5 +29,14 @@
 <script type="module">
   import "../three-webc.js";
   import "./addons/geo.js";
+  import {GEOMETRIES} from "./addons/geo.js";
   import "./addons/studio.js"
+  import "./addons/object3d.js"
+
+  GEOMETRIES.forEach((type,index) => {
+    const el = document.createElement('t-geo')
+    el.setAttribute('geo', type)
+    el.setAttribute(':position', `{x:${index*2}}`)
+    document.querySelector('t-object3d').append(el)
+  })
 </script>
