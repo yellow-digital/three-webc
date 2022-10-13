@@ -27,6 +27,28 @@ Find here more [example](https://yellow-digital.github.io/three-webc/examples/li
   {
     "imports": {
       "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+      "three-webc": "https://cdn.jsdelivr.net/npm/three-webc/src/index.js",
+      "three-webc/addons/": "https://cdn.jsdelivr.net/npm/three-webc/examples/addons/"
+    }
+  }
+</script>
+
+<t-renderer orbit>
+  <t-hello></t-hello>
+</t-renderer>
+
+<script type="module">
+  import "three-webc";
+  import "three-webc/addons/hello.js";
+</script>
+```
+
+```html
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/"
     }
   }
