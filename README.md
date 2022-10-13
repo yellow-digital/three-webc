@@ -2,7 +2,7 @@
 
 > A set of webcomponents to ease the creation of 3D graphics in your browser.
 
-This library makes it easy to set up 2D / 3D graphics and maintains a straighforward integration with **threejs**.
+This library makes it easy to set up 3D graphics and maintains a straighforward integration with **threejs**.
 
 ## Features
 
