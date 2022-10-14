@@ -56,4 +56,9 @@ By using webcomponents you can make visual composition, this greatly improves th
 
 ## Community
 
-- [Discord]([discord]: https://discord.gg/fatjexFHNr) for chat & help
+- [Discord] for chat & help
+
+ # Contribution
+ We welcome any input. You can get in contact with us at [Discord].
+ 
+ [Discord]([discord]: https://discord.gg/fatjexFHNr)
