@@ -14,8 +14,7 @@ This library makes it easy to set up 3D graphics and maintains a straighforward 
 
 :statue_of_liberty: **WebComponents**: Use it on any html page or framework!
 
-# Why
-There are some good wrapper libraries for `ThreeJs` but they felt a bit of an overkill nor abstract away coding or are framework dependent. This library provides a few webcomponents to aid exploring 3D in your browser faster.
+# Goal
 
 # Similar projects
 - [trois](https://github.com/troisjs/trois)
@@ -50,6 +49,10 @@ Find here more [examples](https://yellow-digital.github.io/three-webc/examples/l
   scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 </script>
 ```
+
+# FAQ
+## Why webcomponents?
+By using webcomponents you can make visual composition, this greatly improves the development experience without loosing the ability to code. Also the DOM brings some very powerfull tools, for example by using `document.queryElement` you can write complex queries. For example you can quickly query certain components and remove it from the scene by doing: `[...document.querySelectorAll('t-mesh')].forEach(e => e.remove())` (just from your code or even directly from your inspectors console)
 
 ## Community
 
