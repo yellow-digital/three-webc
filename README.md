@@ -56,7 +56,7 @@ Find here more [examples](https://yellow-digital.github.io/three-webc/examples/l
 By using webcomponents you can make visual composition, this greatly improves the development experience without loosing the ability to code. Also the DOM brings some very powerfull tools, for example by using `document.queryElement` you can write complex queries. For example you can quickly query certain components and remove it from the scene by doing: `[...document.querySelectorAll('t-mesh')].forEach(e => e.remove())` (just from your code or even directly from your inspectors console)
 
 # Contribution
-We welcome any input. If you create your own webcomponent (for physics, particle system, custom shaders, ...) , please let us know so we can maintain a curated list of addons.
+We welcome any input. If you have created a webcomponent for three-webc (for physics, particle system, custom shaders, ...), feel free to contact us at [Discord] so we can maintain a curated list.
  
 ## Community
 
