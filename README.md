@@ -22,6 +22,7 @@ Our goal is to make it easier to share and reuse components for 3D web graphics.
 # Usage
 Find here more [examples](https://yellow-digital.github.io/three-webc/examples/list.html)
 
+https://jsfiddle.net/yellowdigital/6jetkhpd/
 ```html
 <script type="importmap">
   {
