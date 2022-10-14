@@ -2,7 +2,7 @@
 
 > Webcomponents for [threejs]
 
-Ease the setup for 3D graphics and maintains a straighforward integration with [threejs].
+Ease the setup for 3D graphics and maintain a straighforward integration with [threejs].
 
 ## Features
 
