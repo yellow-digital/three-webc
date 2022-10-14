@@ -60,7 +60,8 @@ By using webcomponents you can make visual composition, this greatly improves th
 - [Discord] for chat & help
 
 # Contribution
-We welcome any input. You can get in contact with us at [Discord]. If you create your own webcomponent (for physics, particle system, custom shaders, ...) , please let us know so we can maintain a curated list of addons.
+We welcome any input. You can get in contact with us at [Discord]. 
+If you create your own webcomponent (for physics, particle system, custom shaders, ...) , please let us know so we can maintain a curated list of addons.
  
 [discord]: https://discord.gg/fatjexFHNr
 [threejs]: https://github.com/mrdoob/three.js
