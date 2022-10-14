@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { ThreeElement } from "three-webc";
 
 export function basicScene(view) {
   const { scene } = view;
@@ -34,10 +35,7 @@ export function basicScene(view) {
   });
 }
 
-class THello extends HTMLElement {
-  async connectedCallback() {
-    setTimeout(() => { this.mounted() } )
-  }
+class THello extends ThreeElement {
   mounted() {
     const view = this.parentElement.viewport;
     basicScene(view);

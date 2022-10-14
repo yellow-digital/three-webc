@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { ThreeElement } from "three-webc";
 
 /**
  * https://stackoverflow.com/questions/11586527/converting-world-coordinates-to-screen-coordinates-in-three-js-using-projection
@@ -23,12 +24,7 @@ export function getBoundingRect(obj, { renderer, camera }) {
   return { x, y };
 }
 
-class Overlay extends HTMLElement {
-  async connectedCallback() {
-    setTimeout(() => {
-      this.mounted();
-    });
-  }
+class Overlay extends ThreeElement {
   mounted() {
     this.closest('t-renderer')?.addEventListener('render',this.update.bind(this))
     // this.closest('t-renderer').rafs.push(() => {

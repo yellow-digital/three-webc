@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { ThreeElement } from "three-webc";
 
 function getBooleanAttribute(val) {
   if (val === "") return true;
@@ -51,14 +52,12 @@ export function basicScene(scene) {
   // });
 }
 
-export default class extends HTMLElement {
+export default class extends ThreeElement {
   constructor() {
     super();
     this.group = new THREE.Object3D();
   }
-  async connectedCallback() {
-    setTimeout(() => this.mounted(this.parentElement));
-  }
+
   mounted(view) {
     view.scene.add(this.group);
     basicScene(view.scene);
@@ -67,6 +66,7 @@ export default class extends HTMLElement {
 
     }
   }
+  
   disconnectedCallback() {
     this.group.removeFromParent();
   }

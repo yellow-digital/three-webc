@@ -1,13 +1,8 @@
 import * as THREE from "three";
 import { applyAttributes } from "./object3d.js";
+import { ThreeElement } from "three-webc";
 
-export class PerspectiveCamera extends HTMLElement {
-  async connectedCallback() {
-    setTimeout(() => {
-      this.mounted();
-    });
-  }
-
+export class PerspectiveCamera extends ThreeElement {
   get position() {
     return this.camera.position
   }

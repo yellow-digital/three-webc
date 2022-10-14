@@ -1,5 +1,6 @@
 import * as THREE from "three";
-import { applyAttributes } from "./object3d.js"
+import { applyAttributes } from "./object3d.js";
+import { ThreeElement } from "three-webc";
 
 export const GEOMETRIES = [
   "Box",
@@ -25,35 +26,30 @@ export const GEOMETRIES = [
   "Wireframe",
 ];
 
-customElements.define(
-  "t-geo",
-  class extends HTMLElement {
-    async connectedCallback() {
-      setTimeout(() => { this.mounted() } )
-    }
+class GeoElement extends ThreeElement {
+  mounted() {
+    const { scene } = this.parentElement;
 
-    mounted() {
-      const { scene } = this.parentElement;
+    const type = `${this.getAttribute("geo")}Geometry`;
+    const geometry = new THREE[type]();
+    const material = new THREE.MeshStandardMaterial({
+      color: 0x00ff00,
+      side: 2,
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.name = "object";
+    scene.add(mesh);
 
-      const type = `${this.getAttribute("geo")}Geometry`;
-      const geometry = new THREE[type]();
-      const material = new THREE.MeshStandardMaterial({
-        color: 0x00ff00,
-        side: 2,
-      });
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.name = "object";
-      scene.add(mesh);
+    this.mesh = mesh;
 
-      this.mesh = mesh
-      
-      applyAttributes(this, mesh)
-    }
-
-    disconnectedCallback() {
-      this.mesh?.removeFromParent();
-      // this.mesh?.material.dispose();
-      // this.mesh?.geometry.dispose();
-    }
+    applyAttributes(this, mesh);
   }
-);
+
+  disconnectedCallback() {
+    this.mesh?.removeFromParent();
+    // this.mesh?.material.dispose();
+    // this.mesh?.geometry.dispose();
+  }
+}
+
+customElements.define("t-geo", GeoElement);
