@@ -1,12 +1,7 @@
 import * as THREE from "three";
+import { ThreeElement } from "three-webc";
 
-export class Material extends HTMLElement {
-  async connectedCallback() {
-    setTimeout(() => {
-      this.mounted();
-    });
-  }
-
+export class Material extends ThreeElement {
   mounted() {
     const type = `${this.getAttribute("type")}Material`;
     if (!THREE[type]) {

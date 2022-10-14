@@ -1,20 +1,15 @@
 import * as THREE from "three";
 import { applyAttributes } from "./object3d.js";
+import { ThreeElement } from "three-webc";
 import "./material.js";
 
-export class Mesh extends HTMLElement {
+export class Mesh extends ThreeElement {
   constructor() {
     super()
     this.mesh = {}
     this.material = null
   }
 
-  async connectedCallback() {
-    setTimeout(() => {
-      this.mounted();
-    });
-  }
-  
   mounted() {
     const { scene } = this.parentElement;
 

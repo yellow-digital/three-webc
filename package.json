@@ -7,7 +7,7 @@
     "src": "src"
   },
   "scripts": {
-    "start": "npx serve",
+    "start": "npm run dev",
     "dev": "npx browser-sync . --directory --watch"
   },
   "keywords": ["threejs", "webgl"],

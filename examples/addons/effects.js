@@ -1,4 +1,5 @@
 import { TWEEN } from "three/addons/libs/tween.module.min.js";
+import { ThreeElement } from "three-webc";
 
 export const bounce = (object, {duration = 200, scale = 2} = {}) => {
   const tween1 = new TWEEN.Tween(object.scale).to(
@@ -22,15 +23,11 @@ const EFFECTS = {
   bounce,
   remove
 }
-export class Effects extends HTMLElement {
+
+export class Effects extends ThreeElement {
   constructor() {
     super()
     this.EFFECTS = EFFECTS
-  }
-  async connectedCallback() {
-    setTimeout(() => {
-      this.mounted();
-    });
   }
 
   mounted() {
