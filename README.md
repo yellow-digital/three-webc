@@ -19,7 +19,8 @@ There are some good wrapper libraries for `ThreeJs` but they felt a bit of an ov
 
 # Similar projects
 - [trois](https://github.com/troisjs/trois)
-- [aframe](https://aframe.io)
+- [aframe](https://aframe.io) 
+- [three-elements](https://github.com/hmans/three-elements)
 
 # Usage
 Find here more [examples](https://yellow-digital.github.io/three-webc/examples/list.html)
