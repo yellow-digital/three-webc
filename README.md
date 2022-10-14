@@ -4,6 +4,8 @@
 
 Ease the setup for 3D graphics and maintain a straighforward integration with [threejs].
 
+> **WARNING:** It is early days for this library, so please proceed with caution!
+
 ## Features
 
 :eyeglasses: **Less code**: just drop in `<t-renderer>`.
