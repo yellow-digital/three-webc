@@ -15,11 +15,7 @@ Ease the setup for 3D graphics and maintain a straighforward integration with [t
 :statue_of_liberty: **WebComponents**: Use it on any html page or framework!
 
 # Goal
-
-# Similar projects
-- [trois](https://github.com/troisjs/trois)
-- [aframe](https://aframe.io) 
-- [three-elements](https://github.com/hmans/three-elements)
+Our goal is to make it easier to share and reuse components for 3D web graphics.
 
 # Usage
 Find here more [examples](https://yellow-digital.github.io/three-webc/examples/list.html)
@@ -49,6 +45,11 @@ Find here more [examples](https://yellow-digital.github.io/three-webc/examples/l
   scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 </script>
 ```
+
+# Similar projects
+- [trois](https://github.com/troisjs/trois)
+- [aframe](https://aframe.io) 
+- [three-elements](https://github.com/hmans/three-elements)
 
 # FAQ
 ## Why webcomponents?
