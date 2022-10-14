@@ -12,7 +12,7 @@ This library makes it easy to set up 3D graphics and maintains a straighforward 
 
 :mag: **Visual Inspector**: As `three-webc` uses `WebComponents` you can use your browsers built-in inspector to change, add or remove elements.
 
-:statue_of_liberty: Use it with any framework!
+:statue_of_liberty: **WebComponents**: Use it on any html page or framework!
 
 # Why
 There are some good wrapper libraries for `ThreeJs` but they felt a bit of an overkill nor abstract away coding or are framework dependent. This library provides a few webcomponents to aid exploring 3D in your browser faster.
