@@ -1,8 +1,8 @@
 # three-webc
 
-> Webcomponents to ease the creation of 3D graphics in your browser.
+> Webcomponents for [threejs]
 
-Ease the setup for 3D graphics and maintains a straighforward integration with [threejs](https://github.com/mrdoob/three.js).
+Ease the setup for 3D graphics and maintains a straighforward integration with [threejs].
 
 ## Features
 
@@ -61,4 +61,5 @@ By using webcomponents you can make visual composition, this greatly improves th
  # Contribution
  We welcome any input. You can get in contact with us at [Discord].
  
- [discord]: https://discord.gg/fatjexFHNr
+[discord]: https://discord.gg/fatjexFHNr
+[threejs]: https://github.com/mrdoob/three.js
