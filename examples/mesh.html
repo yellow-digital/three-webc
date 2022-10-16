@@ -1,0 +1,91 @@
+<style>
+  @import url("./style.css");
+</style>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+      "three-webc": "../src/index.js",
+      "three-webc/addons/": "./addons/"
+    }
+  }
+</script>
+
+<t-renderer antialias orbit>
+  <t-camera :position="{ x: 4, y:4, z: 4 }"></t-camera>
+  <t-object3d name="objects" :position="{ y: 1 }">
+    <t-raycaster></t-raycaster>
+    <t-mesh
+      :position="{ x: 0 }"
+      :props="{castShadow: false}"
+    >
+      <t-geometry type="Sphere" ></t-geometry>
+      <t-material type="MeshStandard" color="green" ></t-material>
+    </t-mesh>
+  </t-object3d>
+
+  <t-axes></t-axes>
+  <t-studio></t-studio>
+  <t-effects></t-effects>
+</t-renderer>
+
+<gui-info>
+  <p>
+    This example shows how to use materials and shadows.
+    <a
+      target="_blank"
+      href="https://threejs.org/docs/index.html?q=material#api/en/materials/Material"
+      >more info</a
+    >
+  </p>
+</gui-info>
+
+<script type="module">
+  import "three-webc";
+  import "./addons/index.js";
+  import * as EFFECTS from "./addons/effects.js";
+  import * as THREE from "three";
+
+  const tRenderer = document.querySelector("t-renderer");
+  const state = {
+    current: { name: ''},
+  };
+  // Expose to console
+  window.state = state;
+
+  // Raycast
+  const raycaster = document.querySelector("t-raycaster");
+
+  tRenderer.renderer.domElement.addEventListener("mousemove", (e) => {
+    const intersects = raycaster.cast();
+    const object = intersects.length && intersects[0].object;
+
+    if (object && state.current.uuid !== object.uuid) {
+      EFFECTS.bounce(object, { scale: 1.2 });
+    }
+
+    document.body.style.cursor = object ? "pointer" : "";
+    Object.assign(state.current, object || { name: "", uuid: "" });
+  });
+
+  tRenderer.renderer.domElement.addEventListener("click", (e) => {
+    const intersects = raycaster.cast();
+    const object = intersects.length && intersects[0].object;
+    if (object) {
+      EFFECTS.bounce(object);
+    }
+  });
+
+  {
+    const { GUI } = await import(
+      "https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm"
+    );
+    const gui = new GUI();
+
+    const raycaster = document.querySelector("t-raycaster");
+    const folder = gui;
+    folder.add(state.current, "name").listen();
+  }
+</script>

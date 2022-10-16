@@ -36,13 +36,13 @@ export class Object3D extends ThreeElement {
   }
   // Proxy to allow nesting
   get rafs() {
-    return this.closest("t-renderer").rafs;
+    return this.rendererEl.rafs;
   }
   get renderer() {
-    return this.closest("t-renderer").renderer;
+    return this.rendererEl.renderer;
   }
   get camera() {
-    return this.closest("t-renderer").camera;
+    return this.rendererEl.camera;
   }
 
   // Sugars

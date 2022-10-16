@@ -1,6 +1,7 @@
 import "./camera.js"
 import "./effects.js"
 import "./geo.js"
+import "./geometry.js"
 import "./material.js"
 import "./mesh.js"
 import "./model.js"
