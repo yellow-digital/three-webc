@@ -14,55 +14,15 @@
 </script>
 
 <t-renderer antialias orbit>
+  <t-camera :position="{ x: 4, y:4, z: 4 }"></t-camera>
   <t-object3d name="objects" :position="{ y: 1 }">
     <t-raycaster></t-raycaster>
     <t-mesh
-      name="Default"
-      geo="Sphere"
-      :position="{ x: -2 }"
-      :props="{castShadow: false}"
-    >
-    </t-mesh>
-    <t-mesh
-      name="MeshBasic"
-      geo="Sphere"
       :position="{ x: 0 }"
       :props="{castShadow: false}"
     >
-      <t-material type="MeshBasic" color="green" />
-    </t-mesh>
-    <t-mesh
-      name="MeshLambert"
-      geo="Sphere"
-      :position="{ x: 2 }"
-      :props="{castShadow: true}"
-    >
-      <t-material type="MeshLambert" color="blue" />
-    </t-mesh>
-    <t-mesh
-      name="MeshPhong"
-      geo="Sphere"
-      :position="{ x: 4 }"
-      :props="{castShadow: true}"
-    >
-      <t-material type="MeshPhong" color="blue" />
-    </t-mesh>
-    <t-mesh
-      name="Lambert"
-      geo="Sphere"
-      title="non-shiny surface without specular highlights"
-      :position="{ x: 6 }"
-      :props="{castShadow: true}"
-    >
-      <t-material type="MeshLambert" color="blue" />
-    </t-mesh>
-    <t-mesh
-      name="MeshStandard"
-      geo="Sphere"
-      :position="{ x: 8 }"
-      :props="{castShadow: true}"
-    >
-      <t-material type="MeshStandard" color="blue" />
+      <t-geometry type="Sphere" ></t-geometry>
+      <t-material type="MeshStandard" color="green" ></t-material>
     </t-mesh>
   </t-object3d>
 
@@ -83,11 +43,8 @@
 </gui-info>
 
 <script type="module">
-  import "three-webc/three-webc.js";
-  import "three-webc/addons/object3d.js";
-  import "three-webc/addons/mesh.js";
-  import "three-webc/addons/material.js";
-  import "three-webc/addons/studio.js";
+  import "three-webc";
+  import "three-webc/addons/index.js";
   import * as EFFECTS from "three-webc/addons/effects.js";
   import * as THREE from "three";
 

@@ -1,30 +1,7 @@
 import * as THREE from "three";
 import { applyAttributes } from "./object3d.js";
 import { ThreeElement } from "three-webc";
-
-export const GEOMETRIES = [
-  "Box",
-  "Capsule",
-  "Circle",
-  "Cone",
-  "Cylinder",
-  "Dodecahedron",
-  "Edges",
-  "Extrude",
-  "Icosahedron",
-  "Lathe",
-  "Octahedron",
-  "Plane",
-  "Polyhedron",
-  "Ring",
-  "Shape",
-  "Sphere",
-  "Tetrahedron",
-  "Torus",
-  "TorusKnot",
-  "Tube",
-  "Wireframe",
-];
+import { GEOMETRIES } from "./geometry.js";
 
 class GeoElement extends ThreeElement {
   mounted() {

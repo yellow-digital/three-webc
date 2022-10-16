@@ -8,7 +8,7 @@
       "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
       "three-webc": "../src/index.js",
-      "three-webc/addons/": "./addons/"
+      "three-webc/": "../"
     }
   }
 </script>
@@ -24,16 +24,13 @@
   <t-studio></t-studio>
 </t-renderer>
 
-<t-gui>
+<gui-info>
   <p>This example shows how to add geometry.</p>
-</t-gui>
+</gui-info>
 
 <script type="module">
-  import "../three-webc.js";
-  import "./addons/geo.js";
-  import {GEOMETRIES} from "./addons/geo.js";
-  import "./addons/studio.js"
-  import "./addons/object3d.js"
+  import "three-webc/three-webc.js";
+  import {GEOMETRIES} from "three-webc/addons/index.js";
 
   GEOMETRIES.forEach((type,index) => {
     const el = document.createElement('t-geo')

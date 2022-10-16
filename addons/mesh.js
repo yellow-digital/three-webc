@@ -7,6 +7,7 @@ export class Mesh extends ThreeElement {
   constructor() {
     super()
     this.mesh = {}
+    this.geometry = null
     this.material = null
   }
 
@@ -14,7 +15,7 @@ export class Mesh extends ThreeElement {
     const { scene } = this.parentElement;
 
     const type = `${this.getAttribute("geo")}Geometry`;
-    const geometry = new THREE[type]();
+    const geometry = this.geometry || new THREE[type]();
     const material = this.material || new THREE.MeshStandardMaterial({
       color: 0x00ff00,
       wireframe: true,

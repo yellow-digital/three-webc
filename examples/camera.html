@@ -11,7 +11,7 @@
       "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
       "three-webc": "../src/index.js",
-      "three-webc/addons/": "./addons/"
+      "three-webc/": "../"
     }
   }
 </script>
@@ -29,11 +29,9 @@
 </my-row>
 
 <script type="module">
-  import "../three-webc.js";
-  import "./addons/hello.js";
-  import "./addons/camera.js";
-  import "./addons/expose.js";
-  import {ObjectGui} from "./addons/gui/GuiHelpers.js";
+  import "three-webc/three-webc.js";
+  import "three-webc/addons/index.js";
+  import {ObjectGui} from "three-webc/addons/gui/GuiHelpers.js";
 
   // {
   //   const { GUI } = await import(
