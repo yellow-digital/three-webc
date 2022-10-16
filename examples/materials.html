@@ -8,7 +8,7 @@
       "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
       "three-webc": "../src/index.js",
-      "three-webc/addons/": "./addons/"
+      "three-webc/": "../"
     }
   }
 </script>
@@ -83,12 +83,12 @@
 </gui-info>
 
 <script type="module">
-  import "../three-webc.js";
-  import "./addons/object3d.js";
-  import "./addons/mesh.js";
-  import "./addons/material.js";
-  import "./addons/studio.js";
-  import * as EFFECTS from "./addons/effects.js";
+  import "three-webc/three-webc.js";
+  import "three-webc/addons/object3d.js";
+  import "three-webc/addons/mesh.js";
+  import "three-webc/addons/material.js";
+  import "three-webc/addons/studio.js";
+  import * as EFFECTS from "three-webc/addons/effects.js";
   import * as THREE from "three";
 
   const tRenderer = document.querySelector("t-renderer");

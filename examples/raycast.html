@@ -8,7 +8,7 @@
       "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
       "three-webc": "../src/index.js",
-      "three-webc/addons/": "./addons/"
+      "three-webc/": "../"
     }
   }
 </script>
@@ -24,12 +24,12 @@
 </t-renderer>
 
 <script type="module">
-  import "../three-webc.js";
+  import "three-webc";
   import * as THREE from "three";
-  import "./addons/objects/crate.js";
-  import "./addons/studio.js";
-  import "./addons/object3d.js";
-  import * as EFFECTS from "./addons/effects.js";
+  import "three-webc/addons/objects/crate.js";
+  import "three-webc/addons/studio.js";
+  import "three-webc/addons/object3d.js";
+  import * as EFFECTS from "three-webc/addons/effects.js";
   import { TWEEN } from "three/addons/libs/tween.module.min.js";
 
   const { scene, renderer } = document.querySelector("t-renderer");

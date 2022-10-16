@@ -8,7 +8,7 @@
       "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
       "three-webc": "../src/index.js",
-      "three-webc/addons/": "./addons/"
+      "three-webc/": "../"
     }
   }
 </script>
@@ -16,7 +16,7 @@
 <t-renderer></t-renderer>
 
 <script type="module">
-  import "../three-webc.js";
+  import "three-webc";
   import * as THREE from "three";
 
   // https://threejs.org/examples/?q=transform#misc_controls_transform

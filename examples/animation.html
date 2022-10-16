@@ -8,7 +8,7 @@
       "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
       "three-webc": "../src/index.js",
-      "three-webc/addons/": "./addons/"
+      "three-webc/": "../"
     }
   }
 </script>
@@ -51,11 +51,9 @@
 </gui-info>
 
 <script type="module">
-  import "../three-webc.js";
-  import "./addons/model.js";
-  import "./addons/studio.js";
-  import "./addons/mesh.js";
-  import * as EFFECTS from "./addons/effects.js";
+  import "three-webc/three-webc.js";
+  import "three-webc/addons/index.js";
+  import * as EFFECTS from "three-webc/addons/effects.js";
 
   const renderer = document.querySelector("t-renderer");
 
