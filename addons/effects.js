@@ -1,5 +1,5 @@
 import { TWEEN } from "three/addons/libs/tween.module.min.js";
-import { ThreeElement } from "three-webc";
+import { ThreeWebc } from "three-webc";
 
 export const bounce = (object, {duration = 200, scale = 2} = {}) => {
   const tween1 = new TWEEN.Tween(object.scale).to(
@@ -24,7 +24,7 @@ const EFFECTS = {
   remove
 }
 
-export class Effects extends ThreeElement {
+export class Effects extends ThreeWebc.Element {
   constructor() {
     super()
     this.EFFECTS = EFFECTS
@@ -40,4 +40,4 @@ export class Effects extends ThreeElement {
   }
 }
 
-customElements.define("t-effects", Effects);
+ThreeWebc.define("effects", Effects);

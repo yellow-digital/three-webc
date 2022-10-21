@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { applyAttributes } from "./object3d.js";
-import { ThreeElement } from "three-webc";
+import { ThreeWebc } from "three-webc";
 
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_lights_hemisphere.html
 
@@ -12,7 +12,7 @@ function getBooleanAttribute(val) {
   return false;
 }
 
-class ModelElement extends ThreeElement {
+class ModelElement extends ThreeWebc.Element {
   constructor() {
     super();
     this.container = new THREE.Object3D();
@@ -82,4 +82,4 @@ class ModelElement extends ThreeElement {
   }
 }
 
-customElements.define("t-model", ModelElement);
+ThreeWebc.define("model", ModelElement);

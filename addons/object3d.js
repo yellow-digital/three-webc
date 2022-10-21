@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { ThreeElement } from "three-webc";
+import { ThreeWebc } from "three-webc";
 
 export function applyAttributes(el, mesh) {
   if (el.getAttribute(":position")) {
@@ -26,7 +26,7 @@ export function applyAttributes(el, mesh) {
   }
 }
 
-export class Object3D extends ThreeElement {
+export class Object3D extends ThreeWebc.Element {
   constructor() {
     super();
     const mesh = new THREE.Object3D();
@@ -74,4 +74,4 @@ export class Object3D extends ThreeElement {
   }
 }
 
-customElements.define("t-object3d", Object3D);
+ThreeWebc.define("object3d", Object3D);

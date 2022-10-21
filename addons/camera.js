@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { applyAttributes } from "./object3d.js";
-import { ThreeElement } from "three-webc";
+import { ThreeWebc } from "three-webc";
 
-export class PerspectiveCamera extends ThreeElement {
+export class PerspectiveCamera extends ThreeWebc.Element {
   get position() {
     return this.camera.position
   }
@@ -31,4 +31,4 @@ export class PerspectiveCamera extends ThreeElement {
   }
 }
 
-customElements.define("t-camera", PerspectiveCamera);
+ThreeWebc.define("camera", PerspectiveCamera);

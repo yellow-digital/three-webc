@@ -1,6 +1,5 @@
 import * as THREE from "three";
-import { applyAttributes } from "./object3d.js";
-import { ThreeElement } from "three-webc";
+import { ThreeWebc } from "three-webc";
 
 export const GEOMETRIES = [
 	"Box",
@@ -26,7 +25,7 @@ export const GEOMETRIES = [
 	"Wireframe",
 ];
 
-class GeoElement extends ThreeElement {
+class GeoElement extends ThreeWebc.Element {
 	mounted() {
 		const type = `${this.getAttribute("type")}Geometry`;
 		if (!THREE[type]) {
@@ -47,4 +46,4 @@ class GeoElement extends ThreeElement {
 	}
 }
 
-customElements.define("t-geometry", GeoElement);
+ThreeWebc.define("geometry", GeoElement);
