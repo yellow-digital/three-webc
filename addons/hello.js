@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { ThreeElement } from "three-webc";
+import { ThreeWebc } from "three-webc";
 
 export function basicScene(view) {
   const { scene } = view;
@@ -35,11 +35,11 @@ export function basicScene(view) {
   });
 }
 
-class THello extends ThreeElement {
+class THello extends ThreeWebc.Element {
   mounted() {
     const view = this.parentElement.viewport;
     basicScene(view);
   }
 }
 
-customElements.define("t-hello", THello);
+ThreeWebc.define("hello", THello);

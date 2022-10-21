@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "target": "esnext",
+    "baseUrl": "./",
+    "paths": {
+      "three-webc/*": [
+        "*"
+      ],
+      "three/addons/*": [
+        "node_modules/three/examples/jsm/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

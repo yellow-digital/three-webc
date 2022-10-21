@@ -1,17 +1,14 @@
 import * as THREE from "three";
 import { applyAttributes } from "./object3d.js";
-import { ThreeElement } from "three-webc";
+import { ThreeWebc } from "three-webc";
 
-export class PerspectiveCamera extends ThreeElement {
+export class PerspectiveCamera extends ThreeWebc.Element {
   get position() {
     return this.camera.position
   }
 
-  get viewport() {
-    return this.parentElement.viewport
-  }
   get aspect() {
-    return this.viewport.aspectRatio
+    return this.renderEl?.aspectRatio
   }
 
   mounted() {
@@ -22,13 +19,11 @@ export class PerspectiveCamera extends ThreeElement {
       10000000
     );
 
-    this.camera = camera
-
     applyAttributes(this, camera);
 
     // Overrule previous camera?
-    this.viewport.camera = camera
+    this.camera = camera
   }
 }
 
-customElements.define("t-camera", PerspectiveCamera);
+ThreeWebc.define("camera", PerspectiveCamera);

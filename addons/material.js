@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import { ThreeElement } from "three-webc";
+import { ThreeWebc } from "three-webc";
 
-export class Material extends ThreeElement {
+export class Material extends ThreeWebc.Element {
   mounted() {
     const type = `${this.getAttribute("type")}Material`;
     if (!THREE[type]) {
@@ -25,4 +25,4 @@ export class Material extends ThreeElement {
   }
 }
 
-customElements.define("t-material", Material);
+ThreeWebc.define("material", Material);

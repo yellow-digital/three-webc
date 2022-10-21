@@ -1,9 +1,9 @@
 import * as THREE from "three";
 import { applyAttributes } from "./object3d.js";
-import { ThreeElement } from "three-webc";
+import { ThreeWebc } from "three-webc";
 import "./material.js";
 
-export class Mesh extends ThreeElement {
+export class Mesh extends ThreeWebc.Element {
   constructor() {
     super()
     this.mesh = {}
@@ -37,4 +37,4 @@ export class Mesh extends ThreeElement {
   }
 }
 
-customElements.define("t-mesh", Mesh);
+ThreeWebc.define("mesh", Mesh);

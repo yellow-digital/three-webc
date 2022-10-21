@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { ThreeWebc } from "three-webc";
 
 export function createCrate () {
   const texture = new THREE.TextureLoader().load(
@@ -14,13 +15,9 @@ export function createCrate () {
   return mesh
 }
 
-customElements.define(
-  "t-crate",
-  class Element extends HTMLElement {
-    async connectedCallback() {
-      setTimeout(() => { this.mounted() } )
-    }
-
+ThreeWebc.define(
+  "crate",
+  class Element extends ThreeWebc.Element {
     async mounted() {
       const { scene, renderer } = this.parentElement;
 
@@ -34,7 +31,7 @@ customElements.define(
       this.mesh = mesh;
     }
 
-    disconnectedCallback() {
+    destroyed() {
       this.mesh?.removeFromParent();
       this.mesh.material.dispose();
       this.mesh?.geometry.dispose();

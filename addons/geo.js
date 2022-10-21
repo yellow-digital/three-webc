@@ -1,9 +1,8 @@
 import * as THREE from "three";
 import { applyAttributes } from "./object3d.js";
-import { ThreeElement } from "three-webc";
-import { GEOMETRIES } from "./geometry.js";
+import { ThreeWebc } from "three-webc";
 
-class GeoElement extends ThreeElement {
+class GeoElement extends ThreeWebc.Element {
   mounted() {
     const { scene } = this.parentElement;
 
@@ -29,4 +28,4 @@ class GeoElement extends ThreeElement {
   }
 }
 
-customElements.define("t-geo", GeoElement);
+ThreeWebc.define("geo", GeoElement);
