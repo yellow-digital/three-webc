@@ -113,12 +113,12 @@ export class Viewport {
   }
 }
 
-class TRenderer extends HTMLElement {
+class TRenderer extends ThreeWebc.Element {
   constructor() {
     super();
     const viewport = new Viewport();
     this.viewport = viewport;
-    // this.animator = new Animater();
+    ThreeWebc.debug = this.getAttribute('debug') === "";
   }
   get THREE() {
     return THREE;
@@ -133,6 +133,7 @@ class TRenderer extends HTMLElement {
     return this.viewport.camera;
   }
   set camera(cam) {
+    this.debug('new cam', cam)
     this.viewport.camera = cam;
   }
   get rafs() {
