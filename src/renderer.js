@@ -142,7 +142,9 @@ class TRenderer extends HTMLElement {
     this.viewport = viewport;
     // this.animator = new Animater();
   }
-
+  get THREE() {
+    return THREE;
+  }
   get scene() {
     return this.viewport.scene;
   }
