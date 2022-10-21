@@ -10,7 +10,13 @@
     "start": "npm run dev",
     "dev": "npx browser-sync . --directory --watch"
   },
-  "keywords": ["threejs", "webgl"],
+  "keywords": [
+    "threejs",
+    "webgl"
+  ],
   "author": "Jelle",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "three": "^0.145.0"
+  }
 }
