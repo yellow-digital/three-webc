@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { ThreeWebc } from "./core.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 
 export class Viewport {
   constructor(options = {}) {
@@ -6,7 +8,7 @@ export class Viewport {
     this.playing = true;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xcccccc);
+    // scene.background = new THREE.Color(0xcccccc);
     this.scene = scene;
     this.controls = null;
     this.container = null;
@@ -14,6 +16,7 @@ export class Viewport {
     this.clock = new THREE.Clock();
     const renderer = new THREE.WebGLRenderer({ antialias: true, ...options });
     renderer.setPixelRatio(window.devicePixelRatio);
+    // renderer.toneMapping = THREE.ReinhardToneMapping;
     // renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
@@ -80,12 +83,16 @@ export class Viewport {
     }
   }
 
-  render() {
+  tick() {
     const delta = this.clock.getDelta();
 
     this.rafs.forEach((fn) => {
       fn(delta);
     });
+  }
+
+  render() {
+    this.tick()
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -103,35 +110,6 @@ export class Viewport {
       camera.updateProjectionMatrix();
     }
     renderer.setSize(width, height);
-  }
-}
-
-export class Animater {
-  constructor() {
-    this.rafs = [];
-    this.playing = true;
-    this.clock = new THREE.Clock();
-  }
-
-  stop() {
-    this.playing = false;
-  }
-
-  animate() {
-    requestAnimationFrame(() => {
-      if (this.playing) {
-        this.animate();
-      }
-    });
-
-    this.render();
-  }
-
-  render() {
-    const delta = this.clock.getDelta();
-    this.rafs.forEach((fn) => {
-      fn(delta);
-    });
   }
 }
 
@@ -175,17 +153,31 @@ class TRenderer extends HTMLElement {
     })
 
     // Sugar
-    if (this.getAttribute("controls")) {
-      const el = document.createElement("t-controls");
-      el.setAttribute("type", this.getAttribute("controls"));
-      this.append(el);
-    }
-
-    if (!this.getAttribute("controls") && this.getAttribute("orbit") === "") {
+    if (this.getAttribute("orbit") === "") {
       const el = document.createElement("t-orbit");
       this.append(el);
     }
   }
 }
 
-customElements.define("t-renderer", TRenderer);
+ThreeWebc.define("renderer", TRenderer);
+
+// NOTE this component should be defined after 'renderer' so it has access to it
+ThreeWebc.define(
+	"effect-composer",
+	class extends ThreeWebc.Element {
+		constructor() {
+			super();
+			this.composer = new EffectComposer(this.renderer);
+		}
+		mounted() {
+			const { composer } = this;
+
+			// Take over render
+			this.rendererEl.viewport.render = (scene, camera) => {
+				this.rendererEl.viewport.tick()
+				composer.render();
+			};
+		}
+	}
+);
