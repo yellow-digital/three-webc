@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "checkJs": true,
+    "target": "esnext",
     "baseUrl": "./",
     "paths": {
       "three-webc/*": [
