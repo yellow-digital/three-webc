@@ -2,15 +2,6 @@
 export const PREFIX = 't'
 
 /**
- * Sugar for customElements.define("t-***", class extends HTMLElement {});
- * @param {*} tag 
- * @param {*} element 
- */
-export function define(tag = '', element) {
-  customElements.define(`${PREFIX}-${tag}`, element);
-}
-
-/**
  * Base class.
  */
 export class ThreeElement extends HTMLElement {
@@ -21,7 +12,7 @@ export class ThreeElement extends HTMLElement {
   get observedAttributes() {
     return [""];
   }
-  
+
   attributeChangedCallback(key = "", oldValue, newValue) {
     this.log('attributeChangedCallback', key, oldValue, newValue);
     this[key] = newValue
@@ -30,13 +21,18 @@ export class ThreeElement extends HTMLElement {
   get rendererEl() {
     return this.closest("t-renderer") || {};
   }
-  
   get renderer() { return this.rendererEl.renderer; }
-  
   get scene() { return this.rendererEl.scene; }
-  
   get camera() { return this.rendererEl.camera; }
   set camera(value) { this.rendererEl.camera = value; }
+
+  /**
+   * Use this getter to find first parent Object3D
+   */
+  get parent() { 
+    return this.parentElement; 
+    // return this.find((node) => node instanceof ThreeElement)
+  }
 
   getValue(name = '') {
     const fn = new Function(`return ${this.getAttribute(name)}`);
@@ -86,10 +82,33 @@ export class ThreeElement extends HTMLElement {
   }
 }
 
+/**
+ * Tracks registered elements by mapping them from PascalPaseNames to their kebab-case
+ * equivalents.
+ */
+ export const registeredElements = {}
+
 export const ThreeWebc = {
+  registeredElements,
   debug: false,
   Element: ThreeElement,
   define
 }
 
 export default ThreeWebc
+
+/**
+ * Convenience method to create a new custom element.
+ * @param {*} tag 
+ * @param {*} element 
+ */
+ export function define(tag = '', element) {
+  const name = `${PREFIX}-${tag}`
+  if (customElements.get(name)) {
+    console.warn(`duplicate registration for: ${name}`)
+    return
+  }
+
+  customElements.define(name, element);
+  registeredElements[tag] = element
+}
