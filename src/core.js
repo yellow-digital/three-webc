@@ -23,8 +23,15 @@ export class ThreeElement extends HTMLElement {
   }
 
   get rendererEl() {
-    return this.closest("t-renderer");
+    return this.closest("t-renderer") || {};
   }
+  
+  get renderer() { return this.rendererEl.renderer; }
+  
+  get scene() { return this.rendererEl.scene; }
+  
+  get camera() { return this.rendererEl.camera; }
+  set camera(value) { this.rendererEl.camera = value; }
 
   async connectedCallback() {
     this.log("connectedCallback");
