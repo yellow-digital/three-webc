@@ -53,6 +53,22 @@
     }
   });
 
+  const state = {
+    current: { name: "" },
+  };
+
+  renderer.domElement.addEventListener("mousemove", (e) => {
+    const intersects = raycaster.cast();
+    const object = intersects.length && intersects[0].object;
+
+    if (object && state.current.uuid !== object.uuid) {
+      EFFECTS.bounce(object, { scale: 1.2 });
+    }
+
+    document.body.style.cursor = object ? "pointer" : "";
+    Object.assign(state.current, object || { name: "", uuid: "" });
+  });
+
   const app = {
     scene,
     _scene: null,
