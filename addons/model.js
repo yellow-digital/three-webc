@@ -63,8 +63,9 @@ class ModelElement extends ThreeWebc.Element {
 
     // Play first animation
     if (gltf.animations[0]) {
+      const clip = gltf.animations[ 0 ];
       mixer
-        .clipAction(gltf.animations[0])
+        .clipAction(clip.optimize())
         // .setDuration(1)
         .play();
 
