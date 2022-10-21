@@ -18,8 +18,13 @@ export class ThreeElement extends HTMLElement {
     super();
   }
 
+  get observedAttributes() {
+    return [""];
+  }
+  
   attributeChangedCallback(key = "", oldValue, newValue) {
-    this.log(key);
+    this.log('attributeChangedCallback', key, oldValue, newValue);
+    this[key] = newValue
   }
 
   get rendererEl() {
@@ -33,6 +38,11 @@ export class ThreeElement extends HTMLElement {
   get camera() { return this.rendererEl.camera; }
   set camera(value) { this.rendererEl.camera = value; }
 
+  getValue(name = '') {
+    const fn = new Function(`return ${this.getAttribute(name)}`);
+    return fn()
+  }
+
   async connectedCallback() {
     this.log("connectedCallback");
 
@@ -41,17 +51,34 @@ export class ThreeElement extends HTMLElement {
     */
     setTimeout(() => {
       this.mounted(this.rendererEl);
+			this.setAttribute("mounted", "");
+      if(this.tick) {
+        // TODO cleanup on remove
+        this.rendererEl.rafs.push(() => { this.tick() })
+      }
     });
   }
 
+  /**
+   * Hook for when the DOM is ready
+   */
   mounted() {}
 
-  disconnectedCallback() {
+  /**
+   * Hook for when the element is removed
+   */
+  destroyed() {
+    this.log("destroyed");
+  }
 
+  disconnectedCallback() {
+    this.destroyed()
   }
 
   log(...args) {
-    // console.debug(`${this.tagName}`, ...args)
+    if(ThreeWebc.debug) {
+      console.debug(`${this.tagName}`, ...args)
+    }
   }
 
   error(...args) {
@@ -60,6 +87,7 @@ export class ThreeElement extends HTMLElement {
 }
 
 export const ThreeWebc = {
+  debug: false,
   Element: ThreeElement,
   define
 }
