@@ -1,24 +1,50 @@
 <style>
-  @import url('./style.css');
+	@import url("./style.css");
 </style>
 
 <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
-      "three-webc": "../src/index.js",
-      "three-webc/": "../"
-    }
-  }
+	{
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+			"three-webc": "../src/index.js",
+			"three-webc/": "../"
+		}
+	}
 </script>
 
+<gui-info>
+	<p>Lights.</p>
+	<a
+		target="_blank"
+		href="https://threejs.org/examples/webgl_postprocessing.html"
+		>more info</a
+	>
+</gui-info>
+
 <t-renderer orbit>
-  <t-camera :props="{fov: 30}" :position="{ x: 4, y:4, z: 4 }"></t-camera>
-  <t-studio></t-studio>
+	<t-camera :position="{ x: 4, y:4, z: 4 }"></t-camera>
+	<t-light type="AmbientLight"></t-light>
+	<t-light type="DirectionalLight"></t-light>
+	<t-light type="SpotLight"></t-light>
+	<t-floor></t-floor>
+	<t-mesh :position="{ y: 1.5 }" :props="{castShadow: true}">
+		<t-geometry type="Sphere"></t-geometry>
+		<t-material type="MeshStandard" color="green"></t-material>
+	</t-mesh>
 </t-renderer>
 
 <script type="module">
-  import "three-webc";
-  import "three-webc/addons/index.js";
+	import "three-webc";
+	import "three-webc/addons/index.js";
+	import "three-webc/addons/objects/floor.js";
+
+	import { GUI } from "three/addons/libs/lil-gui.module.min.js";
+	// GUI
+	const gui = new GUI();
+
+  const lights = document.querySelectorAll('t-light');
+  [...lights].forEach(light => {
+    gui.add(light.light, "visible").name(light.light.type)
+  })
 </script>
