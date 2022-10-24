@@ -8,21 +8,23 @@ export class PerspectiveCamera extends ThreeWebc.Element {
   }
 
   get aspect() {
-    return this.renderEl?.aspectRatio
+    return this.rendererEl?.aspectRatio
   }
 
   mounted() {
-    const camera = new THREE.PerspectiveCamera(
-      60,
-      this.aspect,
-      0.01,
-      10000000
-    );
+    const camera = new THREE.PerspectiveCamera(60, this.aspect, 0.01, 10000000)
 
     applyAttributes(this, camera);
 
     // Overrule previous camera?
-    this.camera = camera
+    this.rendererEl.camera = camera
+
+    // Also add to scene
+    this.scene.add(camera)
+  }
+
+  destroyed() {
+    this.camera.removeFromParent()
   }
 }
 
