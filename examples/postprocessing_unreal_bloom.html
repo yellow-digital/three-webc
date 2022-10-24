@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Postprocessing UnrealBloomPass</title>
+	</head>
+	<body>
+		<style>
+			@import url("./style.css");
+		</style>
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+					"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+					"three-webc": "../src/index.js",
+					"three-webc/": "../"
+				}
+			}
+		</script>
+
+		<gui-info>
+			<p>Postprocessing.</p>
+			<a
+				target="_blank"
+				href="https://threejs.org/examples/#webgl_postprocessing_unreal_bloom"
+				>original</a
+			>
+		</gui-info>
+
+		<t-renderer orbit>
+			<!-- <t-camera position="-5, 2.5, -3.5"> -->
+				
+			</t-camera>
+			<t-model
+				url="https://threejs.org/examples/models/gltf/PrimaryIonDrive.glb"
+			></t-model>
+			<t-effect-composer>
+				<t-effect type="RenderPass"></t-effect>
+				<t-effect type="UnrealBloomPass"></t-effect>
+			</t-effect-composer>
+			<t-stats></t-stats>
+		</t-renderer>
+
+		<script type="module">
+			import "three-webc";
+			import "three-webc/addons/index.js";
+			import "three-webc/addons/postprocessing.js";
+			import { GUI } from "three/addons/libs/lil-gui.module.min.js";
+
+			const { scene, THREE, renderer } = document.querySelector("t-renderer");
+
+			renderer.toneMapping = THREE.ReinhardToneMapping;
+
+			const camera = new THREE.PerspectiveCamera(
+				40,
+				window.innerWidth / window.innerHeight,
+				1,
+				100
+			);
+			camera.position.set(-5, 2.5, -3.5);
+			scene.add(camera);
+			document.querySelector("t-renderer").camera = camera;
+
+			scene.add(new THREE.AmbientLight(0x404040));
+
+			const pointLight = new THREE.PointLight(0xffffff, 1);
+			// const { camera } = document.querySelector("t-renderer");
+			camera.add(pointLight);
+
+			const params = {
+				exposure: 1,
+				bloomStrength: 1.5,
+				bloomThreshold: 0,
+				bloomRadius: 0,
+			};
+			const bloomPassEl = document.querySelector(
+				"t-effect[type=UnrealBloomPass]"
+			);
+			if (bloomPassEl) {
+				const bloomPass = bloomPassEl.pass;
+				bloomPass.threshold = params.bloomThreshold;
+				bloomPass.strength = params.bloomStrength;
+				bloomPass.radius = params.bloomRadius;
+
+				// GUI
+				const gui = new GUI();
+
+				gui.add(params, "exposure", 0.1, 2).onChange(function (value) {
+					renderer.toneMappingExposure = Math.pow(value, 4.0);
+				});
+
+				gui.add(params, "bloomThreshold", 0.0, 1.0).onChange(function (value) {
+					bloomPass.threshold = Number(value);
+				});
+
+				gui.add(params, "bloomStrength", 0.0, 3.0).onChange(function (value) {
+					bloomPass.strength = Number(value);
+				});
+
+				gui
+					.add(params, "bloomRadius", 0.0, 1.0)
+					.step(0.01)
+					.onChange(function (value) {
+						bloomPass.radius = Number(value);
+					});
+			}
+		</script>
+	</body>
+</html>

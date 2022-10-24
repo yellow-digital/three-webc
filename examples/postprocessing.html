@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Postprocessing</title>
+</head>
+<body>
+	<style>
+		@import url("./style.css");
+	</style>
+	
+	<script type="importmap">
+		{
+			"imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.145.0/build/three.module.js",
+				"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/",
+				"three-webc": "../src/index.js",
+				"three-webc/": "../"
+			}
+		}
+	</script>
+	
+	<gui-info>
+		<p>Postprocessing.</p>
+		<a
+			target="_blank"
+			href="https://threejs.org/examples/webgl_postprocessing.html"
+			>original demo</a
+		>
+	</gui-info>
+	
+	<t-renderer orbit debug>
+		<t-camera :position="{ x: 0, y:0, z: 400 }"></t-camera>
+		<t-effect-composer>
+			<t-effect type="RenderPass"></t-effect>
+			<t-effect type="DotScreenShader" :uniforms="{scale: 4}"></t-effect>
+			<t-effect type="RGBShiftShader" :uniforms="{amount: 0.0015}"></t-effect>
+		</t-effect-composer>
+	</t-renderer>
+	
+	<script type="module">
+		import "three-webc";
+		import "three-webc/addons/index.js";
+		import "three-webc/addons/postprocessing.js";
+	
+		const { scene, THREE } = document.querySelector("t-renderer");
+	
+		const object = new THREE.Object3D();
+		scene.add(object);
+	
+		const geometry = new THREE.SphereGeometry(1, 4, 4);
+		const material = new THREE.MeshPhongMaterial({
+			color: 0xffffff,
+			flatShading: true,
+		});
+	
+		for (let i = 0; i < 100; i++) {
+			const mesh = new THREE.Mesh(geometry, material);
+			mesh.position
+				.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5)
+				.normalize();
+			mesh.position.multiplyScalar(Math.random() * 400);
+			mesh.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
+			mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 50;
+			object.add(mesh);
+		}
+	
+		scene.add(new THREE.AmbientLight(0x222222));
+	
+		const light = new THREE.DirectionalLight(0xffffff);
+		light.position.set(1, 1, 1);
+		scene.add(light);
+	
+		function animate() {
+			requestAnimationFrame(animate);
+	
+			object.rotation.x += 0.005;
+			object.rotation.y += 0.01;
+		}
+		animate();
+
+		// CLI helpers
+		window.q = s => document.querySelector(s)
+		window.qA = s => document.querySelectorAll(s)
+	</script>
+</body>
+</html>
