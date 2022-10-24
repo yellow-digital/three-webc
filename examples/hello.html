@@ -13,11 +13,26 @@
   }
 </script>
 
+<gui-info>
+	<p>Hello World</p>
+</gui-info>
+
 <t-renderer orbit>
-  <t-hello></t-hello>
+  <!-- <t-camera :position="{ x: 4, y:4, z: 4 }"></t-camera> -->
+	<t-light type="AmbientLight"></t-light>
+	<t-light type="DirectionalLight"></t-light>
+	<t-light type="SpotLight"></t-light>
+	<t-floor></t-floor>
+	<t-mesh :position="{ y: 1.5 }" :props="{castShadow: true}">
+		<t-geometry type="Sphere"></t-geometry>
+		<t-material type="MeshStandard" color="green"></t-material>
+	</t-mesh>
 </t-renderer>
 
 <script type="module">
-  import "three-webc";
-  import "three-webc/addons/hello.js";
+  import {ThreeWebc} from "three-webc";
+	import "three-webc/addons/index.js";
+	import "three-webc/addons/objects/floor.js";
+
+  window.t = ThreeWebc
 </script>
