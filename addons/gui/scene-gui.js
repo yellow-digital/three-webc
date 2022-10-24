@@ -1,22 +1,19 @@
 import {ObjectGui} from "./GuiHelpers.js";
+import { ThreeWebc } from "three-webc";
 
-class Element extends HTMLElement {
-  async connectedCallback() {
-    setTimeout(() => this.mounted)
-  }
+class Element extends ThreeWebc.Element {
   async mounted() {
-    // Resolve parent
-    const view = this.parentElement.viewport;
+    const {scene} = this;
 
     const { GUI } = await import("https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm");
     const gui = new GUI();
 
     const folder = gui.addFolder("scene").open(false);
-    this.controller = new ObjectGui(view.scene).addTo(folder)
+    this.controller = new ObjectGui(scene).addTo(folder)
   }
 }
 
-customElements.define(
-  "t-scene-gui",
+ThreeWebc.define(
+  "scene-gui",
   Element
 );
