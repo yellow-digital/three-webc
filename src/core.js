@@ -24,6 +24,9 @@ export class ThreeElement extends HTMLElement {
     return this.rendererEl.renderer;
   }
   get scene() {
+    return this.parent.scene || this.rootScene;
+  }
+  get rootScene() {
     return this.rendererEl.scene;
   }
   get camera() {
@@ -64,6 +67,7 @@ export class ThreeElement extends HTMLElement {
           this.tick();
         });
       }
+		  this.dispatchEvent(new Event('ready'))
     });
   }
 
