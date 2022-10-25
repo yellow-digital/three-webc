@@ -4,15 +4,19 @@ html {
 
 body {
   margin: 0;
-  display: flex;
-  margin-left: 20px;
-  margin-right: 20px;
 }
+
 @media (prefers-color-scheme: dark) {
   body {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
   }
+}
+
+main {
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
 }
 
 t-flex {
