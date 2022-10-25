@@ -31,8 +31,6 @@ export class Object3D extends ThreeWebc.Element {
     super();
     const mesh = new THREE.Object3D();
     this.mesh = mesh;
-
-    this.scene = mesh;
   }
   // Proxy to allow nesting
   get rafs() {
@@ -43,6 +41,9 @@ export class Object3D extends ThreeWebc.Element {
   }
   get camera() {
     return this.rendererEl.camera;
+  }
+  get scene() {
+    return this.mesh
   }
 
   // Sugars
