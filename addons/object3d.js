@@ -56,7 +56,10 @@ export class Object3D extends ThreeWebc.Element {
   get scale() {
     return this.mesh.scale
   }
-
+  get object() {
+    return this.mesh
+  }
+  
   mounted() {
     // Find scene
     const { scene } = this.parentElement;

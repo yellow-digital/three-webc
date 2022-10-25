@@ -1,0 +1,116 @@
+<style>
+	@import url("./style.css");
+</style>
+
+<script type="importmap">
+	{
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+			"three-webc": "../src/index.js",
+			"three-webc/": "../"
+		}
+	}
+</script>
+
+<title>CSS</title>
+
+<gui-info>
+	<p>CSS example. Open your inspector, find `t-style` and alter some styles.</p>
+	<v-alert type="warning" outlined shaped>TODO support alpha color.</v-alert>
+</gui-info>
+
+<style>
+	.mat1 {
+		--color: pink;
+		--metalness: 0.5;
+		--roughness: 0.5;
+	}
+
+	/* https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_physical_clearcoat.html */
+	.fibers {
+		--roughness: 0.5;
+		--clearcoat: 1;
+		--clearcoatRoughness: 0.1;
+		--map: url('https://threejs.org/examples/textures/carbon/Carbon.png');
+		--normalMap: url('https://threejs.org/examples/textures/carbon/Carbon_Normal.png');
+	}
+
+	.golf {
+		--metalness: 0.0;
+		--roughness: 0.1;
+		--clearcoat: 1.0;
+		--normalMap: url('https://threejs.org/examples/textures/golfball.jpg');
+		--clearcoatNormalMap: url('https://threejs.org/examples/textures/pbr/Scratched_gold/Scratched_gold_01_1K_Normal.png');
+	}
+</style>
+
+<t-renderer orbit>
+	<t-camera :position="{ z: 1000 }"></t-camera>
+	<t-object @mount="new THREE.AmbientLight( 0x404040 )"></t-object>
+
+	<t-object3d>
+		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: - 100, y: 100 }" :props="{castShadow: true}">
+			<t-style class="mat1"></t-style>
+		</t-mesh>
+		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: 100, y: 100 }" :props="{castShadow: true}">
+			<t-style style="--color: green; --metalness: 0.5"></t-style>
+		</t-mesh>
+		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: -100, y: -100 }" :props="{castShadow: true}">
+			<t-style class="fibers"></t-style>
+		</t-mesh>
+		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: 100, y: -100 }" :props="{castShadow: true}">
+			<t-style class="golf" @set:map="texture.repeat.x = 10; texture.repeat.y = 10;"></t-style>
+		</t-mesh>
+	</t-object3d>
+</t-renderer>
+
+<script type="module">
+	import { ThreeWebc } from "three-webc";
+	import "three-webc/addons/index.js";
+	import "three-webc/addons/objects/floor.js";
+
+	const { renderer, THREE, scene } = document.querySelector("t-renderer");
+
+	const group = document.querySelector("t-object3d").object;
+
+	// TODO support for t-style hooks.
+	document.querySelector(".fibers").addEventListener('ready', (e) => {
+		const el = e.target
+		const texture = el.material.map
+		texture.repeat.x = 10; 
+		texture.repeat.y = 10;
+	})
+
+	// ===
+	renderer.toneMapping = THREE.ACESFilmicToneMapping;
+	renderer.toneMappingExposure = 1.25;
+	renderer.outputEncoding = THREE.sRGBEncoding;
+
+	// Geo
+	const geometry = new THREE.SphereGeometry( 80, 64, 32 );
+
+	// LIGHTS
+	const particleLight = new THREE.Mesh(
+		new THREE.SphereGeometry(0.1, 8, 8),
+		new THREE.MeshBasicMaterial({ color: 0xffffff })
+	);
+	scene.add(particleLight);
+
+	particleLight.add(new THREE.PointLight(0xffffff, 1));
+
+	function render() {
+		const timer = Date.now() * 0.00025;
+
+		particleLight.position.x = Math.sin(timer * 7) * 300;
+		particleLight.position.y = Math.cos(timer * 5) * 400;
+		particleLight.position.z = Math.cos(timer * 3) * 300;
+
+		for (let i = 0; i < group.children.length; i++) {
+			const child = group.children[i];
+			child.rotation.y += 0.005;
+		}
+	}
+
+	document.querySelector("t-renderer").rafs.push(render)
+</script>
