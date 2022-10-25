@@ -4,6 +4,8 @@
 
 Ease the setup for 3D graphics and maintain a straighforward integration with [threejs].
 
+> **WARNING:** It is early days for this library, so please proceed with caution!
+
 ## Features
 
 :eyeglasses: **Less code**: just drop in `<t-renderer>`.
@@ -20,6 +22,7 @@ Our goal is to make it easier to share and reuse components for 3D web graphics.
 # Usage
 Find here more [examples](https://yellow-digital.github.io/three-webc/examples/list.html)
 
+https://jsfiddle.net/yellowdigital/6jetkhpd/
 ```html
 <script type="importmap">
   {
