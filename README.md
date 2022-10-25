@@ -24,8 +24,8 @@ Find here more [examples](https://yellow-digital.github.io/three-webc/examples/l
 <script type="importmap">
   {
     "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+      "three": "https://cdn.jsdelivr.net/npm/three@0.145.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/",
       "three-webc": "https://cdn.jsdelivr.net/npm/three-webc/src/index.js",
       "three-webc/addons/": "https://cdn.jsdelivr.net/npm/three-webc/examples/addons/"
     }
@@ -33,25 +33,27 @@ Find here more [examples](https://yellow-digital.github.io/three-webc/examples/l
 </script>
 
 <t-renderer orbit>
-  <t-hello></t-hello>
+	<t-object @mount="new THREE.AmbientLight( 0x404040 )"></t-object>
+	<t-mesh>
+		<t-geometry type="Box"></t-geometry>
+		<t-material type="MeshStandard" color="green"></t-material>
+	</t-mesh>
 </t-renderer>
 
 <script type="module">
   import "three-webc";
-  import "three-webc/addons/hello.js";
-  
-  // Interact from code
-  const {scene} = document.querySelector("t-renderer");
+	import "three-webc/addons/index.js";
+
+  const {scene, THREE} = document.querySelector("t-renderer");
+
   scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 </script>
 ```
 
 # FAQ
 ## Why webcomponents?
-By using webcomponents you can make visual composition, this greatly improves the development experience without loosing the ability to code. Also the DOM brings some very powerfull tools, for example by using `document.queryElement` you can write complex queries. For example you can quickly query certain components and remove it from the scene by doing: `[...document.querySelectorAll('t-mesh')].forEach(e => e.remove())` (just from your code or even directly from your inspectors console)
-
-## When webcomponents?
-We intentionally did not create wrapper components for all threejs elements. This would just add an extra layer with not much benefits. We suggest to create components that group certain logic.
+- Usable in any page or framework.
+- The DOM brings some powerfull tools, for example by using `document.queryElement`. Remove certain element from the scene by doing: `[...document.querySelectorAll('t-mesh')].forEach(e => e.remove())` (runnable in the inspectors console)
 
 # Contribution
 We welcome any input. If you have created a webcomponent for three-webc (for physics, particle system, custom shaders, ...), feel free to contact us at [Discord] so we can maintain a curated list.

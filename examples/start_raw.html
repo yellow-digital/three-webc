@@ -1,4 +1,4 @@
-<title>start</title>
+<title>start raw</title>
 
 <style>
   @import url('./style.css');
@@ -15,19 +15,22 @@
   }
 </script>
 
-<t-renderer orbit>
-	<t-object @mount="new THREE.AmbientLight( 0x404040 )"></t-object>
-	<t-mesh>
-		<t-geometry type="Box"></t-geometry>
-		<t-material type="MeshStandard" color="green"></t-material>
-	</t-mesh>
-</t-renderer>
+<t-renderer orbit></t-renderer>
 
 <script type="module">
   import "three-webc";
-	import "three-webc/addons/index.js";
 
-  const {scene, THREE} = document.querySelector("t-renderer");
+  const view = document.querySelector("t-renderer");
+
+  const { THREE, scene } = view.viewport;
+
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const material = new THREE.MeshStandardMaterial({ color: 'green' });
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  const light = new THREE.AmbientLight(0x404040); // soft white light
+  scene.add(light);
 
   scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 </script>
