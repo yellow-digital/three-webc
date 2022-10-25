@@ -1,45 +1,47 @@
-<title>
-  Examples
-</title>
+<title>Examples</title>
 
 <style>
 	@import url("./style.css");
 </style>
 
 <v-container>
-  <h1>Examples</h1>
-  <v-row>
-    <t-example src="./start.html"></t-example>
-    <t-example src="./hello.html"></t-example>
-    <t-example src="./animation.html"></t-example>
-    <t-example src="./geometries.html"></t-example>
-    <t-example src="./controls.html"></t-example>
-    <t-example src="./gui.html"></t-example>
-    <t-example src="./raycast.html"></t-example>
-    <t-example src="./transform.html"></t-example>
-    <t-example src="./overlay.html"></t-example>
-    <t-example src="./models.html"></t-example>
-    <t-example src="./materials.html"></t-example>
-    <t-example src="./materials_css.html"></t-example>
-  </v-row>
+	<h1>Examples</h1>
+	<v-row>
+		<t-example src="./start.html"></t-example>
+		<t-example src="./hello.html"></t-example>
+		<t-example src="./animation.html"></t-example>
+		<t-example src="./geometries.html"></t-example>
+		<t-example src="./controls.html"></t-example>
+		<t-example src="./gui.html"></t-example>
+		<t-example src="./raycast.html"></t-example>
+		<t-example src="./transform.html"></t-example>
+		<t-example src="./overlay.html"></t-example>
+		<t-example src="./models.html"></t-example>
+		<t-example src="./materials.html"></t-example>
+		<t-example src="./materials_css.html"></t-example>
+	</v-row>
 </v-container>
 
 <style>
-  /* @import url('./style.css'); */
-  /* iframe { min-width: 100%; height: 40vh; } */
+	/* @import url('./style.css'); */
+	/* iframe { min-width: 100%; height: 40vh; } */
 </style>
 
 <script>
-  customElements.define(
-    "t-example",
-    class extends HTMLElement {
-      async connectedCallback() {
-        this.innerHTML = `
-    <h2>${this.getAttribute("label") || this.getAttribute("src")} <a href="${this.getAttribute("src")}">open</a></h2>
+	customElements.define(
+		"t-example",
+		class extends HTMLElement {
+			async connectedCallback() {
+				this.innerHTML = `
+    <h2>${
+			this.getAttribute("label") || this.getAttribute("src")
+		} <a href="${this.getAttribute("src")}">open</a></h2>
     
-    <iframe width="100%" height="500" loading="lazy" src="${this.getAttribute("src")}"></iframe>
+    <iframe width="100%" height="500" loading="lazy" src="${this.getAttribute(
+			"src"
+		)}"></iframe>
 `;
-      }
-    }
-  );
+			}
+		}
+	);
 </script>

@@ -1,41 +1,43 @@
+<title>geometries</title>
+
 <style>
-  @import url('./style.css');
+	@import url("./style.css");
 </style>
 
 <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
-      "three-webc": "../src/index.js",
-      "three-webc/": "../"
-    }
-  }
+	{
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+			"three-webc": "../src/index.js",
+			"three-webc/": "../"
+		}
+	}
 </script>
 
 <t-renderer antialias orbit>
-  <t-object3d>
-    <!-- <t-geo geo="Plane"></t-geo>
+	<t-object3d>
+		<!-- <t-geo geo="Plane"></t-geo>
     <t-geo geo="Plane" :rotation="{ x: -Math.PI / 2 }"></t-geo>
     <t-geo geo="Box" :position="{ x: 2 }"></t-geo>
     <t-geo geo="Sphere" :position="{ x: 4 }" ></t-geo> -->
-  </t-object3d>
-  <t-axes></t-axes>
-  <t-studio></t-studio>
+	</t-object3d>
+	<t-axes></t-axes>
+	<t-studio></t-studio>
 </t-renderer>
 
 <gui-info>
-  <p>This example shows how to add geometry.</p>
+	<p>This example shows how to add geometry.</p>
 </gui-info>
 
 <script type="module">
-  import "three-webc/three-webc.js";
-  import {GEOMETRIES} from "three-webc/addons/index.js";
+	import "three-webc/three-webc.js";
+	import { GEOMETRIES } from "three-webc/addons/index.js";
 
-  GEOMETRIES.forEach((type,index) => {
-    const el = document.createElement('t-geo')
-    el.setAttribute('geo', type)
-    el.setAttribute(':position', `{x:${index*2}}`)
-    document.querySelector('t-object3d').append(el)
-  })
+	GEOMETRIES.forEach((type, index) => {
+		const el = document.createElement("t-geo");
+		el.setAttribute("geo", type);
+		el.setAttribute(":position", `{x:${index * 2}}`);
+		document.querySelector("t-object3d").append(el);
+	});
 </script>
