@@ -50,16 +50,16 @@
 	<t-object @mount="new THREE.AmbientLight( 0x404040 )"></t-object>
 
 	<t-object3d>
-		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: - 100, y: 100 }" :props="{castShadow: true}">
+		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: - 100, y: 100 }">
 			<t-style class="mat1"></t-style>
 		</t-mesh>
-		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: 100, y: 100 }" :props="{castShadow: true}">
+		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: 100, y: 100 }">
 			<t-style style="--color: green; --metalness: 0.5"></t-style>
 		</t-mesh>
-		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: -100, y: -100 }" :props="{castShadow: true}">
+		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: -100, y: -100 }">
 			<t-style class="fibers"></t-style>
 		</t-mesh>
-		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: 100, y: -100 }" :props="{castShadow: true}">
+		<t-mesh :geometry="new THREE.SphereGeometry( 80, 64, 32 )" :position="{ x: 100, y: -100 }">
 			<t-style class="golf" @set:map="texture.repeat.x = 10; texture.repeat.y = 10;"></t-style>
 		</t-mesh>
 	</t-object3d>
