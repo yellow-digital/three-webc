@@ -8,11 +8,11 @@ Ease the setup for 3D graphics and maintain a straighforward integration with [t
 
 :eyeglasses: **Less code**: just drop in `<t-renderer>`.
 
-:zap: **Performance**: it is a thin library on top of three.js. Just code as you use to.
+:zap: **Performance**: a thin library on top of three.js. Just code as you use to.
 
 :mag: **Visual Inspector**: As `three-webc` uses `WebComponents` you can use your browsers built-in inspector to change, add or remove elements.
 
-:statue_of_liberty: **WebComponents**: Use it on any html page or framework!
+:statue_of_liberty: **WebComponents**: Use it with any framework or HTML page!
 
 # Goal
 Our goal is to make it easier to share and reuse components for 3D web graphics.
@@ -46,11 +46,6 @@ Find here more [examples](https://yellow-digital.github.io/three-webc/examples/l
 </script>
 ```
 
-# Similar projects
-- [trois](https://github.com/troisjs/trois)
-- [aframe](https://aframe.io) 
-- [three-elements](https://github.com/hmans/three-elements)
-
 # FAQ
 ## Why webcomponents?
 By using webcomponents you can make visual composition, this greatly improves the development experience without loosing the ability to code. Also the DOM brings some very powerfull tools, for example by using `document.queryElement` you can write complex queries. For example you can quickly query certain components and remove it from the scene by doing: `[...document.querySelectorAll('t-mesh')].forEach(e => e.remove())` (just from your code or even directly from your inspectors console)
@@ -60,7 +55,12 @@ We intentionally did not create wrapper components for all threejs elements. Thi
 
 # Contribution
 We welcome any input. If you have created a webcomponent for three-webc (for physics, particle system, custom shaders, ...), feel free to contact us at [Discord] so we can maintain a curated list.
- 
+
+# Similar projects
+- [three-elements](https://github.com/hmans/three-elements) Great library that also uses webcomponents
+- [trois](https://github.com/troisjs/trois) 
+- [aframe](https://aframe.io) 
+
 ## Community
 
 - [Discord] for chat & help
