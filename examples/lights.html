@@ -1,3 +1,5 @@
+<title>lights</title>
+
 <style>
 	@import url("./style.css");
 </style>
@@ -43,8 +45,8 @@
 	// GUI
 	const gui = new GUI();
 
-  const lights = document.querySelectorAll('t-light');
-  [...lights].forEach(light => {
-    gui.add(light.light, "visible").name(light.light.type)
-  })
+	const lights = document.querySelectorAll("t-light");
+	[...lights].forEach((light) => {
+		gui.add(light.light, "visible").name(light.light.type);
+	});
 </script>

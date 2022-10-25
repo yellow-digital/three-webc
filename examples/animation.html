@@ -1,139 +1,143 @@
+<title>animation</title>
+
 <style>
-  @import url("./style.css");
+	@import url("./style.css");
 </style>
 
 <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
-      "three-webc": "../src/index.js",
-      "three-webc/": "../"
-    }
-  }
+	{
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+			"three-webc": "../src/index.js",
+			"three-webc/": "../"
+		}
+	}
 </script>
 
 <t-renderer antialias orbit>
-  <t-studio></t-studio>
-  <t-camera :position="{ z: 10 }"></t-camera>
-  <t-object3d>
-    <t-raycaster></t-raycaster>
-    <t-model
-      debug
-      :position="{x: -2}"
-      url="https://threejs.org/examples/models/gltf/Soldier.glb"
-    ></t-model>
-    <t-model
-      debug
-      :position="{x: 0}"
-      url="https://threejs.org/examples/models/gltf/Soldier.glb"
-    ></t-model>
-    <t-model
-      debug
-      :position="{x: 2}"
-      url="https://threejs.org/examples/models/gltf/Soldier.glb"
-    ></t-model>
-    <t-mesh
-      name="MeshBasic"
-      geo="Sphere"
-      :position="{ x: 0 }"
-      :props="{castShadow: false}"
-    >
-      <t-material type="MeshBasic" color="green" />
-    </t-mesh>
-  </t-object3d>
-  <t-effects></t-effects>
+	<t-studio></t-studio>
+	<t-camera :position="{ z: 10 }"></t-camera>
+	<t-object3d>
+		<t-raycaster></t-raycaster>
+		<t-model
+			debug
+			:position="{x: -2}"
+			url="https://threejs.org/examples/models/gltf/Soldier.glb"
+		></t-model>
+		<t-model
+			debug
+			:position="{x: 0}"
+			url="https://threejs.org/examples/models/gltf/Soldier.glb"
+		></t-model>
+		<t-model
+			debug
+			:position="{x: 2}"
+			url="https://threejs.org/examples/models/gltf/Soldier.glb"
+		></t-model>
+		<t-mesh
+			name="MeshBasic"
+			geo="Sphere"
+			:position="{ x: 0 }"
+			:props="{castShadow: false}"
+		>
+			<t-material type="MeshBasic" color="green" />
+		</t-mesh>
+	</t-object3d>
+	<t-effects></t-effects>
 </t-renderer>
 
 <gui-info>
-  <p>Animation showcase and hit test.</p>
-  <v-alert type="warning" outlined shaped>TODO raycast is not working on animations.</v-alert>
+	<p>Animation showcase and hit test.</p>
+	<v-alert type="warning" outlined shaped
+		>TODO raycast is not working on animations.</v-alert
+	>
 </gui-info>
 
 <script type="module">
-  import "three-webc/three-webc.js";
-  import "three-webc/addons/index.js";
-  import * as EFFECTS from "three-webc/addons/effects.js";
+	import "three-webc/three-webc.js";
+	import "three-webc/addons/index.js";
+	import * as EFFECTS from "three-webc/addons/effects.js";
 
-  const renderer = document.querySelector("t-renderer");
+	const renderer = document.querySelector("t-renderer");
 
-  const models = document.querySelectorAll("t-model");
+	const models = document.querySelectorAll("t-model");
 
-  models[0].addEventListener("ready", (e) => {
-    const { gltf, mixer } = e.target;
-    mixer.clipAction(gltf.animations[1]).play();
-  });
+	models[0].addEventListener("ready", (e) => {
+		const { gltf, mixer } = e.target;
+		mixer.clipAction(gltf.animations[1]).play();
+	});
 
-  models[1].addEventListener("ready", (e) => {
-    const { gltf, mixer } = e.target;
-    mixer.clipAction(gltf.animations[2]).play();
-  });
+	models[1].addEventListener("ready", (e) => {
+		const { gltf, mixer } = e.target;
+		mixer.clipAction(gltf.animations[2]).play();
+	});
 
-  // Debugger
-  // [...document.querySelectorAll("[debug]")]
+	// Debugger
+	// [...document.querySelectorAll("[debug]")]
 
-  const model = models[0];
-  model.rotation.y = 0;
+	const model = models[0];
+	model.rotation.y = 0;
 
-  const moveForward = (model) => (t) => {
-    const direction = model.rotation.y;
-    model.position.z += t * Math.cos(direction);
-    model.position.x += t * Math.sin(direction);
-  };
+	const moveForward = (model) => (t) => {
+		const direction = model.rotation.y;
+		model.position.z += t * Math.cos(direction);
+		model.position.x += t * Math.sin(direction);
+	};
 
-  const state = {
-    speed: -0.3,
-    current: { name: "" },
-  };
+	const state = {
+		speed: -0.3,
+		current: { name: "" },
+	};
 
-  renderer.rafs.push((t) => {
-    {
-      const directionAxis = "y";
+	renderer.rafs.push((t) => {
+		{
+			const directionAxis = "y";
 
-      // Alter direction
-      model.rotation[directionAxis] += state.speed * t;
-      const angle = model.rotation[directionAxis]
-      // moveForward(model)(t);
-      model.position.z += t * Math.cos(angle);
-      model.position.x += t * Math.sin(angle);
-    }
-  });
+			// Alter direction
+			model.rotation[directionAxis] += state.speed * t;
+			const angle = model.rotation[directionAxis];
+			// moveForward(model)(t);
+			model.position.z += t * Math.cos(angle);
+			model.position.x += t * Math.sin(angle);
+		}
+	});
 
-  // Raycast
-  const raycaster = document.querySelector("t-raycaster");
+	// Raycast
+	const raycaster = document.querySelector("t-raycaster");
 
-  renderer.domElement.addEventListener("mousemove", (e) => {
-    const intersects = raycaster.cast();
-    const object = intersects.length && intersects[0].object;
+	renderer.domElement.addEventListener("mousemove", (e) => {
+		const intersects = raycaster.cast();
+		const object = intersects.length && intersects[0].object;
 
-    if (object && state.current.uuid !== object.uuid) {
-      EFFECTS.bounce(object, { scale: 1.2 });
-    }
+		if (object && state.current.uuid !== object.uuid) {
+			EFFECTS.bounce(object, { scale: 1.2 });
+		}
 
-    document.body.style.cursor = object ? "pointer" : "";
-    Object.assign(state.current, object || { name: "", uuid: "" });
-  });
+		document.body.style.cursor = object ? "pointer" : "";
+		Object.assign(state.current, object || { name: "", uuid: "" });
+	});
 
-  renderer.domElement.addEventListener("click", (e) => {
-    const intersects = raycaster.cast();
-    const object = intersects.length && intersects[0].object;
-    if (!object) {
-      console.warn("void ray");
-    }
-    if (object) {
-      console.warn("hit", object);
-      EFFECTS.bounce(object);
-    }
-  });
+	renderer.domElement.addEventListener("click", (e) => {
+		const intersects = raycaster.cast();
+		const object = intersects.length && intersects[0].object;
+		if (!object) {
+			console.warn("void ray");
+		}
+		if (object) {
+			console.warn("hit", object);
+			EFFECTS.bounce(object);
+		}
+	});
 
-  {
-    const { GUI } = await import(
-      "https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm"
-    );
-    const gui = new GUI();
+	{
+		const { GUI } = await import(
+			"https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm"
+		);
+		const gui = new GUI();
 
-    const raycaster = document.querySelector("t-raycaster");
-    const folder = gui;
-    folder.add(state.current, "name").listen();
-  }
+		const raycaster = document.querySelector("t-raycaster");
+		const folder = gui;
+		folder.add(state.current, "name").listen();
+	}
 </script>

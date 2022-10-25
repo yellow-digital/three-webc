@@ -1,24 +1,26 @@
+<title>controls</title>
+
 <style>
-  @import url('./style.css');
+	@import url("./style.css");
 </style>
 
 <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
-      "three-webc": "../src/index.js",
-      "three-webc/": "../"
-    }
-  }
+	{
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+			"three-webc": "../src/index.js",
+			"three-webc/": "../"
+		}
+	}
 </script>
 
 <t-renderer>
-  <t-hello></t-hello>
-  <t-controls type="FirstPersonControls"></t-controls>
+	<t-hello></t-hello>
+	<t-controls type="FirstPersonControls"></t-controls>
 </t-renderer>
 
 <script type="module">
-  import "three-webc/three-webc.js";
-  import "three-webc/addons/hello.js";
+	import "three-webc/three-webc.js";
+	import "three-webc/addons/hello.js";
 </script>

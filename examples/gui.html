@@ -1,44 +1,43 @@
+<title>gui</title>
+
 <style>
-  @import url("./style.css");
+	@import url("./style.css");
 </style>
 
 <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
-      "three-webc": "../src/index.js",
-      "three-webc/": "../"
-    }
-  }
+	{
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+			"three-webc": "../src/index.js",
+			"three-webc/": "../"
+		}
+	}
 </script>
 
 <t-renderer orbit>
-  <t-studio debug></t-studio>
-  <t-mesh
-    geo="Sphere"
-    :props="{castShadow: true}"
-  >
-    <t-material type="MeshStandard" color="blue" />
-  </t-mesh>
+	<t-studio debug></t-studio>
+	<t-mesh geo="Sphere" :props="{castShadow: true}">
+		<t-material type="MeshStandard" color="blue" />
+	</t-mesh>
 </t-renderer>
 
 <script type="module">
-  import "three-webc/three-webc.js";
-  import "three-webc/addons/gui/gui.js";
-  import "three-webc/addons/studio.js";
-  import "three-webc/addons/mesh.js";
+	import "three-webc/three-webc.js";
+	import "three-webc/addons/gui/gui.js";
+	import "three-webc/addons/studio.js";
+	import "three-webc/addons/mesh.js";
 
-  {
-    const { GUI } = await import(
-      "https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm"
-    );
-    const gui = new GUI();
+	{
+		const { GUI } = await import(
+			"https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm"
+		);
+		const gui = new GUI();
 
-    const folder = gui;
-    const object = document.querySelector("t-mesh").mesh
-    folder.add(object.position, "x").step(0.1).listen();
-    folder.add(object.position, "y").step(0.1).listen();
-    folder.add(object.position, "z").step(0.1).listen();
-  }
+		const folder = gui;
+		const object = document.querySelector("t-mesh").mesh;
+		folder.add(object.position, "x").step(0.1).listen();
+		folder.add(object.position, "y").step(0.1).listen();
+		folder.add(object.position, "z").step(0.1).listen();
+	}
 </script>
