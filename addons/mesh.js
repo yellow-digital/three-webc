@@ -6,13 +6,19 @@ import "./material.js";
 export class Mesh extends ThreeWebc.Element {
   constructor() {
     super()
-    this.mesh = {}
+    this.mesh =  new THREE.Mesh()
     this.geometry = null
     this.material = null
   }
 
   mounted() {
-    const { scene } = this.parentElement;
+    const { scene } = this;
+
+    if(this.getAttribute(':geometry')) {
+      const fn = new Function(`return ({THREE}) => ${this.getAttribute(':geometry')}`);
+      const resp = fn()({THREE})
+      this.geometry = resp
+    }
 
     const type = `${this.getAttribute("geo")}Geometry`;
     const geometry = this.geometry || new THREE[type]();
@@ -21,7 +27,10 @@ export class Mesh extends ThreeWebc.Element {
       wireframe: true,
       side: 2,
     });
-    const mesh = new THREE.Mesh(geometry, material);
+    // const mesh = new THREE.Mesh(geometry, material);
+    const mesh = this.mesh
+    mesh.geometry = geometry
+    mesh.material = material
     mesh.name = this.getAttribute('name') || type;
     scene.add(mesh);
 

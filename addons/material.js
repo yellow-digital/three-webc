@@ -2,22 +2,25 @@ import * as THREE from "three";
 import { ThreeWebc } from "three-webc";
 
 export class Material extends ThreeWebc.Element {
-  mounted() {
+  constructor() {
+    super()
+
     const type = `${this.getAttribute("type")}Material`;
     if (!THREE[type]) {
       throw new Error(`Unknown constructor ${type}`);
     }
 
     const material = new THREE[type]({
-      color: this.getAttribute("color") || "",
+      color: this.color || this.getAttribute("color") || "",
       side: 2,
     });
     this.material = material;
+  }
 
+  mounted() {
     // Attach
-    // Resolve parent
     const parent = this.parentElement;
-    parent.material = material;
+    parent.material = this.material;
   }
 
   disconnectedCallback() {

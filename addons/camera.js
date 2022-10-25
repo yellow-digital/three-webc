@@ -8,7 +8,7 @@ export class PerspectiveCamera extends ThreeWebc.Element {
   }
 
   get aspect() {
-    return this.rendererEl?.aspectRatio
+    return this.rendererEl?.viewport.aspectRatio
   }
 
   mounted() {
