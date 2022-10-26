@@ -9,8 +9,8 @@ class Object extends ThreeWebc.Element {
   }
 
   mounted() {
-    if(this.getAttribute('@mount')) {
-      const fn = new Function(`return ({THREE}) => ${this.getAttribute('@mount')}`);
+    if(this.getAttribute(':create')) {
+      const fn = new Function(`return ({THREE}) => new THREE.${this.getAttribute(':create')}`);
       const resp = fn()({THREE})
       this.object = resp
     }
