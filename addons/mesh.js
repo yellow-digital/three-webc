@@ -11,6 +11,10 @@ export class Mesh extends ThreeWebc.Element {
     this.material = null
   }
 
+  get object() {
+    return this.mesh
+  }
+  
   mounted() {
     const { scene } = this;
 

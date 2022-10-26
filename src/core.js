@@ -1,5 +1,17 @@
 export const PREFIX = "t";
 
+export function createFunction(mixed, ctx) {
+  /* If the value is a string, we'll create a function from it. Magic! */
+  if (typeof mixed === "string") {
+    const fn = new Function("dt", "object = this.object", mixed).bind(ctx);
+    return fn;
+  }
+  /* If it's already a function, we'll just use that. */
+  if (typeof mixed === "function") {
+    return (dt = 0) => mixed(dt, ctx);
+  }
+}
+
 /**
  * Base class.
  */
@@ -53,22 +65,33 @@ export class ThreeElement extends HTMLElement {
     this.debug("connectedCallback");
 
     /*
-    Wait till all other elements have been loaded
+      Wait till all other elements have been loaded
     */
     setTimeout(() => {
-      /* Apply all attributes */
-      // this.applyAllAttributes()
-
-      this.mounted(this.rendererEl);
-      this.setAttribute("mounted", "");
-      if (this.tick) {
-        // TODO cleanup on remove
-        this.rendererEl.rafs.push(() => {
-          this.tick();
-        });
-      }
-		  this.dispatchEvent(new Event('ready'))
+      this.beforeMounted();
     });
+  }
+
+  beforeMounted() {
+    this.mounted(this.rendererEl);
+
+    if (ThreeWebc.debug) {
+      this.setAttribute("mounted", "");
+    }
+
+    // Apply directives
+    ThreeWebc.directives.forEach((fn) => {
+      fn(this);
+    });
+
+    // TODO cleanup on remove
+    if (this.tick) {
+      this.rendererEl.rafs.push((dt) => {
+        this.tick(dt);
+      });
+    }
+
+    this.dispatchEvent(new Event("ready"));
   }
 
   /**
@@ -85,7 +108,7 @@ export class ThreeElement extends HTMLElement {
   /**
    * Hook for when the DOM is ready
    */
-  mounted() {}
+  mounted(view) {}
 
   /**
    * Hook for when the element is removed
@@ -113,12 +136,18 @@ export class ThreeElement extends HTMLElement {
  * equivalents.
  */
 export const registeredElements = {};
+export const directives = [];
 
 export const ThreeWebc = {
   registeredElements,
+  directives,
+  directive(cb = () => {}) {
+    directives.push(cb);
+  },
   debug: false,
   Element: ThreeElement,
   define,
+  createFunction,
 };
 
 export default ThreeWebc;
