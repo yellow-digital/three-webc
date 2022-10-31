@@ -20,7 +20,7 @@ Ease the setup for 3D graphics and maintain a straighforward integration with [t
 Our goal is to make it easier to share and reuse components for 3D web graphics.
 
 # Usage
-Find here more [examples](https://yellow-digital.github.io/three-webc/examples/list.html)
+Find here more [examples](/three-webc/examples/list.html)
 
 https://jsfiddle.net/yellowdigital/6jetkhpd/
 ```html
@@ -56,7 +56,10 @@ https://jsfiddle.net/yellowdigital/6jetkhpd/
 # FAQ
 ## Why webcomponents?
 - Usable in any page or framework.
-- The DOM brings some powerfull tools, for example by using `document.queryElement`. Remove certain element from the scene by doing: `[...document.querySelectorAll('t-mesh')].forEach(e => e.remove())` (runnable in the inspectors console)
+- The DOM brings some powerfull tools, for example by using `document.queryElement`. You can remove certain element from the scene by doing: `[...document.querySelectorAll('t-mesh')].forEach(e => e.remove())` (also runnable in the inspectors console)
+
+## How do I create components?
+Best way to start is looking at the examples. [examples](/three-webc/examples/list.html)
 
 # Contribution
 We welcome any input. If you have created a webcomponent for three-webc (for physics, particle system, custom shaders, ...), feel free to contact us at [Discord] so we can maintain a curated list.
