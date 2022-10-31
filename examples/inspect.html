@@ -1,0 +1,88 @@
+<title>inspect</title>
+
+<style>
+	@import url("./style.css");
+
+	t-mesh[inspect] {
+		border: 1px dashed rgba(255, 255, 255, 0.4);
+		position: absolute;
+		width: 100px;
+		height: 100px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+	t-mesh[inspect]:hover {
+		border: 1px dashed rgba(48, 187, 197, 0.4);
+	}
+</style>
+
+<script type="importmap">
+	{
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+			"three-webc": "../src/index.js",
+			"three-webc/": "../"
+		}
+	}
+</script>
+
+<t-renderer orbit>
+	<!-- <t-camera :position="{ x: 10, y: 10 }" @mounted="console.log(object); object.lookAt(0,0,0)"></t-camera> -->
+
+	<t-object :new="AmbientLight( 0x404040 )"></t-object>
+	<t-object :new="DirectionalLight()"></t-object>
+	<t-mesh inspect :geometry="new THREE.BoxGeometry()">
+		<t-material type="MeshStandard" color="green"></t-material>
+	</t-mesh>
+	<t-mesh inspect :geometry="new THREE.BoxGeometry()" :position="{ x: 4 }">
+		<t-material type="MeshStandard" color="green"></t-material>
+	</t-mesh>
+</t-renderer>
+
+<script type="module">
+	import "three-webc/addons/overlay.js";
+	import "three-webc/addons/index.js";
+	import "three-webc/addons/directives.js";
+	import { projectToCameraFromVector } from "three-webc/addons/index.js";
+	import { ThreeWebc } from "three-webc/index.js";
+	import * as THREE from "three";
+
+	const app = document.querySelector("t-renderer");
+	window.app = app;
+	const controls = document.querySelector("t-orbit");
+
+	// Define a custom directive
+	ThreeWebc.directive((el) => {
+		if (el.getAttribute("inspect") !== "") {
+			return;
+		}
+
+		const update = () => {
+			const { object } = el;
+
+			const pos = projectToCameraFromVector(
+				object.position,
+				document.querySelector("t-renderer")
+			);
+
+			const distance = pos.distance.toFixed();
+			const scale = ((1 / distance) * 1000).toFixed();
+			el.style.width = `${scale}px`;
+			el.style.height = `${scale}px`;
+
+			// Top left
+			// const{width, height} = el.getBoundingClientRect()
+			el.style.top = `${(pos.y - scale / 2).toFixed()}px`;
+			el.style.left = `${(pos.x - scale / 2).toFixed()}px`;
+		};
+
+		update();
+		// setInterval(update, 1000);
+		// document.addEventListener("mousemove", update);
+		controls.addEventListener("change", (e) => {
+			update();
+		});
+	});
+</script>

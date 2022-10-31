@@ -3,50 +3,39 @@ import { ThreeWebc } from "three-webc";
 
 /**
  * https://stackoverflow.com/questions/11586527/converting-world-coordinates-to-screen-coordinates-in-three-js-using-projection
- * @param {*} obj
+ * @param {*} vector
  * @param {*} param1
  */
-export function getBoundingRect(obj, { renderer, camera }) {
-  const vector = new THREE.Vector3();
-  const canvas = renderer.domElement; // `renderer` is a THREE.WebGLRenderer
+export function projectToCameraFromVector(
+	position = new THREE.Vector3(),
+	{ renderer, camera }
+) {
+	const canvas = renderer.domElement; // `renderer` is a THREE.WebGLRenderer
+  position = position.clone()
+	position.project(camera); // `camera` is a THREE.PerspectiveCamera
 
-  obj.updateMatrixWorld(); // `obj´ is a THREE.Object3D
-  vector.setFromMatrixPosition(obj.matrixWorld);
+	const x = Math.round(
+		(0.5 + position.x / 2) * (canvas.width / window.devicePixelRatio)
+	);
+	const y = Math.round(
+		(0.5 - position.y / 2) * (canvas.height / window.devicePixelRatio)
+	);
 
-  vector.project(camera); // `camera` is a THREE.PerspectiveCamera
-
-  const x = Math.round(
-    (0.5 + vector.x / 2) * (canvas.width / window.devicePixelRatio)
-  );
-  const y = Math.round(
-    (0.5 - vector.y / 2) * (canvas.height / window.devicePixelRatio)
-  );
-  return { x, y };
+  var distance = camera.position.distanceTo( position );
+	return { x, y, distance };
 }
 
 class Overlay extends ThreeWebc.Element {
-  mounted() {
-    this.closest('t-renderer')?.addEventListener('render',this.update.bind(this))
-    // this.closest('t-renderer').rafs.push(() => {
-    //     this.update()
-    // })
-  }
+	tick() {
+		const target = this.parentElement.mesh;
 
-  disconnectedCallback() {
-    // TODO
-    this.closest('t-renderer')?.removeEventListener('render',this.update.bind(this))
-  }
-  
-  update() {
-    const target = this.parentElement.mesh;
-
-    const pos = getBoundingRect(
-      target,
-      document.querySelector("t-renderer")
-    );
-    this.style.top = pos.y;
-    this.style.left = pos.x;
-  }
+		const pos = projectToCameraFromVector(
+			target.position,
+			document.querySelector("t-renderer")
+		);
+		this.style.top = `${pos.y}px`;
+		this.style.left = `${pos.x}px`;
+	}
 }
 
 ThreeWebc.define("overlay", Overlay);

@@ -1,32 +1,42 @@
 import { ThreeWebc } from "three-webc";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 class Orbit extends ThreeWebc.Element {
 	constructor() {
 		super();
 	}
 
-	disconnectedCallback() {
-		this.controls.dispose();
+	get object() {
+		return this.controls;
 	}
 
-	async mounted() {
-		// https://threejs.org/docs/#examples/en/controls/OrbitControls
-		const { OrbitControls } = await import(
-			"three/addons/controls/OrbitControls.js"
-		);
-
-		const { camera, renderer, rafs } = this.parentElement.viewport;
+	mounted() {
+		const { camera, renderer } = this;
 
 		// controls
 		const controls = new OrbitControls(camera, renderer.domElement);
 		// controls.dampingFactor = 0.1
 		controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
 		this.controls = controls;
+		// controls.camera = this.camera
 
-		rafs.push(() => {
-			// only required if controls.enableDamping = true, or if controls.autoRotate = true
-			this.controls.update();
-		});
+		// Proxy events
+		controls.addEventListener('change', e => {
+			// console.log(e)
+			// Convert to proper DOM Event
+			this.dispatchEvent(new CustomEvent('change', {detail: e}))
+		})
+	}
+
+	destroyed() {
+		this.controls.dispose();
+	}
+
+	async tick() {
+		// only required if controls.enableDamping = true, or if controls.autoRotate = true
+		if(!this.controls) return
+
+		this.controls.update();
 	}
 }
 
@@ -83,11 +93,11 @@ class Controls extends ThreeWebc.Element {
 	}
 
 	async mounted() {
-    const fn = resolvers[this.getAttribute("type")];
-    if (!fn) {
-      throw new Error(`No handler for type: ${this.getAttribute("type")}`);
-    }
-    fn(this.parentElement.viewport);
+		const fn = resolvers[this.getAttribute("type")];
+		if (!fn) {
+			throw new Error(`No handler for type: ${this.getAttribute("type")}`);
+		}
+		fn(this.parentElement.viewport);
 	}
 }
 
