@@ -33,10 +33,12 @@ export class Mesh extends ThreeWebc.Element {
     });
     // const mesh = new THREE.Mesh(geometry, material);
     const mesh = this.mesh
+    mesh.castShadow = true
     mesh.geometry = geometry
     mesh.material = material
     mesh.name = this.getAttribute('name') || type;
     scene.add(mesh);
+		mesh.castShadow = true
 
     this.mesh = mesh;
 

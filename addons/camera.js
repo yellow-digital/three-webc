@@ -3,10 +3,16 @@ import { applyAttributes } from "./object3d.js";
 import { ThreeWebc } from "three-webc";
 
 export class PerspectiveCamera extends ThreeWebc.Element {
+  constructor() {
+    super()
+  }
+
   get position() {
     return this.camera.position
   }
-
+  get object() {
+    return this.camera
+  }
   get aspect() {
     return this.rendererEl?.viewport.aspectRatio
   }
@@ -16,10 +22,12 @@ export class PerspectiveCamera extends ThreeWebc.Element {
 
     applyAttributes(this, camera);
 
-    // Overrule previous camera?
-    this.rendererEl.camera = camera
+    // this.camera = camera
+    
+    // Overrule active camera?
+    // this.rendererEl.camera = camera
 
-    // Also add to scene
+    // add to scene
     this.scene.add(camera)
   }
 

@@ -73,14 +73,15 @@ export class ThreeElement extends HTMLElement {
   }
 
   beforeMounted() {
+    // Call lifecycle method
     this.mounted(this.rendererEl);
 
     if (ThreeWebc.debug) {
       this.setAttribute("mounted", "");
     }
 
-    // Apply directives
-    ThreeWebc.directives.forEach((fn) => {
+    // Apply hooks
+    ThreeWebc.hooks.forEach((fn) => {
       fn(this);
     });
 
@@ -121,6 +122,10 @@ export class ThreeElement extends HTMLElement {
     this.destroyed();
   }
 
+  log(...args) {
+    console.log(`${this.tagName}`, ...args);
+  }
+
   debug(...args) {
     if (!ThreeWebc.debug) return;
     console.debug(`${this.tagName}`, ...args);
@@ -136,13 +141,25 @@ export class ThreeElement extends HTMLElement {
  * equivalents.
  */
 export const registeredElements = {};
-export const directives = [];
+export const hooks = [];
 
 export const ThreeWebc = {
   registeredElements,
-  directives,
-  directive(cb = () => {}) {
-    directives.push(cb);
+  hooks,
+  hook(cb = (el) => {}) {
+    hooks.push(cb);
+  },
+  directive(tag = "", cb = (el, ctx = {}) => {}) {
+    hooks.push((el) => {
+      const value = el.getAttribute(tag)
+      // Don't run this directive if not set.
+      if (value === null) {
+        return;
+      }
+      
+      // Run callback
+      cb(el, { value })
+    });
   },
   debug: false,
   Element: ThreeElement,

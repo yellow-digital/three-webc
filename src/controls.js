@@ -11,8 +11,12 @@ class Orbit extends ThreeWebc.Element {
 	}
 
 	mounted() {
-		const { camera, renderer } = this;
+		let { camera, renderer } = this;
 
+		// if(this.getAttribute('camera')) {
+		// 	const cameraEl = this.querySelector(this.getAttribute('camera'))
+		// 	camera = cameraEl.object
+		// }
 		// controls
 		const controls = new OrbitControls(camera, renderer.domElement);
 		// controls.dampingFactor = 0.1

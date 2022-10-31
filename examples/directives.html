@@ -1,4 +1,4 @@
-<title>start</title>
+<title>directives</title>
 
 <style>
 	@import url("./style.css");
@@ -15,27 +15,93 @@
 	}
 </script>
 
-<t-renderer orbit>
+<gui-info>
+	<h3>Directives.</h3>
+	<p>
+		A directive (or hook) will run on the creation of each component. This let's
+		you add super powers to your components.
+	</p>
+</gui-info>
+
+<t-renderer>
+	<!-- <t-camera id="cam1" :position="{ x: 4, y:4, z: 4 }" helper></t-camera> -->
+  	<!-- <t-orbit camera="#cam1"></t-orbit> -->
 	<t-object
-		:timeout="console.log('timeout', this)"
+		timeout="console.log('timeout', this)"
 		@mounted="console.log('@mounted', this)"
 		:create="AmbientLight( 0x404040 )"
 		:hello="`world`"
 	></t-object>
-	<t-object :create="DirectionalLight()"></t-object>
-	<t-mesh @tick="object.rotation.x = object.rotation.y += 0.01;">
+	<t-object gui :create="DirectionalLight()" up="5" cast-shadow light-helper></t-object>
+	<t-mesh rotate up cast-shadow log>
 		<t-geometry type="Box"></t-geometry>
 		<t-material type="MeshStandard" color="green"></t-material>
 	</t-mesh>
+	<t-floor></t-floor>
 </t-renderer>
 
 <script type="module">
-	import "three-webc/addons/index.js";
-	import "three-webc/addons/directives.js";
 	import { ThreeWebc } from "three-webc/index.js";
+	import "three-webc/addons/index.js";
+	import "three-webc/addons/directives/index.js";
+	import "three-webc/addons/objects/floor.js";
+	import "three-webc/addons/directives/transform.js";
+	import * as THREE from "three";
 
 	// Define a custom directive
-	ThreeWebc.directive((el) => {
+	ThreeWebc.directive("log", (el, { value }) => {
+		console.log(`${el.tagName}`,el.object)
+	});
+
+	ThreeWebc.directive("gui", async (el, { value }) => {
+		const { GUI } = await import(
+			"https://cdn.jsdelivr.net/npm/lil-gui@0.17/+esm"
+		);
+		const gui = new GUI();
+
+		const folder = gui;
+		const {object} = el;
+		folder.add(object.position, "x").step(0.1).listen();
+		folder.add(object.position, "y").step(0.1).listen();
+		folder.add(object.position, "z").step(0.1).listen();
+	});
+
+	ThreeWebc.directive("light-helper", (el, { value }) => {
+		const {object, scene } = el
+		const light = object
+		const helper = new THREE.DirectionalLightHelper(light);
+    	scene.add(helper);
+
+		const cameraHelper = new THREE.CameraHelper(light.shadow.camera);
+		scene.add(cameraHelper);
+	});
+
+	ThreeWebc.directive("cast-shadow", (el, { value }) => {
+		el.object.castShadow = true;
+	});
+
+	ThreeWebc.directive("up", (el, { value }) => {
+		el.object.position.y += Number(value || 2);
+	});
+
+	ThreeWebc.directive("rotate", (el, { value }) => {
+		// TODO
+		// el.addEventListener('render', () => {
+		// 	console.log('render')
+		// })
+
+		// Mutate tick function for now
+		el.tick = () => {
+			const speed = Number(value) || 0.01;
+			const { object } = el;
+			object.rotation.x += speed;
+			object.rotation.y += speed;
+		};
+	});
+
+	// For some more freedom use a hook,
+	// this will run on each components creation
+	ThreeWebc.hook((el) => {
 		if (!el.getAttribute(":hello")) {
 			return;
 		}
