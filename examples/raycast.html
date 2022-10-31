@@ -15,6 +15,13 @@
   }
 </script>
 
+<gui-info>
+	<h3>Raycast.</h3>
+	<p>
+		click left for bounce or right to remove a box.
+	</p>
+</gui-info>
+
 <t-renderer orbit>
   <t-studio></t-studio>
   <t-object3d>
@@ -29,6 +36,7 @@
   import "three-webc";
   import * as THREE from "three";
   import "three-webc/addons/objects/crate.js";
+  import "three-webc/addons/raycaster.js";
   import "three-webc/addons/studio.js";
   import "three-webc/addons/object3d.js";
   import * as EFFECTS from "three-webc/addons/effects.js";
@@ -92,7 +100,6 @@
 
     const raycaster = document.querySelector("t-raycaster");
     const folder = gui //.addFolder("Raycaster"); //.open(false);
-    folder.domElement.append(document.createTextNode('click left for bounce or right to remove a box'))
     folder.add(raycaster.state.pointer, "x").listen();
     folder.add(raycaster.state.pointer, "y").listen();
     folder.add(app, "reset")

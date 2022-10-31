@@ -1,6 +1,7 @@
 import * as THREE from "three";
+import { ThreeWebc, ThreeElement } from "three-webc";
 
-export class Raycaster extends HTMLElement {
+export class Raycaster extends ThreeElement {
   constructor() {
     super();
 
@@ -97,4 +98,5 @@ export class Raycaster extends HTMLElement {
   }
 }
 
-customElements.define("t-raycaster", Raycaster);
+ThreeWebc.define("raycaster", Raycaster);
+console.log('cool')
