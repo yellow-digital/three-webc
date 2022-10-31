@@ -20,7 +20,7 @@ export class Viewport {
     // renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
-    // renderer.shadowMap.type = THREE.VSMShadowMap; // default THREE.PCFShadowMap
+    // renderer.shadowMap.type = THREE.VSMShadowMap;
     this.renderer = renderer;
 
     const camera = new THREE.PerspectiveCamera(
@@ -29,6 +29,7 @@ export class Viewport {
       0.01,
       10000000
     );
+    camera.name = "camera0"
     camera.position.z = 5;
     this.camera = camera;
   }
@@ -146,10 +147,10 @@ class TRenderer extends ThreeWebc.Element {
   async connectedCallback() {
     this.viewport.mount(this);
 
-    // Debug info
     this.viewport.rafs.push(() => {
       this.dispatchEvent(new Event("render"));
-
+      
+      // Debug info
       this.setAttribute('rafs', this.viewport.rafs.length)
     })
 
