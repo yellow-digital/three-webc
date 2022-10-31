@@ -59,7 +59,7 @@ https://jsfiddle.net/yellowdigital/6jetkhpd/
 - The DOM brings some powerfull tools, for example by using `document.queryElement`. You can remove certain element from the scene by doing: `[...document.querySelectorAll('t-mesh')].forEach(e => e.remove())` (also runnable in the inspectors console)
 
 ## How do I create components?
-Best way to start is looking at the examples. [examples](/three-webc/examples/list.html)
+Best way to start is looking at the examples. [examples](https://yellow-digital.github.io/three-webc/examples/list.html)
 
 # Contribution
 We welcome any input. If you have created a webcomponent for three-webc (for physics, particle system, custom shaders, ...), feel free to contact us at [Discord] so we can maintain a curated list.
