@@ -1,0 +1,62 @@
+<title>
+  Elements
+</title>
+
+<style>
+  @import url('./style.css');
+</style>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+      "three-webc": "../src/index.js",
+      "three-webc/": "../"
+    }
+  }
+</script>
+
+<gui-info>
+  Remake of the <a
+  target="_blank"
+  href="https://three-elements.hmans.co/"
+  >three-elements</a
+> demo.
+</gui-info>
+
+<t-renderer orbit>
+  <t-scene background-color="#444">
+    <t-ambient-light intensity="0.2"></t-ambient-light>
+    <t-directional-light intensity="0.8" position="10, 10, 50"></t-directional-light>
+
+    <t-mesh name="dodecahedron" tick="object.rotation.z += dt">
+      <t-dodecahedron-buffer-geometry></t-dodecahedron-buffer-geometry>
+      <t-mesh-standard-material
+        color="hotpink"
+        metalness="0.5"
+        roughness="0.5"
+      ></t-mesh-standard-material>
+    </t-mesh>
+
+    <!-- A floor. We like shadows. Shadows good! -->
+    <t-mesh name="floor" rotation.x="-90deg" position.y="-7" receive-shadow>
+      <t-plane-buffer-geometry
+        args="1000, 1000, 32"
+      ></t-plane-buffer-geometry>
+      <t-mesh-standard-material color="#888"></t-mesh-standard-material>
+    </t-mesh>
+    <t-scene-gui></t-scene-gui>
+  </t-scene>
+</t-renderer>
+
+<script type="module">
+  import {ThreeWebc} from "three-webc";
+  import "three-webc/addons/elements.js";
+  // import "three-webc/addons/index.js";
+	import "three-webc/addons/gui/scene-gui.js";
+
+  window.t = ThreeWebc
+  window.app = document.querySelector('t-renderer')
+  window.d = () => console.table(app.scene.children)
+</script>
