@@ -29,7 +29,7 @@
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
 
-  const light = new THREE.AmbientLight(0x404040); // soft white light
+  const light = new THREE.AmbientLight();
   scene.add(light);
 
   scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
