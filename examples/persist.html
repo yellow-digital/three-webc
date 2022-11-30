@@ -1,0 +1,42 @@
+<title>Persist</title>
+
+<style>
+	@import url("./style.css");
+</style>
+
+<script type="importmap">
+	{
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
+			"three-webc": "../src/index.js",
+			"three-webc/": "../"
+		}
+	}
+</script>
+
+<gui-info>
+	<p>Persist the camera in the query params. This makes it easy to do link sharing of big scenes.</p>
+</gui-info>
+
+<t-renderer orbit>
+	<t-camera :position="{ x: 4, y:4, z: 4 }"></t-camera>
+	<t-light type="AmbientLight"></t-light>
+	<t-light type="DirectionalLight"></t-light>
+	<t-light type="SpotLight"></t-light>
+	<t-floor></t-floor>
+	<t-mesh :position="{ y: 1.5 }" :props="{castShadow: true}">
+		<t-geometry type="Sphere"></t-geometry>
+		<t-material type="MeshStandard" color="green"></t-material>
+	</t-mesh>
+</t-renderer>
+
+<script type="module">
+	import { ThreeWebc } from "three-webc";
+	import "three-webc/addons/index.js";
+	import "three-webc/addons/objects/floor.js";
+	import "three-webc/addons/directives/persist-camera.js";
+
+	window.t = ThreeWebc;
+	window.app = document.querySelector('t-renderer');
+</script>

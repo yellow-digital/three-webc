@@ -2,6 +2,11 @@ import * as THREE from "three";
 import { applyAttributes } from "./object3d.js";
 import { ThreeWebc } from "three-webc";
 
+/**
+ * General purpose component.
+ * @example 
+	<t-object :create="DirectionalLight()"></t-object>
+ */
 class Object extends ThreeWebc.Element {
   constructor() {
     super()

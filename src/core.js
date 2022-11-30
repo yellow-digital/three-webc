@@ -20,15 +20,23 @@ export class ThreeElement extends HTMLElement {
     super();
   }
 
-  get observedAttributes() {
-    return [""];
-  }
+  // get observedAttributes() {
+  //   return [""];
+  // }
 
   attributeChangedCallback(key = "", oldValue, newValue) {
     this.debug("attributeChangedCallback", key, oldValue, newValue);
     this[key] = newValue;
   }
 
+  get $rootEl() {
+    return this.closest("t-renderer") || {};
+  }
+  get $root() {
+    return this.$rootEl.viewport
+  }
+
+  // TODO Migrate to $root or $rootEl
   get rendererEl() {
     return this.closest("t-renderer") || {};
   }

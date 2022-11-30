@@ -99,4 +99,3 @@ export class Raycaster extends ThreeElement {
 }
 
 ThreeWebc.define("raycaster", Raycaster);
-console.log('cool')

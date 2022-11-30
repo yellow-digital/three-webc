@@ -23,6 +23,7 @@ export class Viewport {
     // renderer.shadowMap.type = THREE.VSMShadowMap;
     this.renderer = renderer;
 
+    // Initial camera
     const camera = new THREE.PerspectiveCamera(
       60,
       1, // updated by onWindowResize
@@ -132,6 +133,12 @@ class TRenderer extends ThreeWebc.Element {
   }
   get camera() {
     return this.viewport.camera;
+  }
+  get controls() {
+    return this.viewport.controls;
+  }
+  set controls(value) {
+    this.viewport.controls = value
   }
   set camera(cam) {
     this.debug('new cam', cam)

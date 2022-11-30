@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "dev": "npx browser-sync . --directory --watch"
+    "dev": "npx browser-sync . --directory --watch",
+    "build": "rollup index.js -o dist/three-webc.js"
   },
   "keywords": [
     "threejs",

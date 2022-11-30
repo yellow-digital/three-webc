@@ -24,6 +24,9 @@ class Orbit extends ThreeWebc.Element {
 		this.controls = controls;
 		// controls.camera = this.camera
 
+		// Tell $root
+		this.$root.controls = controls
+
 		// Proxy events
 		controls.addEventListener('change', e => {
 			// console.log(e)
@@ -36,7 +39,7 @@ class Orbit extends ThreeWebc.Element {
 		this.controls.dispose();
 	}
 
-	async tick() {
+	tick() {
 		// only required if controls.enableDamping = true, or if controls.autoRotate = true
 		if(!this.controls) return
 
@@ -45,64 +48,3 @@ class Orbit extends ThreeWebc.Element {
 }
 
 ThreeWebc.define("orbit", Orbit);
-
-const resolvers = {
-	FirstPersonControls: async (view) => {
-		const { FirstPersonControls } = await import(
-			"three/addons/controls/FirstPersonControls.js"
-		);
-
-		const controls = new FirstPersonControls(
-			view.camera,
-			view.renderer.domElement
-		);
-		// controls.movementSpeed = 150;
-		controls.lookSpeed = 0.1;
-
-		view.rafs.push((delta) => {
-			controls.update(delta);
-		});
-	},
-	ArcballControls: async (view) => {
-		const { ArcballControls } = await import(
-			"three/addons/controls/ArcballControls.js"
-		);
-
-		const controls = new ArcballControls(
-			view.camera,
-			view.renderer.domElement,
-			view.scene
-		);
-	},
-	FlyControls: async (view) => {
-		const { FlyControls } = await import(
-			"three/addons/controls/FlyControls.js"
-		);
-
-		const controls = new FlyControls(view.camera, view.renderer.domElement);
-		view.rafs.push((delta) => {
-			controls.update(delta);
-		});
-	},
-};
-
-class Controls extends ThreeWebc.Element {
-	constructor() {
-		super();
-		this.controls = null;
-	}
-
-	disconnectedCallback() {
-		this.controls.dispose();
-	}
-
-	async mounted() {
-		const fn = resolvers[this.getAttribute("type")];
-		if (!fn) {
-			throw new Error(`No handler for type: ${this.getAttribute("type")}`);
-		}
-		fn(this.parentElement.viewport);
-	}
-}
-
-ThreeWebc.define("controls", Controls);

@@ -8,10 +8,10 @@ export class PerspectiveCamera extends ThreeWebc.Element {
   }
 
   get position() {
-    return this.camera.position
+    return this._camera.position
   }
   get object() {
-    return this.camera
+    return this._camera
   }
   get aspect() {
     return this.rendererEl?.viewport.aspectRatio
@@ -22,10 +22,10 @@ export class PerspectiveCamera extends ThreeWebc.Element {
 
     applyAttributes(this, camera);
 
-    // this.camera = camera
+    this._camera = camera
     
     // Overrule active camera?
-    // this.rendererEl.camera = camera
+    this.$root.camera = camera
 
     // add to scene
     this.scene.add(camera)
