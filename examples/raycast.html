@@ -24,7 +24,7 @@
 
 <t-renderer orbit>
   <t-studio></t-studio>
-  <t-object3d>
+  <t-object3d name="group">
     <t-raycaster></t-raycaster>
     <t-crate position="2,0,0"></t-crate>
     <t-crate></t-crate>
@@ -48,6 +48,7 @@
 
   renderer.domElement.addEventListener("click", (e) => {
     const intersects= raycaster.cast();
+    console.log(intersects)
     const object = intersects.length && intersects[0].object
     if(object) {
       EFFECTS.bounce(object);

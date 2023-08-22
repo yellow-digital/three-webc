@@ -70,10 +70,10 @@ class TRenderer extends ThreeWebc.Element {
     return width / height;
   }
 
-  mount(container) {
-    this.container = container;
+  mount(domElement) {
+    this.domElement = domElement;
 
-    container.appendChild(this.renderer.domElement);
+    domElement.appendChild(this.renderer.domElement);
 
     // Set initial view
     this.onWindowResize();

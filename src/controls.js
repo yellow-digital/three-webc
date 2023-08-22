@@ -11,8 +11,6 @@ class Orbit extends ThreeWebc.Element {
 	}
 
 	mounted({ camera, renderer }) {
-
-		// controls
 		const controls = new OrbitControls(camera, renderer.domElement);
 		// controls.dampingFactor = 0.1
 		controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
@@ -24,7 +22,6 @@ class Orbit extends ThreeWebc.Element {
 
 		// Proxy events
 		controls.addEventListener('change', e => {
-			// console.log(e)
 			// Convert to proper DOM Event
 			this.dispatchEvent(new CustomEvent('change', {detail: e}))
 		})

@@ -32,16 +32,16 @@ export class Object3D extends ThreeWebc.Element {
     const mesh = new THREE.Object3D();
     this.mesh = mesh;
   }
-  // Proxy to allow nesting
-  get rafs() {
-    return this.$renderer.rafs;
-  }
-  get renderer() {
-    return this.$renderer.renderer;
-  }
-  get camera() {
-    return this.$renderer.camera;
-  }
+  // // Proxy to allow nesting
+  // get rafs() {
+  //   return this.$renderer.rafs;
+  // }
+  // get renderer() {
+  //   return this.$renderer.renderer;
+  // }
+  // get camera() {
+  //   return this.$renderer.camera;
+  // }
   get scene() {
     return this.mesh
   }

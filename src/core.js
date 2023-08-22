@@ -26,32 +26,6 @@ export class ThreeElement extends HTMLElement {
     this[key] = newValue;
   }
 
-  // get $rootEl() {
-  //   return this.closest("t-renderer") || {};
-  // }
-  // get $root() {
-  //   return this.$rootEl.viewport
-  // }
-
-  // get rendererEl() {
-  //   return this.closest("t-renderer") || {};
-  // }
-  // get renderer() {
-  //   return this.rendererEl.renderer;
-  // }
-  // get scene() {
-  //   return this.parent.scene || this.rootScene;
-  // }
-  // get rootScene() {
-  //   return this.rendererEl.scene;
-  // }
-  // get camera() {
-  //   return this.rendererEl.camera;
-  // }
-  // set camera(value) {
-  //   this.rendererEl.camera = value;
-  // }
-
   /**
    * Use this getter to find first parent Object3D
    */
@@ -73,12 +47,10 @@ export class ThreeElement extends HTMLElement {
   }
 
   beforeMounted() {
+    // Find closest scene in tree to allow nesting
+    const scene = this.parentElement.scene || this.$renderer.scene
     // Call lifecycle method
-    this.mounted(this.$renderer);
-
-    if (ThreeWebc.debug) {
-      this.setAttribute("mounted", "");
-    }
+    this.mounted({...this.$renderer, scene});
 
     // Apply hooks
     ThreeWebc.hooks.forEach((fn) => {
@@ -109,7 +81,9 @@ export class ThreeElement extends HTMLElement {
   /**
    * Hook for when the DOM is ready
    */
-  mounted(view) {}
+  mounted(view) {
+    this.debug("mounted");
+  }
 
   /**
    * Hook for when the element is removed

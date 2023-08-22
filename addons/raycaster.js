@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import { ThreeWebc, ThreeElement } from "three-webc";
+import { ThreeWebc } from "three-webc";
 
-export class Raycaster extends ThreeElement {
+export class Raycaster extends ThreeWebc.Element {
   constructor() {
     super();
 
@@ -20,15 +20,9 @@ export class Raycaster extends ThreeElement {
     this.state = state;
   }
 
-  async connectedCallback() {
-    setTimeout(() => {
-      this.mounted();
-    });
-  }
-
   cast() {
     const { state, raycaster } = this;
-    const { camera } = this.parentElement;
+    const { camera } = this.$renderer;
     const pointer = state.pointer;
 
     raycaster.setFromCamera(pointer, camera);
@@ -41,11 +35,13 @@ export class Raycaster extends ThreeElement {
   }
 
   update() {
-    const { camera, scene } = this.parentElement;
+    const { camera, scene } = this.$renderer
     const { state, raycaster } = this;
     const pointer = state.pointer;
 
-    state.objects = scene.children;
+    // console.log({...this.parentElement})
+    state.objects = this.parentElement.scene.children;
+    console.log(state.objects)
 
     // find intersections
     raycaster.setFromCamera(pointer, camera);
@@ -67,8 +63,7 @@ export class Raycaster extends ThreeElement {
     }
   }
 
-  mounted() {
-    const { scene, renderer } = this.parentElement;
+  mounted({ scene, domElement }) {
     const { state } = this;
     const pointer = state.pointer;
 
@@ -89,7 +84,7 @@ export class Raycaster extends ThreeElement {
       this.dispatchEvent(new CustomEvent("click"));
     };
 
-    const parent = renderer.domElement;
+    const parent = domElement;
     parent.addEventListener("pointermove", onPointerMove);
     parent.addEventListener("pointermove", () => {
       this.update()
