@@ -8,8 +8,8 @@ class Element extends ThreeWebc.Element {
     this.light = light
   }
 
-  async mounted() {
-    this.scene.add( this.light );
+  async mounted({scene}) {
+    scene.add( this.light );
   }
 }
 

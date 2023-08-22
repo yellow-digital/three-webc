@@ -1,11 +1,9 @@
 import * as THREE from "three";
 import { ThreeWebc } from "./core.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 
-class TRenderer extends ThreeWebc.Element {
-  constructor() {
-    super();
-    ThreeWebc.debug = this.getAttribute('debug') === "";
-
+export class Viewport {
+  constructor(options = {}) {
     this.rafs = [];
     this.playing = true;
 
@@ -16,7 +14,7 @@ class TRenderer extends ThreeWebc.Element {
     this.container = null;
     this.THREE = THREE;
     this.clock = new THREE.Clock();
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, ...options });
     renderer.setPixelRatio(window.devicePixelRatio);
     // renderer.toneMapping = THREE.ReinhardToneMapping;
     // renderer.setSize(window.innerWidth, window.innerHeight);
@@ -35,48 +33,6 @@ class TRenderer extends ThreeWebc.Element {
     camera.name = "camera0"
     camera.position.z = 5;
     this.camera = camera;
-  }
-  // get THREE() {
-  //   return THREE;
-  // }
-  // get scene() {
-  //   return this.viewport.scene;
-  // }
-  // get renderer() {
-  //   return this.viewport.renderer;
-  // }
-  // get camera() {
-  //   return this.viewport.camera;
-  // }
-  // get controls() {
-  //   return this.viewport.controls;
-  // }
-  // set controls(value) {
-  //   this.viewport.controls = value
-  // }
-  // set camera(cam) {
-  //   this.debug('new cam', cam)
-  //   this.viewport.camera = cam;
-  // }
-  // get domElement() {
-  //   return this.viewport.renderer.domElement;
-  // }
-
-  async connectedCallback() {
-    this.mount(this);
-
-    this.rafs.push(() => {
-      this.dispatchEvent(new Event("render"));
-      
-      // Debug info
-      this.setAttribute('rafs', this.rafs.length)
-    })
-
-    // Sugar
-    if (this.getAttribute("orbit") === "") {
-      const el = document.createElement("t-orbit");
-      this.append(el);
-    }
   }
 
   get boundingClientRect() {
@@ -107,13 +63,13 @@ class TRenderer extends ThreeWebc.Element {
       this.onWindowResize();
     });
 
-    this.animator();
+    this.animate();
   }
 
-  animator() {
+  animate() {
     requestAnimationFrame(() => {
       if (this.playing) {
-        this.animator();
+        this.animate();
       }
     });
 
@@ -159,5 +115,78 @@ class TRenderer extends ThreeWebc.Element {
   }
 }
 
+class TRenderer extends ThreeWebc.Element {
+  constructor() {
+    super();
+    const viewport = new Viewport();
+    this.viewport = viewport;
+    ThreeWebc.debug = this.getAttribute('debug') === "";
+  }
+  get THREE() {
+    return THREE;
+  }
+  get scene() {
+    return this.viewport.scene;
+  }
+  get renderer() {
+    return this.viewport.renderer;
+  }
+  get camera() {
+    return this.viewport.camera;
+  }
+  get controls() {
+    return this.viewport.controls;
+  }
+  set controls(value) {
+    this.viewport.controls = value
+  }
+  set camera(cam) {
+    this.debug('new cam', cam)
+    this.viewport.camera = cam;
+  }
+  get rafs() {
+    return this.viewport.rafs;
+  }
+  get domElement() {
+    return this.viewport.renderer.domElement;
+  }
+
+  async connectedCallback() {
+    this.viewport.mount(this);
+
+    this.viewport.rafs.push(() => {
+      this.dispatchEvent(new Event("render"));
+      
+      // Debug info
+      this.setAttribute('rafs', this.viewport.rafs.length)
+    })
+
+    // Sugar
+    if (this.getAttribute("orbit") === "") {
+      const el = document.createElement("t-orbit");
+      this.append(el);
+    }
+  }
+}
+
 ThreeWebc.define("renderer", TRenderer);
 
+// NOTE this component should be defined after 'renderer' so it has access to it
+ThreeWebc.define(
+	"effect-composer",
+	class extends ThreeWebc.Element {
+		constructor() {
+			super();
+			this.composer = new EffectComposer(this.renderer);
+		}
+		mounted() {
+			const { composer } = this;
+
+			// Take over render
+			this.rendererEl.viewport.render = (scene, camera) => {
+				this.rendererEl.viewport.tick()
+				composer.render();
+			};
+		}
+	}
+);

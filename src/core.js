@@ -18,6 +18,7 @@ export function createFunction(mixed, ctx) {
 export class ThreeElement extends HTMLElement {
   constructor() {
     super();
+    this.$renderer = this.closest("t-renderer") || {}
   }
 
   attributeChangedCallback(key = "", oldValue, newValue) {
@@ -25,38 +26,38 @@ export class ThreeElement extends HTMLElement {
     this[key] = newValue;
   }
 
-  get $rootEl() {
-    return this.closest("t-renderer") || {};
-  }
-  get $root() {
-    return this.$rootEl.viewport
-  }
+  // get $rootEl() {
+  //   return this.closest("t-renderer") || {};
+  // }
+  // get $root() {
+  //   return this.$rootEl.viewport
+  // }
 
-  // TODO Migrate to $root or $rootEl
-  get rendererEl() {
-    return this.closest("t-renderer") || {};
-  }
-  get renderer() {
-    return this.rendererEl.renderer;
-  }
-  get scene() {
-    return this.parent.scene || this.rootScene;
-  }
-  get rootScene() {
-    return this.rendererEl.scene;
-  }
-  get camera() {
-    return this.rendererEl.camera;
-  }
-  set camera(value) {
-    this.rendererEl.camera = value;
-  }
+  // get rendererEl() {
+  //   return this.closest("t-renderer") || {};
+  // }
+  // get renderer() {
+  //   return this.rendererEl.renderer;
+  // }
+  // get scene() {
+  //   return this.parent.scene || this.rootScene;
+  // }
+  // get rootScene() {
+  //   return this.rendererEl.scene;
+  // }
+  // get camera() {
+  //   return this.rendererEl.camera;
+  // }
+  // set camera(value) {
+  //   this.rendererEl.camera = value;
+  // }
 
   /**
    * Use this getter to find first parent Object3D
    */
   get parent() {
     return this.parentElement;
+    // TODO safer
     // return this.find((node) => node instanceof ThreeElement)
   }
 
@@ -73,7 +74,7 @@ export class ThreeElement extends HTMLElement {
 
   beforeMounted() {
     // Call lifecycle method
-    this.mounted(this.rendererEl);
+    this.mounted(this.$renderer);
 
     if (ThreeWebc.debug) {
       this.setAttribute("mounted", "");
@@ -86,7 +87,7 @@ export class ThreeElement extends HTMLElement {
 
     // TODO cleanup on remove
     if (this.tick) {
-      this.rendererEl.rafs.push((dt) => {
+      this.$renderer.rafs.push((dt) => {
         this.tick(dt);
       });
     }

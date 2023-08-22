@@ -3,9 +3,7 @@ import { applyAttributes } from "./object3d.js";
 import { ThreeWebc } from "three-webc";
 
 class GeoElement extends ThreeWebc.Element {
-  mounted() {
-    const { scene } = this.parentElement;
-
+  mounted({ scene }) {
     const type = `${this.getAttribute("geo")}Geometry`;
     const geometry = new THREE[type]();
     const material = new THREE.MeshStandardMaterial({

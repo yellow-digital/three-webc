@@ -1,8 +1,6 @@
-export * from "./renderer.js";
-export * from "./core.js";
-
-import "./controls.js";
+import * as THREE from "three";
 import { ThreeWebc } from "./core.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 
 // NOTE this component should be defined after 'renderer' so it has access to it
 ThreeWebc.define(

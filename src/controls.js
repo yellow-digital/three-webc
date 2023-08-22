@@ -10,13 +10,8 @@ class Orbit extends ThreeWebc.Element {
 		return this.controls;
 	}
 
-	mounted() {
-		let { camera, renderer } = this;
+	mounted({ camera, renderer }) {
 
-		// if(this.getAttribute('camera')) {
-		// 	const cameraEl = this.querySelector(this.getAttribute('camera'))
-		// 	camera = cameraEl.object
-		// }
 		// controls
 		const controls = new OrbitControls(camera, renderer.domElement);
 		// controls.dampingFactor = 0.1
@@ -25,7 +20,7 @@ class Orbit extends ThreeWebc.Element {
 		// controls.camera = this.camera
 
 		// Tell $root
-		this.$root.controls = controls
+		renderer.controls = controls
 
 		// Proxy events
 		controls.addEventListener('change', e => {

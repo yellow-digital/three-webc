@@ -15,9 +15,7 @@ export class Mesh extends ThreeWebc.Element {
     return this.mesh
   }
   
-  mounted() {
-    const { scene } = this;
-
+  mounted({ scene }) {
     if(this.getAttribute(':geometry')) {
       const fn = new Function(`return ({THREE}) => ${this.getAttribute(':geometry')}`);
       const resp = fn()({THREE})

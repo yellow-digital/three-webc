@@ -34,13 +34,13 @@ export class Object3D extends ThreeWebc.Element {
   }
   // Proxy to allow nesting
   get rafs() {
-    return this.rendererEl.rafs;
+    return this.$renderer.rafs;
   }
   get renderer() {
-    return this.rendererEl.renderer;
+    return this.$renderer.renderer;
   }
   get camera() {
-    return this.rendererEl.camera;
+    return this.$renderer.camera;
   }
   get scene() {
     return this.mesh
@@ -60,10 +60,7 @@ export class Object3D extends ThreeWebc.Element {
     return this.mesh
   }
   
-  mounted() {
-    // Find scene
-    const { scene } = this.parentElement;
-
+  mounted({ scene }) {
     const { mesh } = this;
     mesh.name = this.getAttribute("name") || "object";
     scene.add(mesh);

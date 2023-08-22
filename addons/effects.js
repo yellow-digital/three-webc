@@ -30,10 +30,7 @@ export class Effects extends ThreeWebc.Element {
     this.EFFECTS = EFFECTS
   }
 
-  mounted() {
-    // Resolve parent
-    const renderer = this.parentElement.viewport;
-
+  mounted(renderer) {
     renderer.rafs.push(() => {
       TWEEN.update();
     });

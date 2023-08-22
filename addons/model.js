@@ -28,9 +28,7 @@ class ModelElement extends ThreeWebc.Element {
     return this.container.scale;
   }
 
-  async mounted() {
-    const { scene, rafs } = this.parentElement;
-
+  async mounted({ scene, rafs }) {
     const loader = new GLTFLoader();
 
     const url = this.getAttribute("url");

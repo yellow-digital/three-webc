@@ -18,9 +18,7 @@ export function createCrate () {
 ThreeWebc.define(
   "crate",
   class Element extends ThreeWebc.Element {
-    async mounted() {
-      const { scene, renderer } = this.parentElement;
-
+    async mounted({ scene, renderer }) {
       const mesh = createCrate()
       scene.add(mesh);
 

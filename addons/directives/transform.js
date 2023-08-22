@@ -5,7 +5,7 @@ import * as THREE from "three";
 ThreeWebc.directive("transform", (el) => {
     const {object, scene } = el
     
-    console.log(el)
+    console.log(el, {...el})
     // const { camera, renderer, scene } = document.querySelector("t-renderer");
 
     const currentCamera = camera;
