@@ -37,6 +37,9 @@ v-container {
   margin-left: auto;
   max-width: 1185px;
 }
+v-container[fluid]  {
+  max-width: none;
+}
 v-row {
   display: flex;
   flex-wrap: wrap;
@@ -44,11 +47,7 @@ v-row {
 v-row > * {
   width: 100%;
 }
-@media (min-width: 900px) {
-  v-row > * {
-    width: 50%;
-  }
-}
+
 
 /* <gui-info></gui-info> */
 gui-info {
