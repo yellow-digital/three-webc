@@ -1,7 +1,17 @@
 <title>start</title>
 
 <style>
-  @import url('../style.css');
+  body {
+    margin: 0;
+  }
+  
+  t-renderer {
+    height: 100vh;
+    display: flex;
+    /* hide overlay elements */
+    overflow: hidden;
+    position: relative;
+  }
 </style>
 
 <script type="importmap">
@@ -9,8 +19,8 @@
     "imports": {
       "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/",
-      "three-webc": "../../src/index.js",
-      "three-webc/": "../../"
+      "three-webc": "../src/index.js",
+      "three-webc/": "../"
     }
   }
 </script>
