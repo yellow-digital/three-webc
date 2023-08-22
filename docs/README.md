@@ -29,10 +29,31 @@
 </script>
 ```
 
+# Overview
+Three-webc is a light bridge between web elements and ThreeJS. Which lets you define basic `elements` and `directives` plus it comes which some `addons` to get your started.
+
+# Element
+
+An element bridges the gap between HTML and threejs. Here is an minimal example of an axes:
+```html
+<script type="module">
+import { ThreeWebc } from "three-webc";
+
+ThreeWebc.define("axes", class extends ThreeWebc.Element {
+	mounted({scene}) {
+		const mesh = new THREE.AxesHelper(this.getAttribute("size") || 100);
+		scene.add(mesh);
+	}
+});
+</script>
+
+<t-axes></t-axes>
+```
+
 # Directives
 A directive adds power and flexibility. To create a directive see the following example:
 
-```js
+```html
 <script type="module">
 import { ThreeWebc } from "three-webc/index.js";
 

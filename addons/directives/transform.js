@@ -2,7 +2,7 @@ import { ThreeWebc } from "three-webc/index.js";
 import { TransformControls } from "three/addons/controls/TransformControls.js";
 import * as THREE from "three";
 
-ThreeWebc.directive("transform", (elements) => {
+ThreeWebc.directive("transform", (el) => {
     const {object, scene } = el
     
     console.log(el)
