@@ -2,9 +2,10 @@ import { ThreeWebc } from "three-webc/index.js";
 import { TransformControls } from "three/addons/controls/TransformControls.js";
 import * as THREE from "three";
 
-ThreeWebc.directive("transform", (el, { value }) => {
+ThreeWebc.directive("transform", (elements) => {
     const {object, scene } = el
     
+    console.log(el)
     // const { camera, renderer, scene } = document.querySelector("t-renderer");
 
     const currentCamera = camera;

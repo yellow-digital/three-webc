@@ -20,10 +20,6 @@ export class ThreeElement extends HTMLElement {
     super();
   }
 
-  // get observedAttributes() {
-  //   return [""];
-  // }
-
   attributeChangedCallback(key = "", oldValue, newValue) {
     this.debug("attributeChangedCallback", key, oldValue, newValue);
     this[key] = newValue;
@@ -62,11 +58,6 @@ export class ThreeElement extends HTMLElement {
   get parent() {
     return this.parentElement;
     // return this.find((node) => node instanceof ThreeElement)
-  }
-
-  getValue(name = "") {
-    const fn = new Function(`return ${this.getAttribute(name)}`);
-    return fn();
   }
 
   async connectedCallback() {
@@ -157,6 +148,11 @@ export const ThreeWebc = {
   hook(cb = (el) => {}) {
     hooks.push(cb);
   },
+  /**
+   * function to register a directive
+   * @param {*} tag 
+   * @param {*} cb (el, ctx) => {}
+   */
   directive(tag = "", cb = (el, ctx = {}) => {}) {
     hooks.push((el) => {
       const value = el.getAttribute(tag)

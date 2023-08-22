@@ -28,7 +28,6 @@
 
 <t-renderer>
 	<t-camera :position="{ x: 4, y:4, z: 4 }"></t-camera>
-	<t-studio></t-studio>
 	<t-floor :position="{ y: -10 }"></t-floor>
 	<t-object :create="AxesHelper"></t-object>
 
@@ -42,7 +41,6 @@
 <script type="module">
 	import "three-webc/index.js";
 	import "three-webc/addons/index.js";
-	import "three-webc/addons/hello.js";
 	import { TYPES } from "three-webc/addons/controls.js";
 	import "three-webc/addons/directives/core.js";
 

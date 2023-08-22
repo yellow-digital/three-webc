@@ -26,6 +26,7 @@
 <t-renderer orbit>
 	<!-- <t-camera id="cam1" :position="{ x: 4, y:4, z: 4 }" helper></t-camera> -->
   	<!-- <t-orbit camera="#cam1"></t-orbit> -->
+	<t-object interval="console.log('timeout', this)"></t-object>
 	<t-object
 		timeout="console.log('timeout', this)"
 		@mounted="console.log('@mounted', this)"
