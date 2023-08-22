@@ -36,32 +36,7 @@ class TRenderer extends ThreeWebc.Element {
     camera.position.z = 5;
     this.camera = camera;
   }
-  // get THREE() {
-  //   return THREE;
-  // }
-  // get scene() {
-  //   return this.viewport.scene;
-  // }
-  // get renderer() {
-  //   return this.viewport.renderer;
-  // }
-  // get camera() {
-  //   return this.viewport.camera;
-  // }
-  // get controls() {
-  //   return this.viewport.controls;
-  // }
-  // set controls(value) {
-  //   this.viewport.controls = value
-  // }
-  // set camera(cam) {
-  //   this.debug('new cam', cam)
-  //   this.viewport.camera = cam;
-  // }
-  // get domElement() {
-  //   return this.viewport.renderer.domElement;
-  // }
-
+ 
   async connectedCallback() {
     this.mount(this);
 
@@ -160,4 +135,3 @@ class TRenderer extends ThreeWebc.Element {
 }
 
 ThreeWebc.define("renderer", TRenderer);
-
